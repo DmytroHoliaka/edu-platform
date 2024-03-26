@@ -7,7 +7,33 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\EduPlatformCourses.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\EduPlatformGroups.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\EduPlatformStudents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EduPlatformView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Components\EduPlatformCourses.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\EduPlatformGroups.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\EduPlatformStudents.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EduPlatformView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

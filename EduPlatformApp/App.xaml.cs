@@ -1,14 +1,23 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using EduPlatform.WPF.ViewModels;
 using System.Windows;
 
-namespace EduPlatformApp
+namespace EduPlatform.WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow = new MainWindow()
+            {
+                DataContext = new EduPlatformViewModel()
+            };
+            MainWindow.Show();
+
+            base.OnStartup(e);
+        }
     }
 
 }
