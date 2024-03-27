@@ -14,8 +14,8 @@ namespace EduPlatform.WPF
             {
                 DataContext = new EduPlatformViewModel()
             };
-            MainWindow.Show();
 
+            MainWindow.Show();
             base.OnStartup(e);
         }
     }

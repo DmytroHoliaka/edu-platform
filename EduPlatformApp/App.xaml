@@ -37,7 +37,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                
+
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Trigger.EnterActions>
@@ -71,6 +71,59 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
+
+            <Style x:Key="OperationButton" TargetType="Button">
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Width" Value="150"/>
+                <Setter Property="Margin" Value="15 10"/>
+                <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderThickness="3"
+                                    BorderBrush="{StaticResource MenuBackground}"
+                                    CornerRadius="4"
+                                    Background="{TemplateBinding Background}">
+
+                                <ContentPresenter 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Cursor="Hand"
+                                    Margin="0 8"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation 
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" 
+                                        To="#ada597"
+                                        Duration="0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation 
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" 
+                                        To="#FFF3E0"
+                                        Duration="0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
