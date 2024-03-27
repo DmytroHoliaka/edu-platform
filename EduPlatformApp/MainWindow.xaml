@@ -4,83 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlatform.WPF" 
-        xmlns:views="clr-namespace:EduPlatform.WPF.Views"
+        xmlns:views="clr-namespace:EduPlatform.WPF.Views" 
         mc:Ignorable="d"
         Title="Educational Platform" Height="600" Width="1000">
 
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid 
-                Grid.Column="0" 
-                Background="{StaticResource MenuBackground}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="3*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0">
-                    <TextBlock   
-                        Grid.Row="0"
-                        Style="{StaticResource MenuTitle}"
-                        Text="General"/>
-
-                    <Button
-                        Style="{StaticResource MenuButton}"
-                        Margin="30,55,30,0"
-                        Content="Overview"/>
-                </Grid>
-
-                <GridSplitter Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    Background="{StaticResource Separator}"
-                    Height="3"/>
-
-                <Grid Grid.Row="2">
-                    <TextBlock   
-                        Grid.Row="1"
-                        Style="{StaticResource MenuTitle}"
-                        Text="Operations"/>
-
-                    <StackPanel Orientation="Vertical">
-                        <Button
-                            Style="{StaticResource MenuButton}"
-                            Margin="30,55,30,0"
-                            Content="Groups"/>
-
-                        <Button
-                            Style="{StaticResource MenuButton}"
-                            Margin="30,15,30,0"
-                            Content="Students"/>
-
-                        <Button
-                            Style="{StaticResource MenuButton}"
-                            Margin="30,15,30,0"
-                            Content="Teachers"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-
-            <GridSplitter Grid.Column="1"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Stretch"
-                Width="5"
-                Background="{StaticResource Separator}"/>
-
-            <Grid
-                Grid.Column="2"
-                Background="{StaticResource ContentBackground}">
-                    
-                </Grid>
-        </Grid>
-
-        <!--<views:EduPlatformView/>-->
+        <views:EduPlatformView/>
     </Grid>
 </Window>

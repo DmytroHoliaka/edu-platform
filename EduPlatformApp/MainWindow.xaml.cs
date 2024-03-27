@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using EduPlatform.WPF.ViewModels;
+using System.Windows;
 
 namespace EduPlatform.WPF
 {

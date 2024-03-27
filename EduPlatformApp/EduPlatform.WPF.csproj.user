@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\ContentTopPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\EduPlatformCourses.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,11 +19,26 @@
     <Compile Update="Components\EduPlatformStudents.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\Groups.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Overview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Students.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Teachers.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\EduPlatformView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\ContentTopPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\EduPlatformCourses.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -31,6 +49,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Groups.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Overview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Students.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Teachers.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\EduPlatformView.xaml">
