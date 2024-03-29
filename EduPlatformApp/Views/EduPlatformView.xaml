@@ -53,7 +53,7 @@
                         Style="{StaticResource MenuButton}"
                         Margin="30,55,30,0"
                         Content="Overview"
-                        Command="{Binding NavigationViewModel.ChangePageCMD}"
+                        Command="{Binding NavigationViewModel.ChangePageCommand}"
                         CommandParameter="{x:Static service:PageId.Overview}"/>
             </Grid>
 
@@ -74,21 +74,21 @@
                             Style="{StaticResource MenuButton}"
                             Margin="30,55,30,0"
                             Content="Groups"
-                            Command="{Binding NavigationViewModel.ChangePageCMD}"
+                            Command="{Binding NavigationViewModel.ChangePageCommand}"
                             CommandParameter="{x:Static service:PageId.Groups}"/>
 
                     <Button
                             Style="{StaticResource MenuButton}"
                             Margin="30,15,30,0"
                             Content="Students"
-                            Command="{Binding NavigationViewModel.ChangePageCMD}"
+                            Command="{Binding NavigationViewModel.ChangePageCommand}"
                             CommandParameter="{x:Static service:PageId.Students}"/>
 
                     <Button
                             Style="{StaticResource MenuButton}"
                             Margin="30,15,30,0"
                             Content="Teachers"
-                            Command="{Binding NavigationViewModel.ChangePageCMD}"
+                            Command="{Binding NavigationViewModel.ChangePageCommand}"
                             CommandParameter="{x:Static service:PageId.Teachers}"/>
                 </StackPanel>
             </Grid>
