@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EduPlatform.WPF.ViewModels
+namespace EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel
 {
-    public class EduPlatformGroupsViewModel
+    public class EduPlatformOverviewViewModel : ViewModelBase
     {
+
     }
 }
