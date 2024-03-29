@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="EduPlatform.WPF.Views.EditGroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EduPlatform.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="400">
+    <Grid Background="{StaticResource ContentBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Style="{StaticResource FormHeader}"
+                   Text="Update group"/>
+
+        <Border Grid.Row="1"
+                Style="{StaticResource FormSeparator}"/>
+
+    </Grid>
+</UserControl>
