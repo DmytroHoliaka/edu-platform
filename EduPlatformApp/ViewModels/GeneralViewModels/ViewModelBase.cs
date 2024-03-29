@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace EduPlatform.WPF.ViewModels
+namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
