@@ -1,4 +1,4 @@
-﻿using EduPlatform.WPF.ViewModels;
+﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using System.Windows;
 
 namespace EduPlatform.WPF

@@ -123,8 +123,163 @@
                             </BeginStoryboard>
                         </Trigger.ExitActions>
                     </Trigger>
+
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="DropdownStackPanel" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Vertical"/>
+
+                <Style.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                        <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
+                        <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                        <Setter Property="Padding" Value="10 5"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border BorderThickness="1"
+                                            BorderBrush="{StaticResource MenuBackground}"
+                                            Background="{TemplateBinding Background}">
+
+                                        <ContentPresenter 
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Cursor="Hand"
+                                                Margin="10 8"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation 
+                                                Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" 
+                                                To="#ada597"
+                                                Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation 
+                                                Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" 
+                                                To="#FFF3E0"
+                                                Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Style.Resources>
+            </Style>
+
+            <Style x:Key="FormHeader" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="FormSeparator" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="Height" Value="3"/>
+            </Style>
+
+            <Style x:Key="FormLabel" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="Margin" Value="20 0 0 0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+
+            <Style x:Key="FormButton" TargetType="Button" BasedOn="{StaticResource OperationButton}">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Width" Value="90"/>
+                <Setter Property="Margin" Value="20 0 20 0"/>
+            </Style>
+
+            <Style x:Key="FormBorder" TargetType="Border">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="40 0 40 15"/>
+                <Setter Property="CornerRadius" Value="3"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="{StaticResource MenuBackground}"/>
+            </Style>
+
+            <Style x:Key="FormInput" TargetType="TextBox">
+                <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ContentBackground}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+            </Style>
+
+            <Style x:Key="MultipleCheckbox" TargetType="CheckBox">
+                <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Cursor" Value="Hand"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="20" 
+                                        Height="20" 
+                                        Background="Transparent" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Margin="0 4">
+                                    <Grid>
+                                        <Path x:Name="CheckMark" 
+                                              Width="13" 
+                                              Height="13" 
+                                              Stretch="Uniform" 
+                                              StrokeThickness="2" 
+                                              Stroke="{TemplateBinding Foreground}"
+                                              Data="M 0 10 L 10 20 L 20 0" Visibility="Collapsed"/>
+                                    </Grid>
+                                </Border>
+
+                                <ContentPresenter Margin="4,0,0,0" 
+                                                  VerticalAlignment="Center" 
+                                                  HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
