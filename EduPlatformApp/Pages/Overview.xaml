@@ -16,8 +16,8 @@
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0"
-               Content="Courses"
+        <TextBlock Grid.Row="0"
+               Text="Overview"
                FontSize="40"
                FontFamily="{StaticResource Alice}"
                Foreground="{StaticResource MenuBackground}"

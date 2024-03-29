@@ -13,7 +13,17 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <components:ContentTopPanel Grid.Row="0"/>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Create" 
+                    Style="{StaticResource OperationButton}"/>
+            <Button Content="Update"  
+                    Style="{StaticResource OperationButton}"/>
+            <Button Content="Delete" 
+                    Style="{StaticResource OperationButton}"/>
+        </StackPanel>
+        
         <ListBox Grid.Row="1" Background="{StaticResource ContentBackground}"/>
     </Grid>
 </UserControl>
