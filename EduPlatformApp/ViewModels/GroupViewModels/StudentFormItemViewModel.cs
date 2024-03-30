@@ -26,7 +26,7 @@ namespace EduPlatform.WPF.ViewModels.GroupViewModels
             }
         }
 
-        private bool _isChecked { get; set; }
+        private bool _isChecked;
 
 
         public StudentFormItemViewModel(string fullName, bool isSelected = false)
