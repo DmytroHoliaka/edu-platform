@@ -19,6 +19,9 @@ namespace EduPlatform.WPF.Stores
             }
         }
 
+        public bool IsOpen => 
+            _currentViewModel is not null;
+        
         public event Action? CurrentViewModelChanged;
 
         private ViewModelBase? _currentViewModel;
