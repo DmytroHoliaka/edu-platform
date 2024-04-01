@@ -5,10 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlatform.WPF" 
         xmlns:views="clr-namespace:EduPlatform.WPF.Views" 
+        xmlns:vms="clr-namespace:EduPlatform.WPF.ViewModels.GroupViewModels"
+        xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
-        Title="Educational Platform" Height="850" Width="1250">
+        Title="Educational Platform" Height="1000" Width="1600">
 
-    <Grid>
-        <views:EduPlatformView DataContext="{Binding EduPlatformViewModel}"/>
-    </Grid>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:CreateGroupViewModel}">
+            <views:CreateGroupView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vms:UpdateGroupViewModel}">
+            <views:UpdateGroupView/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
+                <ContentControl Width="490" Content="{Binding CurrentModalViewModel}"/>
+            </custom:Modal>
+
+            <views:EduPlatformView DataContext="{Binding EduPlatformViewModel}"/>
+        </Grid>
+    </ScrollViewer>
 </Window>
