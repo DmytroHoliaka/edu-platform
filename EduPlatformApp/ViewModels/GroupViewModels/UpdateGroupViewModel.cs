@@ -1,13 +1,8 @@
-﻿using EduPlatform.WPF.ViewModels.GroupViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
 
-namespace EduPlatform.WPF.ViewModels
+namespace EduPlatform.WPF.ViewModels.GroupViewModels
 {
-    public class UpdateGroupViewModel
+    public class UpdateGroupViewModel : ViewModelBase
     {
         public GroupDetailsFormViewModel GroupDetailsFormViewModel { get; }
 
