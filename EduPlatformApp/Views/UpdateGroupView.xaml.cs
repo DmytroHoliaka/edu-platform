@@ -18,9 +18,9 @@ namespace EduPlatform.WPF.Views
     /// <summary>
     /// Interaction logic for EditGroupView.xaml
     /// </summary>
-    public partial class EditGroupView : UserControl
+    public partial class UpdateGroupView : UserControl
     {
-        public EditGroupView()
+        public UpdateGroupView()
         {
             InitializeComponent();
         }
