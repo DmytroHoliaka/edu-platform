@@ -6,26 +6,23 @@
              xmlns:local="clr-namespace:EduPlatform.WPF.Views" 
              xmlns:components="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="490">
+             d:DesignHeight="810" d:DesignWidth="490">
 
-    <Grid>
-        <Grid Background="{StaticResource ContentBackground}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="8*"/>
-            </Grid.RowDefinitions>
+    <Grid Background="{StaticResource ContentBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="720"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" 
-                       Style="{StaticResource FormHeader}"
-                       Text="Create group"/>
+        <TextBlock Grid.Row="0" 
+                   Style="{StaticResource FormHeader}"
+                   Text="Create group"/>
 
-            <Border Grid.Row="1"
-                    Style="{StaticResource FormSeparator}"
-                    Margin="0 0 0 10"/>
+        <Border Grid.Row="1"
+                Style="{StaticResource FormSeparator}"
+                Margin="0 0 0 10"/>
 
-
-            <components:GroupDetailForm Grid.Row="2"/>
-        </Grid>
+        <components:GroupDetailForm Grid.Row="2"/>
     </Grid>
 </UserControl>
