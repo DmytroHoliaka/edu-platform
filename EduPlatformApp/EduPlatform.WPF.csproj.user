@@ -34,7 +34,7 @@
     <Compile Update="Views\CreateGroupView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\EditGroupView.xaml.cs">
+    <Compile Update="Views\UpdateGroupView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\EduPlatformView.xaml.cs">
@@ -72,7 +72,7 @@
     <Page Update="Views\CreateGroupView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\EditGroupView.xaml">
+    <Page Update="Views\UpdateGroupView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\EduPlatformView.xaml">
