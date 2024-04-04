@@ -11,12 +11,14 @@ namespace EduPlatform.WPF
     public partial class App : Application
     {
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly GroupStore _groupStore;
         private readonly EduPlatformViewModel _eduPlatformViewModel;
 
         public App()
         {
             _modalNavigationStore = new();
-            _eduPlatformViewModel = new();
+            _groupStore = new();
+            _eduPlatformViewModel = new(_groupStore, _modalNavigationStore);
         }
 
         protected override void OnStartup(StartupEventArgs e)
