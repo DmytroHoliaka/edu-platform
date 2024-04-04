@@ -1,6 +1,6 @@
 ﻿using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Stores;
-using EduPlatform.WPF.ViewModels.GroupViewModels;
+using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
