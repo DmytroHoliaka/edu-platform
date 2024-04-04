@@ -25,5 +25,10 @@ namespace EduPlatform.WPF.Stores
         public event Action? CurrentViewModelChanged;
 
         private ViewModelBase? _currentViewModel;
+
+        public void Close()
+        {
+            CurrentViewModel = null;
+        }
     }
 }
