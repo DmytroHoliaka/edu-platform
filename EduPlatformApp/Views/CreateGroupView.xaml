@@ -23,6 +23,7 @@
                 Style="{StaticResource FormSeparator}"
                 Margin="0 0 0 10"/>
 
-        <components:GroupDetailForm Grid.Row="2"/>
+        <components:GroupDetailForm Grid.Row="2" 
+                                    DataContext="{Binding GroupDetailsFormVM}"/>
     </Grid>
 </UserControl>
