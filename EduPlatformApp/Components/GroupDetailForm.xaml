@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="710" d:DesignWidth="490">
 
-    <Grid DataContext="{Binding GroupDetailsFormViewModel}" Background="{StaticResource ContentBackground}">
+    <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
@@ -50,7 +50,7 @@
                     Style="{StaticResource FormBorder}">
                 <ListView Background="{StaticResource ContentBackground}"
                           BorderThickness="0"
-                          ItemsSource="{Binding TeachersFormViewModel}"
+                          ItemsSource="{Binding TeacherVMs}"
                           FontFamily="{StaticResource Alice}"
                           FontSize="18"
                           Foreground="{StaticResource MenuBackground}">
@@ -82,7 +82,7 @@
                     Style="{StaticResource FormBorder}">
                 <ListView Background="{StaticResource ContentBackground}"
                           BorderThickness="0"
-                          ItemsSource="{Binding StudentsFormViewModel}"
+                          ItemsSource="{Binding StudentVMs}"
                           FontFamily="{StaticResource Alice}"
                           FontSize="18"
                           Foreground="{StaticResource MenuBackground}">
