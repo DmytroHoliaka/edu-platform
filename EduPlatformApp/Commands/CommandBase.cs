@@ -18,7 +18,7 @@ namespace EduPlatform.WPF.Commands
 
         public abstract void Execute(object? parameter);
 
-        protected virtual void OnCanExecutedChanded()
+        public virtual void OnCanExecutedChanded()
         {
             CanExecuteChanged?.Invoke(this, new EventArgs());
         }
