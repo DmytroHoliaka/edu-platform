@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlatform.WPF" 
         xmlns:views="clr-namespace:EduPlatform.WPF.Views" 
-        xmlns:vms="clr-namespace:EduPlatform.WPF.ViewModels.GroupViewModels"
+        xmlns:vms="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
         xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
         Title="Educational Platform" Height="1000" Width="1600">
