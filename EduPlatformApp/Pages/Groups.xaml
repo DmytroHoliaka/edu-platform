@@ -10,7 +10,7 @@
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
@@ -19,18 +19,18 @@
             
             <Button Content="Create" 
                     Style="{StaticResource OperationButton}"
-                    Command="{Binding EduPlatformGroupsViewModel.CreateGroupCommand}"/>
+                    Command="{Binding GroupSequenceVM.CreateGroupCommand}"/>
             <Button Content="Update"  
                     Style="{StaticResource OperationButton}"
-                    Command="{Binding EduPlatformGroupsViewModel.UpdateGroupCommand}"/>
+                    Command="{Binding GroupSequenceVM.UpdateGroupCommand}"/>
             <Button Content="Delete" 
                     Style="{StaticResource OperationButton}"
-                    Command="{Binding EduPlatformGroupsViewModel.DeleteGroupCommand}"/>
+                    Command="{Binding GroupSequenceVM.DeleteGroupCommand}"/>
             
         </StackPanel>
         
         <components:EduPlatformGroups Grid.Row="1" 
-                                      Margin="10 10"
-                                      DataContext="{Binding EduPlatformGroupsViewModel}"/>
+                                      Margin="20 0 20 20"
+                                      DataContext="{Binding GroupSequenceVM}"/>
     </Grid>
 </UserControl>
