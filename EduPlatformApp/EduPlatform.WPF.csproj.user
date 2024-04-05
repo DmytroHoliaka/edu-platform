@@ -7,13 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Components\EduPlatformCourses.xaml.cs">
+    <Compile Update="Components\CourseList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Components\EduPlatformGroups.xaml.cs">
+    <Compile Update="Components\GroupList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Components\EduPlatformStudents.xaml.cs">
+    <Compile Update="Components\StudentDetailForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\StudentList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Components\GroupDetailForm.xaml.cs">
@@ -34,21 +37,30 @@
     <Compile Update="Views\CreateGroupView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CreateStudentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\UpdateGroupView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\EduPlatformView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UpdateStudentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Components\EduPlatformCourses.xaml">
+    <Page Update="Components\CourseList.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Components\EduPlatformGroups.xaml">
+    <Page Update="Components\GroupList.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Components\EduPlatformStudents.xaml">
+    <Page Update="Components\StudentDetailForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\StudentList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\GroupDetailForm.xaml">
@@ -72,10 +84,16 @@
     <Page Update="Views\CreateGroupView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\CreateStudentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\UpdateGroupView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\EduPlatformView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UpdateStudentView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -6,7 +6,6 @@
         <ResourceDictionary>
             <FontFamily x:Key="Alice">pack://application:,,,/Resourses/Fonts/#Alice</FontFamily>
 
-            <SolidColorBrush x:Key="BorderPrimary" Color="#1c1c1c"/>
             <SolidColorBrush x:Key="ContentBackground" Color="#FFF3E0"/>
             <SolidColorBrush x:Key="MenuBackground" Color="#623277"/>
             <SolidColorBrush x:Key="Separator" Color="#3e214a"/>
