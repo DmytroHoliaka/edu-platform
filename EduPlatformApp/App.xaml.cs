@@ -12,21 +12,26 @@ namespace EduPlatform.WPF
     {
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly GroupStore _groupStore;
+        private readonly ViewStore _viewStore;
         private readonly EduPlatformViewModel _eduPlatformViewModel;
 
         public App()
         {
             _modalNavigationStore = new();
             _groupStore = new();
-            _eduPlatformViewModel = new(_groupStore, _modalNavigationStore);
+            _viewStore = new();
+            _eduPlatformViewModel = new(_groupStore, _viewStore, _modalNavigationStore);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_eduPlatformViewModel,
-                                                _modalNavigationStore)
+                DataContext = new MainViewModel
+                (
+                    _eduPlatformViewModel,
+                    _modalNavigationStore
+                )
             };
 
             MainWindow.Show();
