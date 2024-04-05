@@ -13,15 +13,19 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
     {
         public ObservableCollection<GroupViewModel> GroupVMs { get; }
 
-        public GroupViewModel? SelectedItem
+        public GroupViewModel? SelectedGroup
         {
-            get => _selectedItem;
+            get => _selectedGroup;
             set
             {
-                _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
-                ((OpenUpdateGroupFormCommand)UpdateGroupCommand).SelectedGroup = value;
+                _selectedGroup = value;
+                OnPropertyChanged(nameof(SelectedGroup));
+
+                ((OpenUpdateGroupFormCommand)UpdateGroupCommand).UpdatingGroup = value;
                 ((CommandBase)UpdateGroupCommand).OnCanExecutedChanded();
+
+                ((DeleteGroupCommand)DeleteGroupCommand).DeletingGroup = value;
+                ((CommandBase)DeleteGroupCommand).OnCanExecutedChanded();
             }
         }
 
@@ -29,10 +33,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public ICommand UpdateGroupCommand { get; }
         public ICommand DeleteGroupCommand { get; }
 
-        private GroupViewModel? _selectedItem;
+        private GroupViewModel? _selectedGroup;
         private readonly GroupStore _groupStore;
+        private readonly ViewStore _viewStore;
 
         public GroupSequenceViewModel(GroupStore groupStore,
+                                      ViewStore viewStore,
                                       ModalNavigationStore modalNavigationStore,
                                       TeacherSequenceViewModel teacherSequenceVM,
                                       StudentSequenceViewModel studentSequenceVM)
@@ -42,10 +48,14 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _groupStore = groupStore;
             _groupStore.GroupAdded += GroupStore_GroupAdded;
             _groupStore.GroupUpdated += GroupStore_GroupUpdated;
+            _groupStore.GroupDeleted += GroupStore_GroupDeleted;
 
-            CreateGroupCommand = new OpenCreateGroupFormCommand(_groupStore, modalNavigationStore, teacherSequenceVM, studentSequenceVM);
-            UpdateGroupCommand = new OpenUpdateGroupFormCommand(_groupStore, modalNavigationStore, teacherSequenceVM, studentSequenceVM);
-            DeleteGroupCommand = null;
+            _viewStore = viewStore;
+            _viewStore.GroupUnfocused += ViewStore_GroupUnfocused;
+
+            CreateGroupCommand = new OpenCreateGroupFormCommand(_groupStore, _viewStore, modalNavigationStore, teacherSequenceVM, studentSequenceVM);
+            UpdateGroupCommand = new OpenUpdateGroupFormCommand(_groupStore, _viewStore, modalNavigationStore, teacherSequenceVM, studentSequenceVM);
+            DeleteGroupCommand = new DeleteGroupCommand(_groupStore);
         }
 
         protected override void Dispose()
@@ -83,6 +93,33 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
 
             sourceGroupVM.Group = targetGroup;
+        }
+
+        private void GroupStore_GroupDeleted(Guid groupId)
+        {
+            DeleteGroup(groupId);
+        }
+
+        private void DeleteGroup(Guid groupId)
+        {
+            GroupViewModel? group = GroupVMs.FirstOrDefault(g => g.GroupId == groupId);
+
+            if (group is null)
+            {
+                return;
+            }
+
+            GroupVMs.Remove(group);
+        }
+
+        private void ViewStore_GroupUnfocused()
+        {
+            UnfocusGroup();
+        }
+
+        private void UnfocusGroup()
+        {
+            SelectedGroup = null;
         }
     }
 }
