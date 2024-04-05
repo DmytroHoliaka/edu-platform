@@ -6,17 +6,17 @@ namespace EduPlatform.WPF.Commands
 {
     public class OpenCreateStudentFormCommand : CommandBase
     {
-        private readonly GroupStore _groupStore;
+        private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly GroupSequenceViewModel _groupSequenceVM;
 
-        public OpenCreateStudentFormCommand(GroupStore groupStore,
+        public OpenCreateStudentFormCommand(StudentStore studentStore,
                                             ViewStore viewStore,
                                             ModalNavigationStore modalNavigationStore,
                                             GroupSequenceViewModel groupSequenceVM)
         {
-            _groupStore = groupStore;
+            _studentStore = studentStore;
             _viewStore = viewStore;
             _modalNavigationStore = modalNavigationStore;
             _groupSequenceVM = groupSequenceVM;
@@ -25,10 +25,10 @@ namespace EduPlatform.WPF.Commands
         public override void Execute(object? parameter)
         {
             CreateStudentViewModel createStudentVM =
-                new(_groupStore, _modalNavigationStore, _groupSequenceVM);
+                new(_studentStore, _modalNavigationStore, _groupSequenceVM);
 
             _modalNavigationStore.CurrentViewModel = createStudentVM;
-            _viewStore.UnfocuseGroup();
+            _viewStore.UnfocuseStudent();
         }
     }
 }
