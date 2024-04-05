@@ -8,16 +8,19 @@ namespace EduPlatform.WPF.Commands
     public class OpenCreateGroupFormCommand : CommandBase
     {
         private readonly GroupStore _groupStore;
+        private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly TeacherSequenceViewModel _teacherSequenceVM;
         private readonly StudentSequenceViewModel _studentSequenceVM;
 
         public OpenCreateGroupFormCommand(GroupStore groupStore,
+                                          ViewStore viewStore,
                                           ModalNavigationStore modalNavigationStore,
                                           TeacherSequenceViewModel teacherSequenceVM,
                                           StudentSequenceViewModel studentSequenceVM)
         {
             _groupStore = groupStore;
+            _viewStore = viewStore;
             _modalNavigationStore = modalNavigationStore;
             _teacherSequenceVM = teacherSequenceVM;
             _studentSequenceVM = studentSequenceVM;
@@ -29,6 +32,7 @@ namespace EduPlatform.WPF.Commands
                 new(_groupStore, _modalNavigationStore, _teacherSequenceVM, _studentSequenceVM);
 
             _modalNavigationStore.CurrentViewModel = createGroupViewModel;
+            _viewStore.UnfocuseGroup();
         }
     }
 }
