@@ -1,4 +1,5 @@
-﻿using EduPlatform.WPF.Stores;
+﻿using EduPlatform.WPF.Commands;
+using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Windows.Input;
@@ -9,15 +10,17 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
     {
         public StudentDetailsFormViewModel StudentDetailsFormVM { get; }
 
-        public CreateStudentViewModel(GroupStore groupStore,
+        public CreateStudentViewModel(StudentStore studentStore,
                                       ModalNavigationStore modalNavigationStore,
                                       GroupSequenceViewModel groupSequenceVM)
         {
-            ICommand? submitCommand = null;
-            ICommand? cancelCommand = null;
+            ICommand submitCommand = new SubmitCreateStudentCommand(studentStore, modalNavigationStore);
+            ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 
             StudentDetailsFormVM =
                 new(Guid.NewGuid(), groupSequenceVM, submitCommand, cancelCommand);
+
+            ((SubmitCreateStudentCommand)submitCommand).FormDetails = StudentDetailsFormVM;
         }
     }
 }
