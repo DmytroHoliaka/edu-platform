@@ -22,7 +22,7 @@
 
                 <ListView Background="{StaticResource ContentBackground}"
                           ItemsSource="{Binding GroupVMs}"
-                          SelectedItem="{Binding SelectedItem}"
+                          SelectedItem="{Binding SelectedGroup}"
                           SelectionMode="Single">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
