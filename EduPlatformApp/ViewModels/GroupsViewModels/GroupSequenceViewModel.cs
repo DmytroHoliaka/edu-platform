@@ -98,7 +98,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             {
                 GroupId = Guid.NewGuid(),
                 Name = "Group 1",
-                CourseId = 1,
+                CourseId = Guid.Empty,
                 Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).Take(2).ToList(),
                 Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).Take(2).ToList(),
             }));
@@ -107,7 +107,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             {
                 GroupId = Guid.NewGuid(),
                 Name = "Group 2",
-                CourseId = 2,
+                CourseId = Guid.Empty,
                 Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).TakeLast(2).ToList(),
                 Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).TakeLast(2).ToList(),
             }));
