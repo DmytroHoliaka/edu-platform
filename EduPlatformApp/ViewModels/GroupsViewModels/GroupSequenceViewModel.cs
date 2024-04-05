@@ -29,19 +29,21 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
         }
 
-        public ICommand CreateGroupCommand { get; }
-        public ICommand UpdateGroupCommand { get; }
-        public ICommand DeleteGroupCommand { get; }
+        public ICommand CreateGroupCommand { get; private set; }
+        public ICommand UpdateGroupCommand { get; private set; }
+        public ICommand DeleteGroupCommand { get; private set; }
 
-        private GroupViewModel? _selectedGroup;
         private readonly GroupStore _groupStore;
         private readonly ViewStore _viewStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
+        private GroupViewModel? _selectedGroup;
+        private TeacherSequenceViewModel? _teacherSequenceVM;
+        private StudentSequenceViewModel? _studentSequenceVM;
+
 
         public GroupSequenceViewModel(GroupStore groupStore,
                                       ViewStore viewStore,
-                                      ModalNavigationStore modalNavigationStore,
-                                      TeacherSequenceViewModel teacherSequenceVM,
-                                      StudentSequenceViewModel studentSequenceVM)
+                                      ModalNavigationStore modalNavigationStore)
         {
             GroupVMs = [];
 
@@ -53,9 +55,62 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _viewStore = viewStore;
             _viewStore.GroupUnfocused += ViewStore_GroupUnfocused;
 
-            CreateGroupCommand = new OpenCreateGroupFormCommand(_groupStore, _viewStore, modalNavigationStore, teacherSequenceVM, studentSequenceVM);
-            UpdateGroupCommand = new OpenUpdateGroupFormCommand(_groupStore, _viewStore, modalNavigationStore, teacherSequenceVM, studentSequenceVM);
+            _modalNavigationStore = modalNavigationStore;
+        }
+
+        public void SetTeacherSequence(TeacherSequenceViewModel newTeacherSequence)
+        {
+            _teacherSequenceVM = newTeacherSequence;
+        }
+
+        public void SetStudentSequence(StudentSequenceViewModel newStudentSequence)
+        {
+            _studentSequenceVM = newStudentSequence;
+        }
+
+        public void ConfigureCommands()
+        {
+            CreateGroupCommand = new OpenCreateGroupFormCommand
+            (
+                _groupStore, 
+                _viewStore, 
+                _modalNavigationStore, 
+                _teacherSequenceVM, 
+                _studentSequenceVM
+            );
+
+            UpdateGroupCommand = new OpenUpdateGroupFormCommand
+            (
+                _groupStore, 
+                _viewStore, 
+                _modalNavigationStore, 
+                _teacherSequenceVM, 
+                _studentSequenceVM
+            );
+
             DeleteGroupCommand = new DeleteGroupCommand(_groupStore);
+        }
+
+        // ToDo: Remove
+        public void InsertTestData()
+        {
+            GroupVMs.Add(new GroupViewModel(new Group()
+            {
+                GroupId = Guid.NewGuid(),
+                Name = "Group 1",
+                CourseId = 1,
+                Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).Take(2).ToList(),
+                Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).Take(2).ToList(),
+            }));
+
+            GroupVMs.Add(new GroupViewModel(new Group()
+            {
+                GroupId = Guid.NewGuid(),
+                Name = "Group 2",
+                CourseId = 2,
+                Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).TakeLast(2).ToList(),
+                Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).TakeLast(2).ToList(),
+            }));
         }
 
         protected override void Dispose()
