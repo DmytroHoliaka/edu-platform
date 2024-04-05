@@ -15,20 +15,40 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
         public StudentSequenceViewModel StudentSequenceVM { get; }
         public TeacherSequenceViewModel TeacherSequenceVM { get; }
 
-        public EduPlatformViewModel(GroupStore groupStore, ViewStore viewStore, ModalNavigationStore modalNavigationStore)
+        public EduPlatformViewModel
+        (
+            GroupStore groupStore, 
+            StudentStore studentStore, 
+            ViewStore viewStore, 
+            ModalNavigationStore modalNavigationStore
+        )
         {
             EduPlatformOverviewVM = new();
-            StudentSequenceVM = new();
-            TeacherSequenceVM = new();
             NavigationVM = new();
+
             GroupSequenceVM = new
             (
                 groupStore,
                 viewStore,
-                modalNavigationStore, 
-                TeacherSequenceVM,
-                StudentSequenceVM
+                modalNavigationStore
             );
+
+            StudentSequenceVM = new
+            (
+                studentStore,
+                viewStore,
+                modalNavigationStore
+            );
+
+            TeacherSequenceVM = new();
+
+            GroupSequenceVM.SetStudentSequence(StudentSequenceVM);
+            GroupSequenceVM.SetTeacherSequence(TeacherSequenceVM);
+            GroupSequenceVM.ConfigureCommands();
+            GroupSequenceVM.InsertTestData();
+
+            StudentSequenceVM.SetGroupSequence(GroupSequenceVM);
+            StudentSequenceVM.ConfigureCommands();
         }
     }
 }
