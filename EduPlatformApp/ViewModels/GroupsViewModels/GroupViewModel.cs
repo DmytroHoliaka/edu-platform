@@ -30,7 +30,21 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
         }
 
+        public bool IsChecked
+        {
+            get
+            {
+                return _isChecked;
+            }
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+            }
+        }
+
         private Group? _group;
+        private bool _isChecked;
 
         public Guid GroupId => Group.GroupId;
         public string? GroupName => Group.Name;
@@ -42,7 +56,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public ICommand? ImportCsvCommand { get; } = new RelayCommand(ImportFromCsv);
         public ICommand? CreateDocsCommand { get; } = new RelayCommand(CreateDocs);
         public ICommand? CreatePdfCommand { get; } = new RelayCommand(CreatePdf);
-
 
 
         public GroupViewModel(Group groupItem)
