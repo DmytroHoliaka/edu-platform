@@ -7,15 +7,15 @@ namespace EduPlatform.WPF.Commands
 {
     public class OpenUpdateGroupFormCommand : CommandBase
     {
+        public GroupViewModel? SelectedGroup { get; set; }
+
         private readonly GroupStore _groupStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly TeacherSequenceViewModel _teacherSequenceVM;
         private readonly StudentSequenceViewModel _studentSequenceVM;
-        private readonly GroupSequenceViewModel _eduPlatformGroupsVM;
 
         public OpenUpdateGroupFormCommand
         (
-            GroupSequenceViewModel eduPlatformGroupsViewModel,
             GroupStore groupStore,
             ModalNavigationStore modalNavigationStore,
             TeacherSequenceViewModel teacherSequenceVM,
@@ -26,19 +26,18 @@ namespace EduPlatform.WPF.Commands
             _modalNavigationStore = modalNavigationStore;
             _teacherSequenceVM = teacherSequenceVM;
             _studentSequenceVM = studentSequenceVM;
-            _eduPlatformGroupsVM = eduPlatformGroupsViewModel;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return _eduPlatformGroupsVM.SelectedItem is not null;
+            return SelectedGroup is not null;
         }
 
         public override void Execute(object? parameter)
         {
             UpdateGroupViewModel updateGroupViewModel = new
             (
-                _eduPlatformGroupsVM.SelectedItem!,
+                SelectedGroup,
                 _modalNavigationStore,
                 _teacherSequenceVM,
                 _studentSequenceVM,
@@ -47,7 +46,7 @@ namespace EduPlatform.WPF.Commands
 
             _modalNavigationStore.CurrentViewModel = updateGroupViewModel;
 
-            _eduPlatformGroupsVM.SelectedItem = null;
+            SelectedGroup = null;
         }
     }
 }
