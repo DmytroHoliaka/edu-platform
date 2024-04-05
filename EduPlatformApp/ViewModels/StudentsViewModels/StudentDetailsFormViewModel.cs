@@ -1,5 +1,7 @@
-﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
+﻿using EduPlatform.WPF.Commands;
+using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -8,7 +10,6 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
     public class StudentDetailsFormViewModel : ViewModelBase
     {
         public ObservableCollection<GroupViewModel> GroupVMs { get; }
-        public Guid GroupId { get; }
 
         public string? FirstName
         {
@@ -20,6 +21,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             {
                 _firstName = value;
                 OnPropertyChanged(nameof(FirstName));
+                (SubmitCommand as SubmitCreateStudentCommand)?.OnCanExecutedChanded();
             }
         }
 
@@ -33,16 +35,12 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             {
                 _lastName = value;
                 OnPropertyChanged(nameof(LastName));
+                (SubmitCommand as SubmitCreateStudentCommand)?.OnCanExecutedChanded();
             }
         }
 
-        // ToDo: Try implement using CanExecute in Command
-        //public bool CanSubmit
-        //    => string.IsNullOrWhiteSpace(FirstName) == false &&
-        //       string.IsNullOrWhiteSpace(LastName) == false;
-
-        public ICommand? SubmitCommand { get; }
-        public ICommand? CancelCommand { get; }
+        public ICommand SubmitCommand { get; }
+        public ICommand CancelCommand { get; }
 
         private string? _firstName;
         private string? _lastName;
@@ -50,16 +48,43 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public StudentDetailsFormViewModel
         (
-            Guid id, 
+            Guid guid,
             GroupSequenceViewModel groupSequenceVM,
-            ICommand submitCommand, 
+            ICommand submitCommand,
             ICommand cancelCommand
         )
         {
-            GroupId = id;
             GroupVMs = new(groupSequenceVM.GroupVMs);
+            SetupEvents();
+
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
+        }
+
+        protected override void Dispose()
+        {
+            foreach (GroupViewModel group in GroupVMs)
+            {
+                group.PropertyChanged -= Group_PropertyChanged;
+            }
+
+            base.Dispose();
+        }
+
+        private void SetupEvents()
+        {
+            foreach (GroupViewModel group in GroupVMs)
+            {
+                group.PropertyChanged += Group_PropertyChanged;
+            }
+        }
+
+        private void Group_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GroupViewModel.IsChecked))
+            {
+                (SubmitCommand as SubmitCreateStudentCommand)?.OnCanExecutedChanded();
+            }
         }
     }
 }
