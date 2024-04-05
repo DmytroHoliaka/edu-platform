@@ -5,18 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlatform.WPF" 
         xmlns:views="clr-namespace:EduPlatform.WPF.Views" 
-        xmlns:vms="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
+        xmlns:group="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
+        xmlns:student="clr-namespace:EduPlatform.WPF.ViewModels.StudentsViewModels"
         xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
         Title="Educational Platform" Height="1000" Width="1600">
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vms:CreateGroupViewModel}">
+        <DataTemplate DataType="{x:Type group:CreateGroupViewModel}">
             <views:CreateGroupView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vms:UpdateGroupViewModel}">
+        <DataTemplate DataType="{x:Type group:UpdateGroupViewModel}">
             <views:UpdateGroupView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type student:CreateStudentViewModel}">
+            <views:CreateStudentView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type student:UpdateStudentViewModel}">
+            <views:UpdateStudentView/>
         </DataTemplate>
     </Window.Resources>
     
