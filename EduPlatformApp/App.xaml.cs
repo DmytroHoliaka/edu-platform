@@ -12,6 +12,7 @@ namespace EduPlatform.WPF
     {
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly GroupStore _groupStore;
+        private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
         private readonly EduPlatformViewModel _eduPlatformViewModel;
 
@@ -19,8 +20,9 @@ namespace EduPlatform.WPF
         {
             _modalNavigationStore = new();
             _groupStore = new();
+            _studentStore = new();
             _viewStore = new();
-            _eduPlatformViewModel = new(_groupStore, _viewStore, _modalNavigationStore);
+            _eduPlatformViewModel = new(_groupStore, _studentStore, _viewStore, _modalNavigationStore);
         }
 
         protected override void OnStartup(StartupEventArgs e)
