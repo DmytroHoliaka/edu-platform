@@ -24,19 +24,19 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
         public ICommand DeleteGroupCommand { get; private set; }
 
         private GroupSequenceViewModel? _groupSequenceVM;
-        private readonly GroupStore _groupStore;
+        private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
 
         public StudentSequenceViewModel
         (
-            GroupStore groupStore,
+            StudentStore studentStore,
             ViewStore viewStore,
             ModalNavigationStore modalNavigationStore
         )
         {
             _studentVMs = [];
-            _groupStore = groupStore;
+            _studentStore = studentStore;
             _viewStore = viewStore;
             _modalNavigationStore = modalNavigationStore;
 
@@ -65,7 +65,12 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
 
         public void ConfigureCommands()
         {
-            CreateGroupCommand = new OpenCreateStudentFormCommand(_groupStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
+            if (_groupSequenceVM is null)
+            {
+                return;
+            }
+
+            CreateGroupCommand = new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
             UpdateGroupCommand = null;
             DeleteGroupCommand = null;
         }
