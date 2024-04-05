@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="710" d:DesignWidth="490">
+             d:DesignHeight="720" d:DesignWidth="490">
 
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                        Style="{StaticResource FormLabel}"/>
 
             <Border Grid.Row="1"
-                    Padding="10 10 0 0"
+                    Padding="10 10 10 10"
                     Style="{StaticResource FormBorder}">
                 <ListView Background="{StaticResource ContentBackground}"
                           BorderThickness="0"
@@ -78,7 +78,7 @@
                        Style="{StaticResource FormLabel}"/>
 
             <Border Grid.Row="1"
-                    Padding="10 10 0 0"
+                    Padding="10 10 10 10"
                     Style="{StaticResource FormBorder}">
                 <ListView Background="{StaticResource ContentBackground}"
                           BorderThickness="0"
