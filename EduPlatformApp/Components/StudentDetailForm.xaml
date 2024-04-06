@@ -97,6 +97,7 @@
             <Button Content="Submit" 
                     HorizontalAlignment="Right"
                     Command="{Binding SubmitCommand}"
+                    IsEnabled="{Binding CanSubmit}"
                     Style="{StaticResource FormButton}"/>
         </Grid>
     </Grid>
