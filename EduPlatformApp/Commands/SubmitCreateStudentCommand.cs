@@ -21,17 +21,14 @@ namespace EduPlatform.WPF.Commands
             _modalNavigationStore = modalNavigationStore;
         }
 
-        public override bool CanExecute(object? parameter)
-        {
-            return FormDetails is not null 
-                && FormDetails.GroupVMs.Any(gvm => gvm.IsChecked == true)
-                && string.IsNullOrWhiteSpace(FormDetails.FirstName) == false 
-                && string.IsNullOrWhiteSpace(FormDetails.LastName) == false;
-        }
-
         public override async Task ExecuteAsync(object? parameter)
         {
-            GroupViewModel relatedGroup = FormDetails!.GroupVMs.First(gvm => gvm.IsChecked == true);
+            if (FormDetails is null)
+            {
+                return;
+            }
+
+            GroupViewModel relatedGroup = FormDetails.GroupVMs.First(gvm => gvm.IsChecked == true);
 
             Student student = new()
             {
