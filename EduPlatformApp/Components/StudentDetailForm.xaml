@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d" 
              d:DesignHeight="540" d:DesignWidth="490">
-    
+
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -73,13 +73,15 @@
                           ItemsSource="{Binding GroupVMs}"
                           FontFamily="{StaticResource Alice}"
                           FontSize="18"
-                          Foreground="{StaticResource MenuBackground}">
+                          Foreground="{StaticResource MenuBackground}"
+                          SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding GroupName}" 
-                                      IsChecked="{Binding IsChecked}"
-                                      Style="{StaticResource MultipleCheckbox}">
-                            </CheckBox>
+                            <RadioButton Content="{Binding GroupName}" 
+                                         IsChecked="{Binding IsChecked}"
+                                         GroupName="GroupSelection"
+                                         Style="{StaticResource SingleCheckbox}">
+                            </RadioButton>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
