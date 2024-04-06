@@ -22,11 +22,18 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         }
 
         public Guid StudentId => Student.StudentId;
+        public Guid? GroupId => Student.GroupId;
 
         public string FullName =>
              Student.FirstName != null || Student.LastName != null
              ? $"{Student.FirstName} {Student.LastName}"
              : "Unknown";
+
+        public string FirstName =>
+            Student.FirstName ?? "<unknown>";
+
+        public string LastName =>
+            Student.LastName ?? "<unknown>";
 
         public bool IsChecked
         {
