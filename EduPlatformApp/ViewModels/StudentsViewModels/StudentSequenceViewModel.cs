@@ -15,15 +15,27 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
     {
         private readonly ObservableCollection<StudentViewModel> _studentVMs;
         public IEnumerable<StudentViewModel> StudentVMs =>
-            _studentVMs.Select(s => new StudentViewModel(s));
+            _studentVMs.Select(svm => new StudentViewModel(svm.Student));
 
-        public StudentViewModel? SelectedStudent { get; set; }
+        public StudentViewModel? SelectedStudent
+        {
+            get
+            {
+                return _selectedStudent;
+            }
+            set
+            {
+                _selectedStudent = value;
+                OnPropertyChanged(nameof(SelectedStudent));
+            }
+        }
 
-        public ICommand CreateGroupCommand { get; private set; }
-        public ICommand UpdateGroupCommand { get; private set; }
-        public ICommand DeleteGroupCommand { get; private set; }
+        public ICommand CreateStudentCommand { get; private set; }
+        public ICommand UpdateStudentCommand { get; private set; }
+        public ICommand DeleteStudentCommand { get; private set; }
 
         private GroupSequenceViewModel? _groupSequenceVM;
+        private StudentViewModel? _selectedStudent;
         private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
@@ -37,7 +49,11 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
         {
             _studentVMs = [];
             _studentStore = studentStore;
+            _studentStore.StudentAdded += StudentStore_StudentAdded;
+
             _viewStore = viewStore;
+            _viewStore.StudentUnfocused += ViewStore_StudentUnfocused;
+
             _modalNavigationStore = modalNavigationStore;
 
             Student student1 = new()
@@ -70,9 +86,35 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
                 return;
             }
 
-            CreateGroupCommand = new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
-            UpdateGroupCommand = null;
-            DeleteGroupCommand = null;
+            CreateStudentCommand = new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
+            UpdateStudentCommand = null;
+            DeleteStudentCommand = null;
+        }
+
+        public void AddStudent(Student? student)
+        {
+            if (student is null)
+            {
+                return;
+            }
+
+            _studentVMs.Add(new StudentViewModel(student));
+            OnPropertyChanged(nameof(StudentVMs));
+        }
+
+        public void UnfocuseStudent()
+        {
+            SelectedStudent = null;
+        }
+
+        private void StudentStore_StudentAdded(Student student)
+        {
+            AddStudent(student);
+        }
+
+        private void ViewStore_StudentUnfocused()
+        {
+            UnfocuseStudent();
         }
     }
 }
