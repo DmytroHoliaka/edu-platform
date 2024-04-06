@@ -279,6 +279,53 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="SingleCheckbox" TargetType="RadioButton">
+                <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="20" 
+                                        Height="20" 
+                                        Background="Transparent" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="10"
+                                        Margin="0 4">
+                                    <Grid>
+                                        <Path x:Name="CheckMark" 
+                                              Width="8" 
+                                              Height="8" 
+                                              Stretch="Uniform" 
+                                              StrokeThickness="5" 
+                                              Stroke="{TemplateBinding Foreground}"
+                                              Data="M 5 5 A 5 5 0 1 1 5.01 5" Visibility="Collapsed"/>
+                                    </Grid>
+                                </Border>
+
+                                <ContentPresenter Margin="4,0,0,0" 
+                                                  VerticalAlignment="Center" 
+                                                  HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
