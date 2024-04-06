@@ -7,7 +7,7 @@ using EduPlatform.WPF.ViewModels.TeachersViewModel;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
-    public class EduPlatformViewModel : ViewModelBase
+    public class HubViewModel : ViewModelBase
     {
         public NavigationViewModel NavigationVM { get; }
         public EduPlatformOverviewViewModel EduPlatformOverviewVM { get; }
@@ -15,7 +15,7 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
         public StudentSequenceViewModel StudentSequenceVM { get; }
         public TeacherSequenceViewModel TeacherSequenceVM { get; }
 
-        public EduPlatformViewModel
+        public HubViewModel
         (
             GroupStore groupStore, 
             StudentStore studentStore, 

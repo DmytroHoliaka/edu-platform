@@ -14,7 +14,7 @@ namespace EduPlatform.WPF
         private readonly GroupStore _groupStore;
         private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
-        private readonly EduPlatformViewModel _eduPlatformViewModel;
+        private readonly HubViewModel _eduPlatformViewModel;
 
         public App()
         {

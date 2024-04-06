@@ -11,14 +11,14 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public EduPlatformViewModel EduPlatformViewModel { get; }
+        public HubViewModel EduPlatformViewModel { get; }
         private readonly ModalNavigationStore _modalNavigationStore;
 
         public ViewModelBase? CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
         public bool IsModalOpen => _modalNavigationStore.IsOpen;
 
 
-        public MainViewModel(EduPlatformViewModel eduPlatformViewModel, ModalNavigationStore modalNavigationStore)
+        public MainViewModel(HubViewModel eduPlatformViewModel, ModalNavigationStore modalNavigationStore)
         {
             EduPlatformViewModel = eduPlatformViewModel;
             _modalNavigationStore = modalNavigationStore;
