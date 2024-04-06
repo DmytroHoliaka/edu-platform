@@ -53,7 +53,8 @@
                           ItemsSource="{Binding TeacherVMs}"
                           FontFamily="{StaticResource Alice}"
                           FontSize="18"
-                          Foreground="{StaticResource MenuBackground}">
+                          Foreground="{StaticResource MenuBackground}"
+                          SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding FullName}" 
@@ -85,7 +86,8 @@
                           ItemsSource="{Binding StudentVMs}"
                           FontFamily="{StaticResource Alice}"
                           FontSize="18"
-                          Foreground="{StaticResource MenuBackground}">
+                          Foreground="{StaticResource MenuBackground}"
+                          SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding FullName}" 
