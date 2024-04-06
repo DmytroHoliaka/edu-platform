@@ -21,7 +21,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             {
                 _firstName = value;
                 OnPropertyChanged(nameof(FirstName));
-                (SubmitCommand as SubmitCreateStudentCommand)?.OnCanExecutedChanded();
+                OnPropertyChanged(nameof(CanSubmit));
             }
         }
 
@@ -35,9 +35,14 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             {
                 _lastName = value;
                 OnPropertyChanged(nameof(LastName));
-                (SubmitCommand as SubmitCreateStudentCommand)?.OnCanExecutedChanded();
+                OnPropertyChanged(nameof(CanSubmit));
             }
         }
+
+        public bool CanSubmit =>
+            GroupVMs.Any(gvm => gvm.IsChecked == true)
+            && string.IsNullOrWhiteSpace(FirstName) == false
+            && string.IsNullOrWhiteSpace(LastName) == false;
 
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
@@ -83,7 +88,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         {
             if (e.PropertyName == nameof(GroupViewModel.IsChecked))
             {
-                (SubmitCommand as SubmitCreateStudentCommand)?.OnCanExecutedChanded();
+                OnPropertyChanged(nameof(CanSubmit));
             }
         }
     }
