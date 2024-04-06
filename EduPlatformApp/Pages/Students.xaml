@@ -23,17 +23,17 @@
             <Button Grid.Column="0" 
                     Content="Create" 
                     Style="{StaticResource OperationButton}"
-                    Command="{Binding StudentSequenceVM.CreateGroupCommand}"/>
+                    Command="{Binding StudentSequenceVM.CreateStudentCommand}"/>
 
             <Button Grid.Column="1" 
                     Content="Update"  
                     Style="{StaticResource OperationButton}"
-                    Command="{Binding StudentSequenceVM.UpdateGroupCommand}"/>
+                    Command="{Binding StudentSequenceVM.UpdateStudentCommand}"/>
 
             <Button Grid.Column="2" 
                     Content="Delete" 
                     Style="{StaticResource OperationButton}"
-                    Command="{Binding StudentSequenceVM.DeleteGroupCommand}"/>
+                    Command="{Binding StudentSequenceVM.DeleteStudentCommand}"/>
         </Grid>
 
         <components:StudentList Grid.Row="1" 

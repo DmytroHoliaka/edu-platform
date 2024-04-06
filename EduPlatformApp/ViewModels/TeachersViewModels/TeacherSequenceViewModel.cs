@@ -9,7 +9,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
     {
         private readonly ObservableCollection<TeacherViewModel> _teacherVMs;
         public IEnumerable<TeacherViewModel> TeacherVMs =>
-            _teacherVMs.Select(t => new TeacherViewModel(t));
+            _teacherVMs.Select(tvm => new TeacherViewModel(tvm.Teacher));
 
 
         public TeacherSequenceViewModel()

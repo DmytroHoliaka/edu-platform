@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:EduPlatform.WPF.Views" 
              xmlns:components="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d" 
-            d:DesignHeight="810" d:DesignWidth="490">
+             d:DesignHeight="810" d:DesignWidth="490">
 
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
