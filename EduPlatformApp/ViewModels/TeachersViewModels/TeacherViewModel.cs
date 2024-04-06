@@ -49,11 +49,5 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             Teacher = teacher;
             IsChecked = false;
         }
-
-        public TeacherViewModel(TeacherViewModel teacherVM)
-        {
-            Teacher = teacherVM.Teacher;
-            IsChecked = false;
-        }
     }
 }
