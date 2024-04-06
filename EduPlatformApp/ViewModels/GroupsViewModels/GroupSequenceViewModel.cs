@@ -11,7 +11,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
     public class GroupSequenceViewModel : ViewModelBase
     {
-        public ObservableCollection<GroupViewModel> GroupVMs { get; }
+        private readonly ObservableCollection<GroupViewModel> _groupVMs;
+        public IEnumerable<GroupViewModel> GroupVMs =>
+            _groupVMs.Select(gvm => new GroupViewModel(gvm.Group));
 
         public GroupViewModel? SelectedGroup
         {
@@ -45,7 +47,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                                       ViewStore viewStore,
                                       ModalNavigationStore modalNavigationStore)
         {
-            GroupVMs = [];
+            _groupVMs = [];
 
             _groupStore = groupStore;
             _groupStore.GroupAdded += GroupStore_GroupAdded;
@@ -94,7 +96,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         // ToDo: Remove
         public void InsertTestData()
         {
-            GroupVMs.Add(new GroupViewModel(new Group()
+            _groupVMs.Add(new GroupViewModel(new Group()
             {
                 GroupId = Guid.NewGuid(),
                 Name = "Group 1",
@@ -103,7 +105,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).Take(2).ToList(),
             }));
 
-            GroupVMs.Add(new GroupViewModel(new Group()
+            _groupVMs.Add(new GroupViewModel(new Group()
             {
                 GroupId = Guid.NewGuid(),
                 Name = "Group 2",
@@ -111,6 +113,55 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).TakeLast(2).ToList(),
                 Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).TakeLast(2).ToList(),
             }));
+        }
+
+        public void AddGroup(Group? groupItem)
+        {
+            if (groupItem is null)
+            {
+                return;
+            }
+
+            GroupViewModel item = new(groupItem);
+
+            _groupVMs.Add(item);
+            OnPropertyChanged(nameof(GroupVMs));
+        }
+
+        public void UpdateGroup(Guid sourceId, Group? targetGroup)
+        {
+            if (targetGroup is null)
+            {
+                return;
+            }
+
+            GroupViewModel? sourceGroupVM = _groupVMs.FirstOrDefault(g => g.GroupId == targetGroup.GroupId);
+
+            if (sourceGroupVM is null)
+            {
+                return;
+            }
+
+            sourceGroupVM.Group = targetGroup;
+            OnPropertyChanged(nameof(GroupVMs));
+        }
+
+        public void DeleteGroup(Guid groupId)
+        {
+            GroupViewModel? group = _groupVMs.FirstOrDefault(g => g.GroupId == groupId);
+
+            if (group is null)
+            {
+                return;
+            }
+
+            _groupVMs.Remove(group);
+            OnPropertyChanged(nameof(GroupVMs));
+        }
+
+        public void UnfocusGroup()
+        {
+            SelectedGroup = null;
         }
 
         protected override void Dispose()
@@ -126,28 +177,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             AddGroup(groupItem);
         }
 
-        private void AddGroup(Group groupItem)
-        {
-            GroupViewModel item = new(groupItem);
-
-            GroupVMs.Add(item);
-        }
-
         private void GroupStore_GroupUpdated(Guid sourceId, Group targetGroup)
         {
             UpdateGroup(sourceId, targetGroup);
-        }
-
-        private void UpdateGroup(Guid sourceId, Group targetGroup)
-        {
-            GroupViewModel? sourceGroupVM = GroupVMs.FirstOrDefault(g => g.GroupId == targetGroup.GroupId);
-
-            if (sourceGroupVM is null)
-            {
-                return;
-            }
-
-            sourceGroupVM.Group = targetGroup;
         }
 
         private void GroupStore_GroupDeleted(Guid groupId)
@@ -155,26 +187,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             DeleteGroup(groupId);
         }
 
-        private void DeleteGroup(Guid groupId)
-        {
-            GroupViewModel? group = GroupVMs.FirstOrDefault(g => g.GroupId == groupId);
-
-            if (group is null)
-            {
-                return;
-            }
-
-            GroupVMs.Remove(group);
-        }
-
         private void ViewStore_GroupUnfocused()
         {
             UnfocusGroup();
-        }
-
-        private void UnfocusGroup()
-        {
-            SelectedGroup = null;
         }
     }
 }
