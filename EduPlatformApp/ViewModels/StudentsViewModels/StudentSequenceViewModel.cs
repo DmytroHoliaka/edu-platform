@@ -4,9 +4,7 @@ using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.StudentsViewModel
@@ -27,6 +25,9 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             {
                 _selectedStudent = value;
                 OnPropertyChanged(nameof(SelectedStudent));
+
+                ((OpenUpdateStudentFormCommand)UpdateStudentCommand).UpdatingStudent = value;
+                ((OpenUpdateStudentFormCommand)UpdateStudentCommand).OnCanExecutedChanded();
             }
         }
 
@@ -50,6 +51,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             _studentVMs = [];
             _studentStore = studentStore;
             _studentStore.StudentAdded += StudentStore_StudentAdded;
+            _studentStore.StudentUpdated += StudentStore_StudentUpdated;
 
             _viewStore = viewStore;
             _viewStore.StudentUnfocused += ViewStore_StudentUnfocused;
@@ -87,7 +89,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             }
 
             CreateStudentCommand = new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
-            UpdateStudentCommand = null;
+            UpdateStudentCommand = new OpenUpdateStudentFormCommand(_studentStore, _selectedStudent, _viewStore, _modalNavigationStore, _groupSequenceVM);
             DeleteStudentCommand = null;
         }
 
@@ -102,6 +104,25 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             OnPropertyChanged(nameof(StudentVMs));
         }
 
+        private void UpdateStudent(Guid sourceId, Student? targetStudent)
+        {
+            if (targetStudent is null)
+            {
+                return;
+            }
+
+            StudentViewModel? sourceStudent = _studentVMs.FirstOrDefault(svm => svm.StudentId == targetStudent.StudentId);
+
+            if (sourceStudent is null)
+            {
+                return;
+            }
+
+            sourceStudent.Student = targetStudent;
+            OnPropertyChanged(nameof(StudentVMs));
+        }
+
+
         public void UnfocuseStudent()
         {
             SelectedStudent = null;
@@ -110,6 +131,11 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
         private void StudentStore_StudentAdded(Student student)
         {
             AddStudent(student);
+        }
+
+        private void StudentStore_StudentUpdated(Guid sourceId, Student targetStudent)
+        {
+            UpdateStudent(sourceId, targetStudent);
         }
 
         private void ViewStore_StudentUnfocused()
