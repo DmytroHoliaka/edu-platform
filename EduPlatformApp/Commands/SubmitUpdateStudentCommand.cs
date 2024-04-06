@@ -2,7 +2,6 @@
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using System.Reflection;
 
 namespace EduPlatform.WPF.Commands
 {

@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
-using EduPlatform.WPF.Models;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels

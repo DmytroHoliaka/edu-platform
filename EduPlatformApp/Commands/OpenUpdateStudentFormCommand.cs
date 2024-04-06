@@ -1,7 +1,6 @@
 ﻿using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using System.Windows.Media.Animation;
 
 namespace EduPlatform.WPF.Commands
 {
