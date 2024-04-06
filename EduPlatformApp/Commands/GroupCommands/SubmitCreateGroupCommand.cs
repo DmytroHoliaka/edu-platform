@@ -1,8 +1,9 @@
-﻿using EduPlatform.WPF.Models;
+﻿using EduPlatform.WPF.Commands.BaseCommands;
+using EduPlatform.WPF.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
-namespace EduPlatform.WPF.Commands
+namespace EduPlatform.WPF.Commands.GroupCommands
 {
     public class SubmitCreateGroupCommand : AsyncCommandBase
     {

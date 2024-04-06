@@ -1,6 +1,7 @@
-﻿using EduPlatform.WPF.Stores;
+﻿using EduPlatform.WPF.Commands.BaseCommands;
+using EduPlatform.WPF.Stores;
 
-namespace EduPlatform.WPF.Commands
+namespace EduPlatform.WPF.Commands.GeneralCommands
 {
     public class CloseFormCommand : CommandBase
     {

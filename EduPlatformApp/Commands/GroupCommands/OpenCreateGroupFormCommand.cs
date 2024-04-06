@@ -1,9 +1,10 @@
-﻿using EduPlatform.WPF.Stores;
+﻿using EduPlatform.WPF.Commands.BaseCommands;
+using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
 
-namespace EduPlatform.WPF.Commands
+namespace EduPlatform.WPF.Commands.GroupCommands
 {
     public class OpenCreateGroupFormCommand : CommandBase
     {

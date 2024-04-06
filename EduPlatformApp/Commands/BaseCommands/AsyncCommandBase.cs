@@ -1,4 +1,4 @@
-﻿namespace EduPlatform.WPF.Commands
+﻿namespace EduPlatform.WPF.Commands.BaseCommands
 {
     public abstract class AsyncCommandBase : CommandBase
     {

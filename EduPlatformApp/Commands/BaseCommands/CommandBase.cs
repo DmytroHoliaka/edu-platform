@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace EduPlatform.WPF.Commands
+namespace EduPlatform.WPF.Commands.BaseCommands
 {
     public abstract class CommandBase : ICommand
     {

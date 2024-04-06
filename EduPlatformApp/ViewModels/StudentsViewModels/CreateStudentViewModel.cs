@@ -1,4 +1,5 @@
-﻿using EduPlatform.WPF.Commands;
+﻿using EduPlatform.WPF.Commands.GeneralCommands;
+using EduPlatform.WPF.Commands.StudentCommands;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;

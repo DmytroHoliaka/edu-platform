@@ -1,31 +1,29 @@
-﻿using EduPlatform.WPF.Models;
+﻿using EduPlatform.WPF.Commands.BaseCommands;
+using EduPlatform.WPF.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
-namespace EduPlatform.WPF.Commands
+namespace EduPlatform.WPF.Commands.StudentCommands
 {
-    public class SubmitUpdateStudentCommand : AsyncCommandBase
+    public class SubmitCreateStudentCommand : AsyncCommandBase
     {
         public StudentDetailsFormViewModel? FormDetails { get; set; }
-
-        private readonly ModalNavigationStore _modalNavigationStore;
         private readonly StudentStore _studentStore;
-        private readonly StudentViewModel _selectedStudent;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
-        public SubmitUpdateStudentCommand(StudentViewModel selectedStudent,
-                                          ModalNavigationStore modalNavigationStore,
-                                          StudentStore studentStore)
+        public SubmitCreateStudentCommand
+        (
+            StudentStore studentStore,
+            ModalNavigationStore modalNavigationStore
+        )
         {
-            _modalNavigationStore = modalNavigationStore;
             _studentStore = studentStore;
-            _selectedStudent = selectedStudent;
+            _modalNavigationStore = modalNavigationStore;
         }
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            // ToDo: Add store in database
-
             if (FormDetails is null)
             {
                 return;
@@ -33,20 +31,21 @@ namespace EduPlatform.WPF.Commands
 
             GroupViewModel relatedGroup = FormDetails.GroupVMs.First(gvm => gvm.IsChecked == true);
 
-            Student targetStudent = new()
+            Student student = new()
             {
-                StudentId = _selectedStudent.StudentId,
+                StudentId = Guid.NewGuid(),
                 FirstName = FormDetails.FirstName,
                 LastName = FormDetails.LastName,
                 GroupId = relatedGroup.GroupId,
                 Group = relatedGroup.Group,
             };
+
             try
             {
-                await _studentStore.Update(_selectedStudent.StudentId, targetStudent);
+                await _studentStore.Add(student);
                 _modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception) { /*ToDo: Make label with error message*/ }
         }
     }
 }
