@@ -42,12 +42,14 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             };
 
             GroupDetailsFormVM.TeacherVMs
-                .Where(tvm => selectedGroup.GroupTeachers.Any(t => t.TeacherId == tvm.TeacherId))
+                .Where(tvm => selectedGroup.GroupTeachers
+                    .Any(selected => selected.TeacherId == tvm.TeacherId))
                 .ToList()
                 .ForEach(tvm => tvm.IsChecked = true);
 
             GroupDetailsFormVM.StudentVMs
-                .Where(svm => selectedGroup.GroupStudents.Any(s => s.StudentId == svm.StudentId))
+                .Where(svm => selectedGroup.GroupStudents
+                    .Any(selected => selected.StudentId == svm.StudentId))
                 .ToList()
                 .ForEach(svm => svm.IsChecked = true);
         }

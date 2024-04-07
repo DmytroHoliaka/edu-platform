@@ -49,6 +49,7 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 
             StudentSequenceVM.SetGroupSequence(GroupSequenceVM);
             StudentSequenceVM.ConfigureCommands();
+            //StudentSequenceVM.InsertTestData();
         }
     }
 }

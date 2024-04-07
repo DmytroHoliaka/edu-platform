@@ -22,6 +22,9 @@
     <Compile Update="Components\GroupDetailForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\TeacherList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Groups.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +67,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\GroupDetailForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\TeacherList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

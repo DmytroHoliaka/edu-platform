@@ -4,8 +4,6 @@ using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 

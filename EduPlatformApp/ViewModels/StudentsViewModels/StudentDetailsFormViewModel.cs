@@ -40,8 +40,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         }
 
         public bool CanSubmit =>
-            GroupVMs.Any(gvm => gvm.IsChecked == true)
-            && string.IsNullOrWhiteSpace(FirstName) == false
+            string.IsNullOrWhiteSpace(FirstName) == false
             && string.IsNullOrWhiteSpace(LastName) == false;
 
         public ICommand SubmitCommand { get; }
