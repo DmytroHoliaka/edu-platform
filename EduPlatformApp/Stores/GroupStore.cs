@@ -5,7 +5,7 @@ namespace EduPlatform.WPF.Stores
     public class GroupStore
     {
         public event Action<Group>? GroupAdded;
-        public event Action<Guid, Group>? GroupUpdated;
+        public event Action<Group>? GroupUpdated;
         public event Action<Guid>? GroupDeleted;
 
         public async Task Add(Group newGroup)
@@ -13,9 +13,9 @@ namespace EduPlatform.WPF.Stores
             GroupAdded?.Invoke(newGroup);
         }
 
-        public async Task Update(Guid sourceId, Group targetGroup)
+        public async Task Update(Group targetGroup)
         {
-            GroupUpdated?.Invoke(sourceId, targetGroup);
+            GroupUpdated?.Invoke(targetGroup);
         }
 
         public async Task Delete(Guid groupId)
