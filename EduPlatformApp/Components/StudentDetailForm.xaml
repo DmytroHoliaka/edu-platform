@@ -78,9 +78,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <RadioButton Content="{Binding GroupName}" 
-                                         IsChecked="{Binding IsChecked}"
+                                         IsChecked="{Binding IsChecked, Mode=TwoWay}"
                                          GroupName="GroupSelection"
-                                         Style="{StaticResource SingleCheckbox}">
+                                         Style="{StaticResource SingleCheckbox}"
+                                         PreviewMouseDown="RadioButton_PreviewMouseDown">
                             </RadioButton>
                         </DataTemplate>
                     </ListView.ItemTemplate>
