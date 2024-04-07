@@ -29,15 +29,15 @@ namespace EduPlatform.WPF.Commands.StudentCommands
                 return;
             }
 
-            GroupViewModel relatedGroup = FormDetails.GroupVMs.First(gvm => gvm.IsChecked == true);
+            GroupViewModel? relatedGroup = FormDetails.GroupVMs.FirstOrDefault(gvm => gvm.IsChecked == true);
 
             Student student = new()
             {
                 StudentId = Guid.NewGuid(),
                 FirstName = FormDetails.FirstName,
                 LastName = FormDetails.LastName,
-                GroupId = relatedGroup.GroupId,
-                Group = relatedGroup.Group,
+                GroupId = relatedGroup?.GroupId,
+                Group = relatedGroup?.Group,
             };
 
             try
