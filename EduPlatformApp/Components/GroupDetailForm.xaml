@@ -92,7 +92,8 @@
                         <DataTemplate>
                             <CheckBox Content="{Binding FullName}" 
                                       IsChecked="{Binding IsChecked}"
-                                      Style="{StaticResource MultipleCheckbox}">
+                                      Style="{StaticResource MultipleCheckbox}"
+                                      IsEnabled="{Binding IsEnabled}">
                             </CheckBox>
                         </DataTemplate>
                     </ListView.ItemTemplate>
