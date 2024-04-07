@@ -5,7 +5,7 @@ namespace EduPlatform.WPF.Stores
     public class StudentStore
     {
         public event Action<Student>? StudentAdded;
-        public event Action<Guid, Student>? StudentUpdated;
+        public event Action<Student>? StudentUpdated;
         public event Action<Guid>? StudentDeleted;
 
         public async Task Add(Student newStudent)
@@ -13,9 +13,9 @@ namespace EduPlatform.WPF.Stores
             StudentAdded?.Invoke(newStudent);
         }
 
-        public async Task Update(Guid sourceId, Student targetStudent)
+        public async Task Update(Student targetStudent)
         {
-            StudentUpdated?.Invoke(sourceId, targetStudent);
+            StudentUpdated?.Invoke(targetStudent);
         }
 
         public async Task Delete(Guid studentId)
