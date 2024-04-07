@@ -75,19 +75,19 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         {
             CreateGroupCommand = new OpenCreateGroupFormCommand
             (
-                _groupStore, 
-                _viewStore, 
-                _modalNavigationStore, 
-                _teacherSequenceVM, 
+                _groupStore,
+                _viewStore,
+                _modalNavigationStore,
+                _teacherSequenceVM,
                 _studentSequenceVM
             );
 
             UpdateGroupCommand = new OpenUpdateGroupFormCommand
             (
-                _groupStore, 
-                _viewStore, 
-                _modalNavigationStore, 
-                _teacherSequenceVM, 
+                _groupStore,
+                _viewStore,
+                _modalNavigationStore,
+                _teacherSequenceVM,
                 _studentSequenceVM
             );
 
@@ -116,27 +116,23 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }));
         }
 
-        public void AddGroup(Group? groupItem)
+        protected override void Dispose()
         {
-            if (groupItem is null)
-            {
-                return;
-            }
+            _groupStore.GroupAdded -= GroupStore_GroupAdded;
+            _groupStore.GroupUpdated -= GroupStore_GroupUpdated;
 
-            GroupViewModel item = new(groupItem);
-
-            _groupVMs.Add(item);
-            OnPropertyChanged(nameof(GroupVMs));
+            base.Dispose();
         }
 
-        public void UpdateGroup(Guid sourceId, Group? targetGroup)
+        private void AddGroup(Group groupItem)
         {
-            if (targetGroup is null)
-            {
-                return;
-            }
+            GroupViewModel item = new(groupItem);
+            _groupVMs.Add(item);
+        }
 
-            GroupViewModel? sourceGroupVM = _groupVMs.FirstOrDefault(g => g.GroupId == targetGroup.GroupId);
+        private void UpdateGroup(Group targetGroup)
+        {
+            GroupViewModel sourceGroupVM = GetGroupViewModelById(targetGroup.GroupId)!;
 
             if (sourceGroupVM is null)
             {
@@ -144,12 +140,11 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
 
             sourceGroupVM.Group = targetGroup;
-            OnPropertyChanged(nameof(GroupVMs));
         }
 
-        public void DeleteGroup(Guid groupId)
+        private void DeleteGroup(Guid groupId)
         {
-            GroupViewModel? group = _groupVMs.FirstOrDefault(g => g.GroupId == groupId);
+            GroupViewModel group = GetGroupViewModelById(groupId)!;
 
             if (group is null)
             {
@@ -160,27 +155,52 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             OnPropertyChanged(nameof(GroupVMs));
         }
 
-        public void UnfocusGroup()
+        private void UnfocusGroup()
         {
             SelectedGroup = null;
         }
 
-        protected override void Dispose()
+        private GroupViewModel? GetGroupViewModelById(Guid groupId)
         {
-            _groupStore.GroupAdded -= GroupStore_GroupAdded;
-            _groupStore.GroupUpdated -= GroupStore_GroupUpdated;
-
-            base.Dispose();
+            GroupViewModel? groupVM = _groupVMs.FirstOrDefault(g => g.GroupId == groupId);
+            return groupVM;
         }
 
-        private void GroupStore_GroupAdded(Group groupItem)
+        private void RefreshDependentStudents(Group targetGroup)
         {
-            AddGroup(groupItem);
+            GroupViewModel? sourceGroup = GetGroupViewModelById(targetGroup.GroupId);
+
+            sourceGroup?.GroupStudents
+                .Where(svm => targetGroup.Students?.Any(target => target.GroupId == svm.Student.GroupId) == false)
+                .ToList()
+                .ForEach(svm =>
+                {
+                    svm.Student.Group = null;
+                    svm.Student.GroupId = null;
+                });
+
+            targetGroup.Students
+               ?.ToList()
+                .ForEach(target =>
+                {
+                    target.Group = targetGroup;
+                    target.GroupId = targetGroup.GroupId;
+                });
         }
 
-        private void GroupStore_GroupUpdated(Guid sourceId, Group targetGroup)
+        private void GroupStore_GroupAdded(Group newGroup)
         {
-            UpdateGroup(sourceId, targetGroup);
+            RefreshDependentStudents(newGroup);
+            AddGroup(newGroup);
+            OnPropertyChanged(nameof(GroupVMs));
+
+        }
+
+        private void GroupStore_GroupUpdated(Group targetGroup)
+        {
+            RefreshDependentStudents(targetGroup);
+            UpdateGroup(targetGroup);
+            OnPropertyChanged(nameof(GroupVMs));
         }
 
         private void GroupStore_GroupDeleted(Guid groupId)
