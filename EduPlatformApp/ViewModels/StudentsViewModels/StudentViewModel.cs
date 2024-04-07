@@ -17,9 +17,15 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
                 OnPropertyChanged(nameof(Student));
                 OnPropertyChanged(nameof(StudentId));
                 OnPropertyChanged(nameof(FullName));
+                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged(nameof(IsEnabled));
                 OnPropertyChanged(nameof(IsChecked));
             }
         }
+
+        public Group? Group =>
+            Student.Group;
 
         public Guid StudentId => Student.StudentId;
         public Guid? GroupId => Student.GroupId;
@@ -34,6 +40,10 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public string LastName =>
             Student.LastName ?? "<unknown>";
+
+        public bool IsEnabled =>
+            IsChecked == true ||
+            Student.GroupId is null;
 
         public bool IsChecked
         {
