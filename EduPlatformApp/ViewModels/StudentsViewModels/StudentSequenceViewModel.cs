@@ -1,12 +1,13 @@
 ﻿using EduPlatform.WPF.Commands.StudentCommands;
 using EduPlatform.WPF.Models;
+using EduPlatform.WPF.Pages;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
+
 
 namespace EduPlatform.WPF.ViewModels.StudentsViewModel
 {
@@ -62,23 +63,6 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             _viewStore.StudentUnfocused += ViewStore_StudentUnfocused;
 
             _modalNavigationStore = modalNavigationStore;
-
-            Student student1 = new()
-            {
-                StudentId = Guid.NewGuid(),
-                FirstName = "John",
-                LastName = "Student",
-            };
-
-            Student student2 = new()
-            {
-                StudentId = Guid.NewGuid(),
-                FirstName = "Alex",
-                LastName = "Student",
-            };
-
-            _studentVMs.Add(new StudentViewModel(student1));
-            _studentVMs.Add(new StudentViewModel(student2));
         }
 
         public void SetGroupSequence(GroupSequenceViewModel newGroup)
@@ -98,62 +82,104 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             DeleteStudentCommand = new DeleteStudentCommand(_studentStore, _modalNavigationStore);
         }
 
-        public void AddStudent(Student? student)
+        private void AddStudent(Student student)
         {
-            if (student is null)
-            {
-                return;
-            }
-
             _studentVMs.Add(new StudentViewModel(student));
-            OnPropertyChanged(nameof(StudentVMs));
         }
 
-        private void UpdateStudent(Guid sourceId, Student? targetStudent)
+        private void UpdateStudent(Student targetStudent)
         {
-            if (targetStudent is null)
-            {
-                return;
-            }
-
-            StudentViewModel? sourceStudent = _studentVMs.FirstOrDefault(svm => svm.StudentId == targetStudent.StudentId);
-
-            if (sourceStudent is null)
-            {
-                return;
-            }
+            StudentViewModel sourceStudent = GetStudentViewModelById(targetStudent.StudentId)!;
 
             sourceStudent.Student = targetStudent;
-            OnPropertyChanged(nameof(StudentVMs));
         }
 
         private void DeleteStudent(Guid sourceId)
         {
-            StudentViewModel? sourceStudent = _studentVMs.FirstOrDefault(svm => svm.StudentId == sourceId);
-
-            if (sourceStudent is null)
-            {
-                return;
-            }
+            StudentViewModel sourceStudent = GetStudentViewModelById(sourceId);
 
             _studentVMs.Remove(sourceStudent);
             OnPropertyChanged(nameof(StudentVMs));
         }
 
+        private void RefreshDependentGroups(Student targetStudent)
+        {
+            StudentViewModel? sourceStudent = GetStudentViewModelById(targetStudent.StudentId);
 
-        public void UnfocuseStudent()
+            sourceStudent?.Group?.Students?.Remove(sourceStudent.Student);
+            targetStudent.Group?.Students?.Add(targetStudent);
+        }
+
+        private void UnfocuseStudent()
         {
             SelectedStudent = null;
         }
 
-        private void StudentStore_StudentAdded(Student student)
+        private StudentViewModel? GetStudentViewModelById(Guid sourceId)
         {
-            AddStudent(student);
+            StudentViewModel? sourceStudent = _studentVMs
+                .FirstOrDefault(svm => svm.StudentId == sourceId);
+
+            return sourceStudent;
         }
 
-        private void StudentStore_StudentUpdated(Guid sourceId, Student targetStudent)
+        // ToDo: Remove
+        public void InsertTestData()
         {
-            UpdateStudent(sourceId, targetStudent);
+            Student student1 = new()
+            {
+                StudentId = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Student",
+                Group = _groupSequenceVM.GroupVMs.ElementAt(0).Group,
+                GroupId = _groupSequenceVM.GroupVMs.ElementAt(0).GroupId,
+            };
+
+            Student student2 = new()
+            {
+                StudentId = Guid.NewGuid(),
+                FirstName = "Alex",
+                LastName = "Student",
+                Group = _groupSequenceVM.GroupVMs.ElementAt(1).Group,
+                GroupId = _groupSequenceVM.GroupVMs.ElementAt(1).GroupId,
+            };
+
+            Student student3 = new()
+            {
+                StudentId = Guid.NewGuid(),
+                FirstName = "Dmytro",
+                LastName = "Student",
+                Group = _groupSequenceVM.GroupVMs.ElementAt(0).Group,
+                GroupId = _groupSequenceVM.GroupVMs.ElementAt(0).GroupId,
+            };
+
+            Student student4 = new()
+            {
+                StudentId = Guid.NewGuid(),
+                FirstName = "Richard",
+                LastName = "Student",
+                Group = null,
+                GroupId = null,
+            };
+
+            _studentVMs.Add(new StudentViewModel(student1));
+            _studentVMs.Add(new StudentViewModel(student2));
+            _studentVMs.Add(new StudentViewModel(student3));
+            _studentVMs.Add(new StudentViewModel(student4));
+        }
+
+        private void StudentStore_StudentAdded(Student student)
+        {
+            RefreshDependentGroups(student);
+            AddStudent(student);
+            OnPropertyChanged(nameof(StudentVMs));
+        }
+
+        private void StudentStore_StudentUpdated(Student targetStudent)
+        {
+            RefreshDependentGroups(targetStudent);
+            UpdateStudent(targetStudent);
+            OnPropertyChanged(nameof(StudentVMs));
         }
 
         private void StudentStore_StudentDeleted(Guid sourceId)
@@ -167,45 +193,3 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
         }
     }
 }
-
-
-//Student student1 = new()
-//{
-//    StudentId = Guid.NewGuid(),
-//    FirstName = "John",
-//    LastName = "Student",
-//};
-
-//Student student2 = new()
-//{
-//    StudentId = Guid.NewGuid(),
-//    FirstName = "Alex",
-//    LastName = "Student",
-//};
-
-//Student student3 = new()
-//{
-//    StudentId = Guid.NewGuid(),
-//    FirstName = "Rick",
-//    LastName = "Student",
-//};
-
-//Student student4 = new()
-//{
-//    StudentId = Guid.NewGuid(),
-//    FirstName = "Thomas",
-//    LastName = "Student",
-//};
-
-//Student student5 = new()
-//{
-//    StudentId = Guid.NewGuid(),
-//    FirstName = "Richard",
-//    LastName = "Student",
-//};
-
-//_studentVMs.Add(new StudentViewModel(student1));
-//_studentVMs.Add(new StudentViewModel(student2));
-//_studentVMs.Add(new StudentViewModel(student3));
-//_studentVMs.Add(new StudentViewModel(student4));
-//_studentVMs.Add(new StudentViewModel(student5));
