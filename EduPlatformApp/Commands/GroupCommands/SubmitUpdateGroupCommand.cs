@@ -43,7 +43,7 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
             try
             {
-                await _groupStore.Update(_selectedGroup.GroupId, targetGroup);
+                await _groupStore.Update(targetGroup);
                 _modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
