@@ -11,20 +11,34 @@
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            <Button Content="Create" 
-                    Style="{StaticResource OperationButton}"/>
-            <Button Content="Update"  
-                    Style="{StaticResource OperationButton}"/>
-            <Button Content="Delete" 
-                    Style="{StaticResource OperationButton}"/>
-        </StackPanel>
-        
-        <ListBox Grid.Row="1" Background="{StaticResource ContentBackground}"/>
+        <Grid Grid.Row="0" Margin="100 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" 
+                    Content="Create" 
+                    Style="{StaticResource OperationButton}"
+                    Command="{Binding TeacherSequenceVM.CreateTeacherCommand}"/>
+
+            <Button Grid.Column="1" 
+                    Content="Update"  
+                    Style="{StaticResource OperationButton}"
+                    Command="{Binding TeacherSequenceVM.UpdateTeacherCommand}"/>
+
+            <Button Grid.Column="2" 
+                    Content="Delete" 
+                    Style="{StaticResource OperationButton}"
+                    Command="{Binding TeacherSequenceVM.DeleteTeacherCommand}"/>
+        </Grid>
+
+        <components:TeacherList Grid.Row="1" 
+                                Margin="20 0 20 20"
+                                DataContext="{Binding TeacherSequenceVM}"/>
     </Grid>
 </UserControl>
