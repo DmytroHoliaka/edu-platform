@@ -32,19 +32,19 @@ namespace EduPlatform.WPF.Commands.StudentCommands
                 return;
             }
 
-            GroupViewModel relatedGroup = FormDetails.GroupVMs.First(gvm => gvm.IsChecked == true);
+            GroupViewModel? relatedGroup = FormDetails.GroupVMs.FirstOrDefault(gvm => gvm.IsChecked == true);
 
             Student targetStudent = new()
             {
                 StudentId = _selectedStudent.StudentId,
                 FirstName = FormDetails.FirstName,
                 LastName = FormDetails.LastName,
-                GroupId = relatedGroup.GroupId,
-                Group = relatedGroup.Group,
+                GroupId = relatedGroup?.GroupId,
+                Group = relatedGroup?.Group,
             };
             try
             {
-                await _studentStore.Update(_selectedStudent.StudentId, targetStudent);
+                await _studentStore.Update(targetStudent);
                 _modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
