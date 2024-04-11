@@ -36,7 +36,6 @@ namespace EduPlatform.WPF.Commands.StudentCommands
             try
             {
                 await _studentStore.Delete(studentId);
-                _modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
         }

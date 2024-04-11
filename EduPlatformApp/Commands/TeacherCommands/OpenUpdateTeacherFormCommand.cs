@@ -40,7 +40,7 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
                 new(_teacherStore, UpdatingTeacher!, _viewStore, _modalNavigationStore, _groupSequenceVM);
 
             _modalNavigationStore.CurrentViewModel = createTeacherVM;
-            _viewStore.UnfocuseStudent();
+            _viewStore.UnfocuseTeacher();
         }
     }
 }
