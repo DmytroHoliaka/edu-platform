@@ -23,8 +23,4 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\TeacherCommands\" />
-  </ItemGroup>
 </Project>

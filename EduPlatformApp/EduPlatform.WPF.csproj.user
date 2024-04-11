@@ -22,6 +22,9 @@
     <Compile Update="Components\GroupDetailForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\TeacherDetailForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\TeacherList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +46,9 @@
     <Compile Update="Views\CreateStudentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CreateTeacherView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\UpdateGroupView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -50,6 +56,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\UpdateStudentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UpdateTeacherView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -67,6 +76,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\GroupDetailForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\TeacherDetailForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\TeacherList.xaml">
@@ -93,6 +105,9 @@
     <Page Update="Views\CreateStudentView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\CreateTeacherView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\UpdateGroupView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -100,6 +115,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UpdateStudentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UpdateTeacherView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
