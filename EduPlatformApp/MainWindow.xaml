@@ -7,6 +7,7 @@
         xmlns:views="clr-namespace:EduPlatform.WPF.Views" 
         xmlns:group="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
         xmlns:student="clr-namespace:EduPlatform.WPF.ViewModels.StudentsViewModels"
+        xmlns:teacher="clr-namespace:EduPlatform.WPF.ViewModels.TeachersViewModels"
         xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
         mc:Ignorable="d"
         Title="Educational Platform" Height="1000" Width="1600">
@@ -26,6 +27,14 @@
 
         <DataTemplate DataType="{x:Type student:UpdateStudentViewModel}">
             <views:UpdateStudentView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type teacher:CreateTeacherViewModel}">
+            <views:CreateTeacherView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type teacher:UpdateTeacherViewModel}">
+            <views:UpdateTeacherView/>
         </DataTemplate>
     </Window.Resources>
     
