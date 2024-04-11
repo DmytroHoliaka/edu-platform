@@ -49,10 +49,8 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         private string? _firstName;
         private string? _lastName;
 
-        // ToDo: Remove guid parameter
         public StudentDetailsFormViewModel
         (
-            Guid guid,
             GroupSequenceViewModel groupSequenceVM,
             ICommand submitCommand,
             ICommand cancelCommand

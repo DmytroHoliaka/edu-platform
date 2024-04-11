@@ -19,7 +19,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 
             StudentDetailsFormVM =
-                new(Guid.NewGuid(), groupSequenceVM, submitCommand, cancelCommand);
+                new(groupSequenceVM, submitCommand, cancelCommand);
 
             ((SubmitCreateStudentCommand)submitCommand).FormDetails = StudentDetailsFormVM;
         }
