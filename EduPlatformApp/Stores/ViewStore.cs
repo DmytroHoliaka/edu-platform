@@ -4,6 +4,7 @@
     {
         public event Action? GroupUnfocused;
         public event Action? StudentUnfocused;
+        public event Action? TeacherUnfocused;
 
         public void UnfocuseGroup()
         {
@@ -13,6 +14,11 @@
         public void UnfocuseStudent()
         {
             StudentUnfocused?.Invoke();
+        }
+
+        public void UnfocuseTeacher()
+        {
+            TeacherUnfocused?.Invoke();
         }
     }
 }
