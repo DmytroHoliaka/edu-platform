@@ -1,4 +1,5 @@
-﻿using EduPlatform.WPF.Commands.StudentCommands;
+﻿using EduPlatform.WPF.Commands.BaseCommands;
+using EduPlatform.WPF.Commands.StudentCommands;
 using EduPlatform.WPF.Commands.TeacherCommands;
 using EduPlatform.WPF.Models;
 using EduPlatform.WPF.Stores;
@@ -28,6 +29,9 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             {
                 _selectedTeacher = value;
                 OnPropertyChanged(nameof(SelectedTeacher));
+
+                ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).UpdatingTeacher = value;
+                ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).OnCanExecutedChanded();
             }
         }
 
@@ -77,8 +81,16 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             //UpdateStudentCommand = new OpenUpdateStudentFormCommand(_studentStore, _selectedStudent, _viewStore, _modalNavigationStore, _groupSequenceVM);
             //DeleteStudentCommand = new DeleteStudentCommand(_studentStore, _modalNavigationStore);
 
-            CreateTeacherCommand = new OpenCreateTeacherFormCommand(_teacherStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
-            UpdateTeacherCommand = null;
+            CreateTeacherCommand = new OpenCreateTeacherFormCommand(_teacherStore,
+                                                                    _viewStore,
+                                                                    _modalNavigationStore,
+                                                                    _groupSequenceVM);
+
+            UpdateTeacherCommand = new OpenUpdateTeacherFormCommand(_teacherStore,
+                                                                    _selectedTeacher,
+                                                                    _viewStore,
+                                                                    _modalNavigationStore,
+                                                                    _groupSequenceVM);
             DeleteTeacherCommand = null;
         }
 
@@ -127,15 +139,23 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             _teacherVMs.Add(new TeacherViewModel(teacher5));
         }
 
+        private TeacherViewModel? GetTeacherViewModelById(Guid id)
+        {
+            TeacherViewModel? teacher = _teacherVMs.FirstOrDefault(tvm => tvm.TeacherId == id);
+            return teacher;
+        }
+
         private void AddTeacher(Teacher teacher)
         {
             TeacherViewModel teacherVM = new(teacher);
             _teacherVMs.Add(teacherVM);
         }
 
-        private void UpdateTeacher()
+        private void UpdateTeacher(Teacher targetTeacher)
         {
-            MessageBox.Show("UpdateTeacher button was pressed");
+            Guid targetId = targetTeacher.TeacherId;
+            TeacherViewModel sourceTeacher = GetTeacherViewModelById(targetId)!;
+            sourceTeacher.Teacher = targetTeacher;
         }
 
         private void DeleteTeacher()
@@ -145,9 +165,8 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 
         private void UnfocuseTeacher()
         {
-            MessageBox.Show("UnfocuseTeacher button was pressed");
+            SelectedTeacher = null;
         }
-
 
         private void TeacherStore_TeacherAdded(Teacher teacher)
         {
@@ -155,12 +174,13 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             OnPropertyChanged(nameof(TeacherVMs));
         }
 
-        private void TeacherStore_TeacherDeleted(Guid obj)
+        private void TeacherStore_TeacherUpdated(Teacher targetTeacher)
         {
-            UpdateTeacher();
+            UpdateTeacher(targetTeacher);
+            OnPropertyChanged(nameof(TeacherVMs));
         }
 
-        private void TeacherStore_TeacherUpdated(Teacher obj)
+        private void TeacherStore_TeacherDeleted(Guid obj)
         {
             DeleteTeacher();
         }
