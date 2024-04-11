@@ -77,11 +77,10 @@
                       SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding GroupName}" 
+                            <CheckBox Content="{Binding GroupName}" 
                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                     GroupName="GroupSelection"
-                                     Style="{StaticResource SingleCheckbox}">
-                            </RadioButton>
+                                     Style="{StaticResource MultipleCheckbox}">
+                            </CheckBox>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
