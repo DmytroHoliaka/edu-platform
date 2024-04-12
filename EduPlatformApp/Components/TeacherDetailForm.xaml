@@ -78,8 +78,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding GroupName}" 
-                                     IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                     Style="{StaticResource MultipleCheckbox}">
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                      Style="{StaticResource MultipleCheckbox}"
+                                      IsEnabled="{Binding IsEnabled}"
+                                      Loaded="CheckBox_Loaded">
                             </CheckBox>
                         </DataTemplate>
                     </ListView.ItemTemplate>
