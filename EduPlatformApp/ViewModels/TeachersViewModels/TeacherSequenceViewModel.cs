@@ -2,12 +2,14 @@
 using EduPlatform.WPF.Commands.StudentCommands;
 using EduPlatform.WPF.Commands.TeacherCommands;
 using EduPlatform.WPF.Models;
+using EduPlatform.WPF.Pages;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
+using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Input;
 
@@ -140,6 +142,17 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             _teacherVMs.Add(new TeacherViewModel(teacher5));
         }
 
+        private void RefreshDependentGroups(Teacher targetTeacher)
+        {
+            TeacherViewModel? sourceTeacher = GetTeacherViewModelById(targetTeacher.TeacherId);
+
+            sourceTeacher?.Groups.ToList()
+                .ForEach(g => g.Teachers.Remove(sourceTeacher.Teacher));
+
+            targetTeacher.Groups.ToList()
+                .ForEach(g => g.Teachers.Add(targetTeacher));
+        }
+
         private TeacherViewModel? GetTeacherViewModelById(Guid id)
         {
             TeacherViewModel? teacher = _teacherVMs.FirstOrDefault(tvm => tvm.TeacherId == id);
@@ -172,12 +185,14 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 
         private void TeacherStore_TeacherAdded(Teacher teacher)
         {
+            RefreshDependentGroups(teacher);
             AddTeacher(teacher);
             OnPropertyChanged(nameof(TeacherVMs));
         }
 
         private void TeacherStore_TeacherUpdated(Teacher targetTeacher)
         {
+            RefreshDependentGroups(targetTeacher);
             UpdateTeacher(targetTeacher);
             OnPropertyChanged(nameof(TeacherVMs));
         }
