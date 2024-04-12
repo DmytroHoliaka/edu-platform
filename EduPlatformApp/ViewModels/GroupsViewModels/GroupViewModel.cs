@@ -46,6 +46,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public Guid GroupId => Group.GroupId;
         public string? GroupName => Group.Name;
+        public bool IsEnabled => _group?.Teachers.Count > 1;
 
         public ObservableCollection<TeacherViewModel> GroupTeachers => new(Group.Teachers.Select(t => new TeacherViewModel(t)));
         public ObservableCollection<StudentViewModel> GroupStudents => new(Group.Students.Select(s => new StudentViewModel(s)));
