@@ -1,6 +1,7 @@
 ﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.TeachersViewModels
@@ -80,7 +81,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             }
         }
 
-        private void Group_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Group_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(GroupViewModel.IsChecked))
             {
