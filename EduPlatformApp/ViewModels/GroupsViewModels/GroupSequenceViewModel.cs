@@ -171,7 +171,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             GroupViewModel? sourceGroup = GetGroupViewModelById(targetGroup.GroupId);
 
             sourceGroup?.GroupStudents
-                .Where(svm => targetGroup.Students?.Any(target => target.GroupId == svm.Student.GroupId) == false)
                 .ToList()
                 .ForEach(svm =>
                 {
@@ -188,17 +187,37 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 });
         }
 
+        private void RefreshDependentTeachers(Group targetGroup)
+        {
+            GroupViewModel? sourceGroup = GetGroupViewModelById(targetGroup.GroupId);
+
+            sourceGroup?.GroupTeachers
+                .ToList()
+                .ForEach(tvm =>
+                {
+                    tvm.Teacher.Groups.Remove(sourceGroup.Group);
+                });
+
+            targetGroup.Teachers
+               ?.ToList()
+                .ForEach(target =>
+                {
+                    target.Groups.Add(targetGroup);
+                });
+        }
+
         private void GroupStore_GroupAdded(Group newGroup)
         {
             RefreshDependentStudents(newGroup);
+            RefreshDependentTeachers(newGroup);
             AddGroup(newGroup);
             OnPropertyChanged(nameof(GroupVMs));
-
         }
 
         private void GroupStore_GroupUpdated(Group targetGroup)
         {
             RefreshDependentStudents(targetGroup);
+            RefreshDependentTeachers(targetGroup);
             UpdateGroup(targetGroup);
             OnPropertyChanged(nameof(GroupVMs));
         }
