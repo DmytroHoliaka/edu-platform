@@ -8,7 +8,7 @@
         public Guid CourseId { get; set; }
         public Course? Course { get; set; }
 
-        public ICollection<Teacher>? Teachers { get; set; }
-        public ICollection<Student>? Students { get; set; }
+        public ICollection<Teacher> Teachers { get; set; } = [];
+        public ICollection<Student> Students { get; set; } = [];
     }
 }

@@ -106,8 +106,8 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
         {
             StudentViewModel? sourceStudent = GetStudentViewModelById(targetStudent.StudentId);
 
-            sourceStudent?.Group?.Students?.Remove(sourceStudent.Student);
-            targetStudent.Group?.Students?.Add(targetStudent);
+            sourceStudent?.Group?.Students.Remove(sourceStudent.Student);
+            targetStudent.Group?.Students.Add(targetStudent);
         }
 
         private void UnfocuseStudent()
