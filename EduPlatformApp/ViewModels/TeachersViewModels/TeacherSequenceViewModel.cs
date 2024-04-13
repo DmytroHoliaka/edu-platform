@@ -105,6 +105,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 TeacherId = Guid.NewGuid(),
                 FirstName = "Dmytro",
                 LastName = "Teacher",
+                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(0, 2)).Select(gvm => gvm.Group).ToList(),
             };
 
             Teacher teacher2 = new()
@@ -112,6 +113,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 TeacherId = Guid.NewGuid(),
                 FirstName = "Alex",
                 LastName = "Teacher",
+                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(1, 3)).Select(gvm => gvm.Group).ToList(),
             };
 
             Teacher teacher3 = new()
@@ -119,6 +121,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 TeacherId = Guid.NewGuid(),
                 FirstName = "Rick",
                 LastName = "Teacher",
+                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(2, 4)).Select(gvm => gvm.Group).ToList(),
             };
 
             Teacher teacher4 = new()
@@ -126,6 +129,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 TeacherId = Guid.NewGuid(),
                 FirstName = "Thomas",
                 LastName = "Teacher",
+                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(1, 3)).Select(gvm => gvm.Group).ToList(),
             };
 
             Teacher teacher5 = new()
@@ -133,6 +137,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 TeacherId = Guid.NewGuid(),
                 FirstName = "Richard",
                 LastName = "Teacher",
+                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(0, 4)).Select(gvm => gvm.Group).ToList(),
             };
 
             _teacherVMs.Add(new TeacherViewModel(teacher1));

@@ -102,8 +102,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 GroupId = Guid.NewGuid(),
                 Name = "Group 1",
                 CourseId = Guid.Empty,
-                Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).Take(2).ToList(),
-                Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).Take(2).ToList(),
             }));
 
             _groupVMs.Add(new GroupViewModel(new Group()
@@ -111,9 +109,23 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 GroupId = Guid.NewGuid(),
                 Name = "Group 2",
                 CourseId = Guid.Empty,
-                Teachers = _teacherSequenceVM.TeacherVMs.Select(tvm => tvm.Teacher).TakeLast(2).ToList(),
-                Students = _studentSequenceVM.StudentVMs.Select(svm => svm.Student).TakeLast(2).ToList(),
             }));
+
+            _groupVMs.Add(new GroupViewModel(new Group()
+            {
+                GroupId = Guid.NewGuid(),
+                Name = "Group 3",
+                CourseId = Guid.Empty,
+            }));
+
+            _groupVMs.Add(new GroupViewModel(new Group()
+            {
+                GroupId = Guid.NewGuid(),
+                Name = "Group 4",
+                CourseId = Guid.Empty,
+            }));
+
+
         }
 
         protected override void Dispose()

@@ -149,8 +149,8 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
                 StudentId = Guid.NewGuid(),
                 FirstName = "Dmytro",
                 LastName = "Student",
-                Group = _groupSequenceVM.GroupVMs.ElementAt(0).Group,
-                GroupId = _groupSequenceVM.GroupVMs.ElementAt(0).GroupId,
+                Group = _groupSequenceVM.GroupVMs.ElementAt(2).Group,
+                GroupId = _groupSequenceVM.GroupVMs.ElementAt(2).GroupId,
             };
 
             Student student4 = new()
