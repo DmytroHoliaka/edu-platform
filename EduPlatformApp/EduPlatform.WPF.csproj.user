@@ -7,7 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Components\CourseList.xaml.cs">
+    <Compile Update="Components\CourseTreeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Components\GroupList.xaml.cs">
@@ -63,7 +63,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Components\CourseList.xaml">
+    <Page Update="Components\CourseTreeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\GroupList.xaml">

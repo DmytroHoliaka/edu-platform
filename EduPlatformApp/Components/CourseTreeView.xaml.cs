@@ -5,9 +5,9 @@ namespace EduPlatform.WPF.Components
     /// <summary>
     /// Interaction logic for EduPlatformListing.xaml
     /// </summary>
-    public partial class CourseList : UserControl
+    public partial class CourseTreeView : UserControl
     {
-        public CourseList()
+        public CourseTreeView()
         {
             InitializeComponent();
         }
