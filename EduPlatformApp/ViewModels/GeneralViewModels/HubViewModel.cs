@@ -11,12 +11,14 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
     {
         public NavigationViewModel NavigationVM { get; }
         public EduPlatformOverviewViewModel EduPlatformOverviewVM { get; }
+        public CourseSequenceViewModel CourseSequenceVM { get; }
         public GroupSequenceViewModel GroupSequenceVM { get; }
         public StudentSequenceViewModel StudentSequenceVM { get; }
         public TeacherSequenceViewModel TeacherSequenceVM { get; }
 
         public HubViewModel
         (
+            CourseStore courseStore,
             GroupStore groupStore, 
             StudentStore studentStore,
             TeacherStore teacherStore,
@@ -26,6 +28,20 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
         {
             EduPlatformOverviewVM = new();
             NavigationVM = new();
+
+            GroupSequenceVM = new
+            (
+                groupStore,
+                viewStore,
+                modalNavigationStore
+            );
+
+            CourseSequenceVM = new
+            (
+                courseStore,
+                viewStore,
+                modalNavigationStore
+            );
 
             TeacherSequenceVM = new
             (
@@ -41,25 +57,23 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
                 modalNavigationStore
             );
 
-            GroupSequenceVM = new
-            (
-                groupStore,
-                viewStore,
-                modalNavigationStore
-            );
+
+            GroupSequenceVM.SetStudentSequence(StudentSequenceVM);
+            GroupSequenceVM.SetTeacherSequence(TeacherSequenceVM);
+            GroupSequenceVM.ConfigureCommands();
+            GroupSequenceVM.InsertTestData();
+
+            CourseSequenceVM.SetGroupSequence(GroupSequenceVM);
+            CourseSequenceVM.ConfigureCommands();
+            CourseSequenceVM.InsertTestData();
 
             TeacherSequenceVM.SetGroupSequence(GroupSequenceVM);
             TeacherSequenceVM.ConfigureCommands();
             TeacherSequenceVM.InsertTestData();
-            
+
             StudentSequenceVM.SetGroupSequence(GroupSequenceVM);
             StudentSequenceVM.ConfigureCommands();
-            //StudentSequenceVM.InsertTestData();
-            
-            GroupSequenceVM.SetStudentSequence(StudentSequenceVM);
-            GroupSequenceVM.SetTeacherSequence(TeacherSequenceVM);
-            GroupSequenceVM.ConfigureCommands();
-            //GroupSequenceVM.InsertTestData();
+            StudentSequenceVM.InsertTestData();
         }
     }
 }
