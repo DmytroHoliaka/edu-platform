@@ -3,6 +3,7 @@
     public enum PageId
     {
         Overview,
+        Courses,
         Groups,
         Students,
         Teachers,
