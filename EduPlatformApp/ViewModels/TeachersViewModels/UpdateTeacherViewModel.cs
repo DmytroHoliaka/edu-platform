@@ -19,9 +19,6 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                                       ModalNavigationStore modalNavigationStore,
                                       GroupSequenceViewModel groupSequenceVM)
         {
-            //ICommand submitCommand = new SubmitUpdateStudentCommand(selectedTeacher, modalNavigationStore, teacherStore);
-            //ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
-
             ICommand submitCommand = new SubmitUpdateTeacherCommand(selectedTeacher, modalNavigationStore, teacherStore);
             ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 

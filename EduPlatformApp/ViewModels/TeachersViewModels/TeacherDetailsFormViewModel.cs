@@ -73,6 +73,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             base.Dispose();
         }
 
+        // ToDo: Maybe you should delete all this events
         private void SetupEvents()
         {
             foreach (GroupViewModel group in GroupVMs)
