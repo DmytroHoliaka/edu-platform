@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\CourseList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\CourseTreeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -26,6 +29,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Components\TeacherList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Courses.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\Groups.xaml.cs">
@@ -63,6 +69,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\CourseList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\CourseTreeView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -85,6 +94,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Courses.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Groups.xaml">

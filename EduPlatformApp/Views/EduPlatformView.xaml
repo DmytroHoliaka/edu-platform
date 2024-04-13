@@ -15,15 +15,23 @@
             <DataTemplate x:Key="OverviewPage">
                 <pages:Overview/>
             </DataTemplate>
+            
+            <DataTemplate x:Key="CoursesPage">
+                <pages:Courses/>
+            </DataTemplate>
+            
             <DataTemplate x:Key="GroupsPage">
                 <pages:Groups/>
             </DataTemplate>
+            
             <DataTemplate x:Key="StudentsPage">
                 <pages:Students/>
             </DataTemplate>
+            
             <DataTemplate x:Key="TeachersPage">
                 <pages:Teachers/>
             </DataTemplate>
+            
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -73,6 +81,13 @@
                     <Button
                             Style="{StaticResource MenuButton}"
                             Margin="30,55,30,0"
+                            Content="Courses"
+                            Command="{Binding NavigationVM.ChangePageCommand}"
+                            CommandParameter="{x:Static service:PageId.Courses}"/>
+
+                    <Button
+                            Style="{StaticResource MenuButton}"
+                            Margin="30,15,30,0"
                             Content="Groups"
                             Command="{Binding NavigationVM.ChangePageCommand}"
                             CommandParameter="{x:Static service:PageId.Groups}"/>
@@ -115,6 +130,13 @@
                                          Value="{x:Static service:PageId.Overview}">
                                 <Setter Property="ContentTemplate" Value="{StaticResource OverviewPage}"/>
                             </DataTrigger>
+                            
+                            <DataTrigger Binding="{Binding NavigationVM.PageId,  
+                                                           NotifyOnSourceUpdated=True,
+                                                           UpdateSourceTrigger=PropertyChanged}"
+                                         Value="{x:Static service:PageId.Courses}">
+                                <Setter Property="ContentTemplate" Value="{StaticResource CoursesPage}"/>
+                            </DataTrigger>                            
 
                             <DataTrigger Binding="{Binding NavigationVM.PageId,  
                                                            NotifyOnSourceUpdated=True,
