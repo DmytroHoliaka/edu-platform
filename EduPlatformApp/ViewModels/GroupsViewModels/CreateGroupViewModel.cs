@@ -1,6 +1,7 @@
 ﻿using EduPlatform.WPF.Commands.GeneralCommands;
 using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Stores;
+using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
@@ -14,8 +15,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public CreateGroupViewModel(GroupStore groupStore,
                                     ModalNavigationStore modalNavigationStore,
-                                    TeacherSequenceViewModel teacherSequenceVM,
-                                    StudentSequenceViewModel studentSequenceVM)
+                                    CourseSequenceViewModel? courseSequenceVM,
+                                    TeacherSequenceViewModel? teacherSequenceVM,
+                                    StudentSequenceViewModel? studentSequenceVM)
         {
             ICommand? submitCommand = 
                 new SubmitCreateGroupCommand(groupStore, this, modalNavigationStore);
@@ -24,7 +26,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 new CloseFormCommand(modalNavigationStore);
 
             GroupDetailsFormVM = 
-                new(Guid.NewGuid(), teacherSequenceVM, studentSequenceVM, submitCommand, cancelCommand);
+                new(courseSequenceVM, teacherSequenceVM, studentSequenceVM, submitCommand, cancelCommand);
         }
     }
 }
