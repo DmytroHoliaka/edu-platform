@@ -7,7 +7,7 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using System.Windows.Input;
 
-namespace EduPlatform.WPF.ViewModels.TeachersViewModels
+namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
     public class UpdateCourseViewModel : ViewModelBase
     {
@@ -19,15 +19,13 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                                      ModalNavigationStore modalNavigationStore,
                                      GroupSequenceViewModel groupSequenceVM)
         {
-            //ICommand submitCommand = new SubmitUpdateTeacherCommand(selectedCourse, modalNavigationStore, courseStore);
-            //ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
-
-            ICommand submitCommand = null;
-            ICommand cancelCommand = null;
+            ICommand submitCommand = new SubmitUpdateCourseCommand(selectedCourse, modalNavigationStore, courseStore);
+            ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 
             CourseDetailsFormVM = new(groupSequenceVM, submitCommand, cancelCommand)
             {
-                CourseName = selectedCourse.CourseName
+                CourseName = selectedCourse.CourseName,
+                Description = selectedCourse.Description
             };
 
             CourseDetailsFormVM.GroupVMs
@@ -35,7 +33,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                 .ToList()
                 .ForEach(gvm => gvm.IsChecked = true);
 
-            //((SubmitUpdateTeacherCommand)submitCommand).FormDetails = CourseDetailsFormVM;
+            ((SubmitUpdateCourseCommand)submitCommand).FormDetails = CourseDetailsFormVM;
             viewStore.UnfocuseCourse();
         }
     }
