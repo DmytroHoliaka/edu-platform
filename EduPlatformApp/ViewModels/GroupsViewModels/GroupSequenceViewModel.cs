@@ -2,6 +2,7 @@
 using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Models;
 using EduPlatform.WPF.Stores;
+using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
@@ -40,6 +41,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private GroupViewModel? _selectedGroup;
+        private CourseSequenceViewModel? _courseSequenceVM;
         private TeacherSequenceViewModel? _teacherSequenceVM;
         private StudentSequenceViewModel? _studentSequenceVM;
 
@@ -61,6 +63,11 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _modalNavigationStore = modalNavigationStore;
         }
 
+        public void SetCourseSequence(CourseSequenceViewModel newCourseSequence)
+        {
+            _courseSequenceVM = newCourseSequence;
+        }
+
         public void SetTeacherSequence(TeacherSequenceViewModel newTeacherSequence)
         {
             _teacherSequenceVM = newTeacherSequence;
@@ -78,6 +85,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 _groupStore,
                 _viewStore,
                 _modalNavigationStore,
+                _courseSequenceVM,
                 _teacherSequenceVM,
                 _studentSequenceVM
             );
@@ -87,6 +95,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 _groupStore,
                 _viewStore,
                 _modalNavigationStore,
+                _courseSequenceVM,
                 _teacherSequenceVM,
                 _studentSequenceVM
             );
