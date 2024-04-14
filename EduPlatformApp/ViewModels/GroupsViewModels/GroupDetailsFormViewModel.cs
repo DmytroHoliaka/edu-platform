@@ -6,15 +6,15 @@ using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
+using EduPlatform.WPF.ViewModels.CoursesViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
     public class GroupDetailsFormViewModel : ViewModelBase
     {
+        public ObservableCollection<CourseViewModel> CourseVMs { get; }
         public ObservableCollection<TeacherViewModel> TeacherVMs { get; }
         public ObservableCollection<StudentViewModel> StudentVMs { get; }
-
-        public Guid GroupId { get; }
 
         public string? GroupName
         {
@@ -43,17 +43,16 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public GroupDetailsFormViewModel
         (
-            Guid id,
-            TeacherSequenceViewModel teacherSequenceVM,
-            StudentSequenceViewModel studentSequenceVM,
+            CourseSequenceViewModel? courseSequenceVM,
+            TeacherSequenceViewModel? teacherSequenceVM,
+            StudentSequenceViewModel? studentSequenceVM,
             ICommand? submitCommand,
             ICommand? cancelCommand
         )
         {
-            GroupId = id;
-
-            TeacherVMs = new(teacherSequenceVM.TeacherVMs);
-            StudentVMs = new(studentSequenceVM.StudentVMs);
+            CourseVMs = new (courseSequenceVM?.CourseVMs ?? Enumerable.Empty<CourseViewModel>());
+            TeacherVMs = new(teacherSequenceVM?.TeacherVMs ?? Enumerable.Empty<TeacherViewModel>());
+            StudentVMs = new(studentSequenceVM?.StudentVMs ?? Enumerable.Empty<StudentViewModel>());
             SetupEvents();
 
             SubmitCommand = submitCommand;
@@ -67,11 +66,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 teacher.PropertyChanged -= Teacher_PropertyChanged;
             }
 
-            foreach (StudentViewModel student in StudentVMs)
-            {
-                student.PropertyChanged -= Student_PropertyChanged;
-            }
-
             base.Dispose();
         }
 
@@ -81,24 +75,11 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             {
                 teacher.PropertyChanged += Teacher_PropertyChanged;
             }
-
-            foreach (StudentViewModel student in StudentVMs)
-            {
-                student.PropertyChanged += Student_PropertyChanged;
-            }
         }
 
         private void Teacher_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(TeacherViewModel.IsChecked))
-            {
-                OnPropertyChanged(nameof(CanSubmit));
-            }
-        }
-
-        private void Student_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(StudentViewModel.IsChecked))
             {
                 OnPropertyChanged(nameof(CanSubmit));
             }
