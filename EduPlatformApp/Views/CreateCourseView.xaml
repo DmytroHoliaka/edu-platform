@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:components="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="630" d:DesignWidth="490">
+             d:DesignHeight="720" d:DesignWidth="490">
 
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="540"/>
+            <RowDefinition Height="630"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" 
