@@ -31,15 +31,17 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         public Guid? GroupId => Student.GroupId;
 
         public string FullName =>
-             Student.FirstName != null || Student.LastName != null
-             ? $"{Student.FirstName} {Student.LastName}"
-             : "Unknown";
+             string.IsNullOrWhiteSpace(Student?.FirstName) || string.IsNullOrWhiteSpace(Student?.LastName)
+             ? "<not specified>"
+             : $"{Student.FirstName} {Student.LastName}";
 
         public string FirstName =>
-            Student.FirstName ?? "<unknown>";
-
+            string.IsNullOrWhiteSpace(Student?.FirstName)
+            ? "<not specified>" : Student.FirstName;
+            
         public string LastName =>
-            Student.LastName ?? "<unknown>";
+            string.IsNullOrWhiteSpace(Student?.LastName)
+            ? "<not specified>" : Student.LastName;
 
         public bool IsEnabled =>
             IsChecked == true ||
