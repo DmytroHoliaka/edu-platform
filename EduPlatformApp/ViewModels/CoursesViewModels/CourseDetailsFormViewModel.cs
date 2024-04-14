@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace EduPlatform.WPF.ViewModels.TeachersViewModels
+namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
     public class CourseDetailsFormViewModel : ViewModelBase
     {
@@ -24,6 +24,19 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             }
         }
 
+        public string? Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
         public bool CanSubmit =>
             string.IsNullOrWhiteSpace(CourseName) == false;
 
@@ -31,7 +44,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
         public ICommand CancelCommand { get; }
 
         private string? _courseName;
-
+        private string? _description;
 
         public CourseDetailsFormViewModel
         (
