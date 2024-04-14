@@ -3,110 +3,165 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="490">
+             d:DesignHeight="720" d:DesignWidth="940">
 
     <Grid Background="{StaticResource ContentBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="7*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
                        Text="Group name"
                        Style="{StaticResource FormLabel}"/>
 
 
-            <Border Grid.Row="1"
+                <Border Grid.Row="1"
                     Padding="10 0"
-                    Style="{StaticResource FormBorder}">
-                <TextBox Style="{StaticResource FormInput}"
+                    Style="{StaticResource FormBorder}"
+                    Margin="40 0 20 15">
+                    <TextBox Style="{StaticResource FormInput}"
                          Text="{Binding GroupName, 
                                 UpdateSourceTrigger=PropertyChanged}"/>
-            </Border>
-        </Grid>
+                </Border>
+            </Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
-                       Text="Teachers"
-                       Style="{StaticResource FormLabel}"/>
-
-            <Border Grid.Row="1"
-                    Padding="10 10 10 10"
-                    Style="{StaticResource FormBorder}">
-                <ListView Background="{StaticResource ContentBackground}"
-                          BorderThickness="0"
-                          ItemsSource="{Binding TeacherVMs}"
-                          FontFamily="{StaticResource Alice}"
-                          FontSize="18"
-                          Foreground="{StaticResource MenuBackground}"
-                          SelectionMode="Single">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox Content="{Binding FullName}" 
-                                      IsChecked="{Binding IsChecked, 
-                                                  UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{StaticResource MultipleCheckbox}">
-                            </CheckBox>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Border>
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0"
+                <TextBlock Grid.Row="0"
                        Text="Students"
                        Style="{StaticResource FormLabel}"/>
 
-            <Border Grid.Row="1"
+                <Border Grid.Row="1"
                     Padding="10 10 10 10"
-                    Style="{StaticResource FormBorder}">
-                <ListView Background="{StaticResource ContentBackground}"
+                    Style="{StaticResource FormBorder}"
+                    Margin="40 0 20 0">
+                    <ListView Background="{StaticResource ContentBackground}"
                           BorderThickness="0"
                           ItemsSource="{Binding StudentVMs}"
                           FontFamily="{StaticResource Alice}"
                           FontSize="18"
                           Foreground="{StaticResource MenuBackground}"
                           SelectionMode="Single">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox Content="{Binding FullName}" 
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding FullName}" 
                                       IsChecked="{Binding IsChecked}"
-                                      Style="{StaticResource MultipleCheckbox}"
+                                      Style="{StaticResource MultipleChoice}"
                                       IsEnabled="{Binding IsEnabled}">
-                            </CheckBox>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Border>
+                                </CheckBox>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </Grid>
         </Grid>
 
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                       Text="Teachers"
+                       Style="{StaticResource FormLabel}"/>
+
+                <Border Grid.Row="1"
+                    Padding="10 10 10 10"
+                    Style="{StaticResource FormBorder}"
+                    Margin="20 0 40 15">
+                    <ListView Background="{StaticResource ContentBackground}"
+                          BorderThickness="0"
+                          ItemsSource="{Binding TeacherVMs}"
+                          FontFamily="{StaticResource Alice}"
+                          FontSize="18"
+                          Foreground="{StaticResource MenuBackground}"
+                          SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding FullName}" 
+                                          IsChecked="{Binding IsChecked, 
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                          Style="{StaticResource MultipleChoice}">
+                                </CheckBox>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                       Text="Courses"
+                       Style="{StaticResource FormLabel}"/>
+
+                <Border Grid.Row="1"
+                    Padding="10 10 10 10"
+                    Style="{StaticResource FormBorder}"
+                    Margin="20 0 40 0">
+                    <ListView Background="{StaticResource ContentBackground}"
+                          BorderThickness="0"
+                          ItemsSource="{Binding CourseVMs}"
+                          FontFamily="{StaticResource Alice}"
+                          FontSize="18"
+                          Foreground="{StaticResource MenuBackground}"
+                          SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Content="{Binding CourseName}" 
+                                             GroupName="GroupSelection"
+                                             IsChecked="{Binding IsChecked, 
+                                                         UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource SingleChoice}"
+                                             PreviewMouseDown="RadioButton_PreviewMouseDown">
+                                </RadioButton>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Button Content="Cancel" 
                     HorizontalAlignment="Left"
                     Command="{Binding CancelCommand}"
                     Style="{StaticResource FormButton}"/>
-
+        
             <Button Content="Submit" 
                     HorizontalAlignment="Right"
                     Command="{Binding SubmitCommand}"
