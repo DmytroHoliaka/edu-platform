@@ -58,7 +58,7 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
                 modalNavigationStore
             );
 
-
+            GroupSequenceVM.SetCourseSequence(CourseSequenceVM);
             GroupSequenceVM.SetStudentSequence(StudentSequenceVM);
             GroupSequenceVM.SetTeacherSequence(TeacherSequenceVM);
             GroupSequenceVM.ConfigureCommands();
