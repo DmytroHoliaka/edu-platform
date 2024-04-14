@@ -1,4 +1,5 @@
 ﻿using EduPlatform.WPF.Stores;
+using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.NavigationsViewModel;

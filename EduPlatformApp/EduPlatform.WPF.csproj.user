@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\CourseDetailForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\CourseList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +49,9 @@
     <Compile Update="Pages\Teachers.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CreateCourseView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\CreateGroupView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +59,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\CreateTeacherView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UpdateCourseView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\UpdateGroupView.xaml.cs">
@@ -69,6 +78,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\CourseDetailForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\CourseList.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -111,6 +123,9 @@
     <Page Update="Pages\Teachers.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\CreateCourseView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\CreateGroupView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -118,6 +133,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\CreateTeacherView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UpdateCourseView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UpdateGroupView.xaml">
