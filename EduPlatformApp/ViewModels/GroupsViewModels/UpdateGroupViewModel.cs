@@ -1,6 +1,7 @@
 ﻿using EduPlatform.WPF.Commands.GeneralCommands;
 using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Stores;
+using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
@@ -16,6 +17,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         (
             GroupViewModel selectedGroup,
             ModalNavigationStore modalNavigationStore,
+            CourseSequenceViewModel courseSequenceVM,
             TeacherSequenceViewModel teacherSequenceVM,
             StudentSequenceViewModel studentSequenceVM,
             GroupStore groupStore
@@ -31,7 +33,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
             GroupDetailsFormVM = new
             (
-                selectedGroup.GroupId,
+                courseSequenceVM,
                 teacherSequenceVM,
                 studentSequenceVM,
                 submitCommand,
@@ -40,6 +42,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             {
                 GroupName = selectedGroup.GroupName,
             };
+
+            
+            GroupDetailsFormVM.CourseVMs
+                .Where(cvm => cvm.CourseId == selectedGroup.CourseId)
+                .ToList()
+                .ForEach(cvm => cvm.IsChecked = true);
 
             GroupDetailsFormVM.TeacherVMs
                 .Where(tvm => selectedGroup.GroupTeachers
