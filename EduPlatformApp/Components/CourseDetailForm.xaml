@@ -51,7 +51,7 @@
                             <TextBox Style="{StaticResource AdvancedFormInput}"
                                      Text="{Binding Description, 
                                             UpdateSourceTrigger=PropertyChanged}"/>
-                        </Border>
+            </Border>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -78,7 +78,7 @@
                             <DataTemplate>
                                 <CheckBox Content="{Binding GroupName}" 
                                           IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                          Style="{StaticResource MultipleCheckbox}">
+                                          Style="{StaticResource MultipleChoice}">
                                 </CheckBox>
                             </DataTemplate>
                         </ListView.ItemTemplate>

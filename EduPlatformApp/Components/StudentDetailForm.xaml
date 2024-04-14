@@ -80,7 +80,7 @@
                             <RadioButton Content="{Binding GroupName}" 
                                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
                                          GroupName="GroupSelection"
-                                         Style="{StaticResource SingleCheckbox}"
+                                         Style="{StaticResource SingleChoice}"
                                          PreviewMouseDown="RadioButton_PreviewMouseDown">
                             </RadioButton>
                         </DataTemplate>

@@ -78,7 +78,7 @@
                         <DataTemplate>
                             <CheckBox Content="{Binding GroupName}" 
                                       IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                      Style="{StaticResource MultipleCheckbox}"
+                                      Style="{StaticResource MultipleChoice}"
                                       IsEnabled="{Binding IsEnabled}"
                                       Loaded="CheckBox_Loaded">
                             </CheckBox>

@@ -212,7 +212,7 @@
                 <Setter Property="FontSize" Value="18"/>
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="Width" Value="90"/>
-                <Setter Property="Margin" Value="20 0 20 0"/>
+                <Setter Property="Margin" Value="40 0 40 0"/>
             </Style>
 
             <Style x:Key="FormBorder" TargetType="Border">
@@ -240,7 +240,7 @@
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             </Style>
 
-            <Style x:Key="MultipleCheckbox" TargetType="CheckBox">
+            <Style x:Key="MultipleChoice" TargetType="CheckBox">
                 <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
                 <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource MenuBackground}"/>
@@ -289,7 +289,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="SingleCheckbox" TargetType="RadioButton">
+            <Style x:Key="SingleChoice" TargetType="RadioButton">
                 <Setter Property="Background" Value="{StaticResource ContentBackground}"/>
                 <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource MenuBackground}"/>
