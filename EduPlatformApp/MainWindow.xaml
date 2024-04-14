@@ -9,7 +9,8 @@
         xmlns:group="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
         xmlns:student="clr-namespace:EduPlatform.WPF.ViewModels.StudentsViewModels"
         xmlns:teacher="clr-namespace:EduPlatform.WPF.ViewModels.TeachersViewModels"
-        xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
+        xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl" 
+        xmlns:controls="clr-namespace:EduPlatform.WPF.CustomControls"
         mc:Ignorable="d"
         Title="Educational Platform" Height="1000" Width="1600">
 
@@ -51,7 +52,7 @@
                   VerticalScrollBarVisibility="Auto">
         <Grid>
             <custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
-                <ContentControl Width="490" Content="{Binding CurrentModalViewModel}"/>
+                <controls:CustomContentControl x:Name="ModalControl" Content="{Binding CurrentModalViewModel}" ContentChanged="ModalControl_ContentChanged"/>
             </custom:Modal>
 
             <views:EduPlatformView DataContext="{Binding EduPlatformViewModel}"/>
