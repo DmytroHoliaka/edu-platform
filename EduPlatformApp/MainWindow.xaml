@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlatform.WPF" 
         xmlns:views="clr-namespace:EduPlatform.WPF.Views" 
+        xmlns:course="clr-namespace:EduPlatform.WPF.ViewModels.CoursesViewModels"
         xmlns:group="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
         xmlns:student="clr-namespace:EduPlatform.WPF.ViewModels.StudentsViewModels"
         xmlns:teacher="clr-namespace:EduPlatform.WPF.ViewModels.TeachersViewModels"
@@ -13,6 +14,14 @@
         Title="Educational Platform" Height="1000" Width="1600">
 
     <Window.Resources>
+        <DataTemplate DataType="{x:Type course:CreateCourseViewModel}">
+            <views:CreateCourseView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type course:UpdateCourseViewModel}">
+            <views:UpdateCourseView/>
+        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type group:CreateGroupViewModel}">
             <views:CreateGroupView/>
         </DataTemplate>
