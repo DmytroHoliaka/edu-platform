@@ -31,8 +31,10 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
             Group targetGroup = new()
             {
-                GroupId = formDetails.GroupId,
+                GroupId = _selectedGroup.GroupId,
                 Name = formDetails.GroupName,
+                Course = formDetails.CourseVMs
+                    .FirstOrDefault(cvm => cvm.IsChecked == true)?.Course,
                 Teachers = formDetails.TeacherVMs
                     .Where(ft => ft.IsChecked == true)
                     .Select(ft => ft.Teacher).ToList(),
