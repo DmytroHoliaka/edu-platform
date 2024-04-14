@@ -31,15 +31,17 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             Teacher.Groups ?? Enumerable.Empty<Group>();
 
         public string FullName =>
-            Teacher.FirstName != null || Teacher.LastName != null
-            ? $"{Teacher.FirstName} {Teacher.LastName}"
-            : "Unknown";
+             string.IsNullOrWhiteSpace(Teacher?.FirstName) || string.IsNullOrWhiteSpace(Teacher?.LastName)
+             ? "<not specified>"
+             : $"{Teacher.FirstName} {Teacher.LastName}";
 
         public string FirstName =>
-            Teacher?.FirstName ?? "<unknown>";
+            string.IsNullOrWhiteSpace(Teacher?.FirstName)
+            ? "<not specified>" : Teacher.FirstName;
 
         public string LastName =>
-            Teacher?.LastName ?? "<unknown>";
+            string.IsNullOrWhiteSpace(Teacher?.LastName)
+            ? "<not specified>" : Teacher.LastName;
 
         public bool IsChecked
         {
