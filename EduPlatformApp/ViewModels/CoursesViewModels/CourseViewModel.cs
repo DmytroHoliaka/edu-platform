@@ -1,7 +1,7 @@
 ﻿using EduPlatform.WPF.Models;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 
-namespace EduPlatform.WPF.ViewModels.TeachersViewModels
+namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
     public class CourseViewModel : ViewModelBase
     {
@@ -18,6 +18,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                 OnPropertyChanged(nameof(CourseId));
                 OnPropertyChanged(nameof(Groups));
                 OnPropertyChanged(nameof(CourseName));
+                OnPropertyChanged(nameof(Description));
                 OnPropertyChanged(nameof(IsChecked));
             }
         }
@@ -29,8 +30,12 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             Course.Groups ?? Enumerable.Empty<Group>();
 
         public string CourseName =>
-            Course?.Name ?? "unknown";
+            string.IsNullOrWhiteSpace(Course?.Name)
+            ? "<not specified>" : Course.Name;
 
+        public string Description =>
+            string.IsNullOrWhiteSpace(Course?.Description) 
+            ? "<not specified>" : Course.Description;
 
         public bool IsChecked
         {
