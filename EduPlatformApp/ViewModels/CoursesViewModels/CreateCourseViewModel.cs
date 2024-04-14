@@ -7,7 +7,7 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using System.Windows.Input;
 
-namespace EduPlatform.WPF.ViewModels.TeachersViewModels
+namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
     public class CreateCourseViewModel : ViewModelBase
     {
@@ -17,16 +17,13 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                                      ModalNavigationStore modalNavigationStore,
                                      GroupSequenceViewModel groupSequenceVM)
         {
-            //ICommand submitCommand = new SubmitCreateTeacherCommand(courseStore, modalNavigationStore);
-            //ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
-
-            ICommand submitCommand = null;
-            ICommand cancelCommand = null;
+            ICommand submitCommand = new SubmitCreateCourseCommand(courseStore, modalNavigationStore);
+            ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 
             CourseDetailsFormVM =
                 new(groupSequenceVM, submitCommand, cancelCommand);
 
-            //((SubmitCreateTeacherCommand)submitCommand).FormDetails = CourseDetailsFormVM;
+            ((SubmitCreateCourseCommand)submitCommand).FormDetails = CourseDetailsFormVM;
         }
     }
 }
