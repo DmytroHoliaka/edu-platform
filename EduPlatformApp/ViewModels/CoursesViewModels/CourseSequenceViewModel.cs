@@ -7,8 +7,10 @@ using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace EduPlatform.WPF.ViewModels.TeachersViewModel
+namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
+    // ToDo: Solve problem with "<not specified>". Update with <not specifief> doesn't works
+    // ToDo: Make description label highter
     public class CourseSequenceViewModel : ViewModelBase
     {
         private readonly ObservableCollection<CourseViewModel> _courserVMs;
@@ -26,11 +28,11 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 _selectedCourse = value;
                 OnPropertyChanged(nameof(SelectedCourse));
 
-                //((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).UpdatingTeacher = value;
-                //((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).OnCanExecutedChanded();
+                ((OpenUpdateCourseFormCommand)UpdateCourseCommand).UpdatingCourse = value;
+                ((OpenUpdateCourseFormCommand)UpdateCourseCommand).OnCanExecutedChanded();
 
-                //((DeleteTeacherCommand)DeleteTeacherCommand).DeletingTeacher = value;
-                //((DeleteTeacherCommand)DeleteTeacherCommand).OnCanExecutedChanded();
+                ((DeleteCourseCommand)DeleteCourseCommand).DeletingCourse = value;
+                ((DeleteCourseCommand)DeleteCourseCommand).OnCanExecutedChanded();
             }
         }
 
@@ -76,19 +78,19 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 return;
             }
 
-            //CreateCourseCommand = new OpenCreateTeacherFormCommand(_courseStore,
-            //                                                        _viewStore,
-            //                                                        _modalNavigationStore,
-            //                                                        _groupSequenceVM);
+            CreateCourseCommand = new OpenCreateCourseFormCommand(_courseStore,
+                                                                  _viewStore,
+                                                                  _modalNavigationStore,
+                                                                  _groupSequenceVM);
 
-            //UpdateCourseCommand = new OpenUpdateTeacherFormCommand(_courseStore,
-            //                                                        _selectedCourse,
-            //                                                        _viewStore,
-            //                                                        _modalNavigationStore,
-            //                                                        _groupSequenceVM);
-            
-            //DeleteCourseCommand = new DeleteTeacherCommand(_courseStore,
-            //                                                _modalNavigationStore);
+            UpdateCourseCommand = new OpenUpdateCourseFormCommand(_courseStore,
+                                                                  _selectedCourse,
+                                                                  _viewStore,
+                                                                  _modalNavigationStore,
+                                                                  _groupSequenceVM);
+
+            DeleteCourseCommand = new DeleteCourseCommand(_courseStore,
+                                                          _modalNavigationStore);
         }
 
         // ToDo: Remove 
