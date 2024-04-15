@@ -20,18 +20,16 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
         public override bool CanExecute(object? parameter)
         {
-            return DeletingTeacher is not null;
+            return
+                DeletingTeacher is not null && 
+                DeletingTeacher.Groups.Any(g => g.Teachers.Count <= 1) == false; 
         }
 
         public override async Task ExecuteAsync(object? parameter)
         {
             // ToDo: Add store in database
-            if (DeletingTeacher is null)
-            {
-                return;
-            }
 
-            Guid teacherId = DeletingTeacher.TeacherId;
+            Guid teacherId = DeletingTeacher!.TeacherId;
             
             try
             {
