@@ -39,10 +39,11 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public ICommand? CancelCommand { get; }
 
         private string? _groupName;
-
+        private readonly GroupViewModel? _selectedGroup;
 
         public GroupDetailsFormViewModel
         (
+            GroupViewModel? selectedGroup,
             CourseSequenceViewModel? courseSequenceVM,
             TeacherSequenceViewModel? teacherSequenceVM,
             StudentSequenceViewModel? studentSequenceVM,
@@ -50,9 +51,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             ICommand? cancelCommand
         )
         {
-            CourseVMs = new (courseSequenceVM?.CourseVMs ?? Enumerable.Empty<CourseViewModel>());
+            _selectedGroup = selectedGroup;
+            CourseVMs = new(courseSequenceVM?.CourseVMs ?? Enumerable.Empty<CourseViewModel>());
             TeacherVMs = new(teacherSequenceVM?.TeacherVMs ?? Enumerable.Empty<TeacherViewModel>());
             StudentVMs = new(studentSequenceVM?.StudentVMs ?? Enumerable.Empty<StudentViewModel>());
+            
+            SetMarkers();
             SetupEvents();
 
             SubmitCommand = submitCommand;
@@ -67,6 +71,21 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
 
             base.Dispose();
+        }
+
+        private void SetMarkers()
+        {
+            CourseVMs.ToList().ForEach(cvm => cvm.IsEnabled = true);
+            TeacherVMs.ToList().ForEach(tvm => tvm.IsEnabled = true);
+
+            if (_selectedGroup is not null)
+            {
+                TeacherVMs.Where(tvm => tvm.Groups.FirstOrDefault(tvm => tvm.GroupId == _selectedGroup.GroupId)?.Teachers.Count <= 1)
+                    .ToList().ForEach(tvm => tvm.IsEnabled = false);
+            }
+
+            StudentVMs.Where(svm => svm.IsChecked == true || svm.Group is null)
+                .ToList().ForEach(svm => svm.IsEnabled = true);
         }
 
         private void SetupEvents()
