@@ -41,5 +41,27 @@ namespace EduPlatform.WPF.Components
                 e.Handled = true;
             }
         }
+
+        private void CheckBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    checkBox.IsEnabled = true;
+                }
+            }
+        }
+
+        private void CheckBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.IsChecked == false)
+                {
+                    checkBox.IsEnabled = true;
+                }
+            }
+        }
     }
 }

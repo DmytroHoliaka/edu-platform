@@ -68,9 +68,10 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding FullName}" 
-                                      IsChecked="{Binding IsChecked}"
-                                      Style="{StaticResource MultipleChoice}"
-                                      IsEnabled="{Binding IsEnabled}">
+                                          IsChecked="{Binding IsChecked}"
+                                          Style="{StaticResource MultipleChoice}"
+                                          IsEnabled="{Binding IsEnabled}"
+                                          Loaded="CheckBox_Loaded">
                                 </CheckBox>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -111,7 +112,9 @@
                                 <CheckBox Content="{Binding FullName}" 
                                           IsChecked="{Binding IsChecked, 
                                                       UpdateSourceTrigger=PropertyChanged}"
-                                          Style="{StaticResource MultipleChoice}">
+                                          Style="{StaticResource MultipleChoice}"
+                                          IsEnabled="{Binding IsEnabled}"
+                                          PreviewMouseDown="CheckBox_PreviewMouseDown">
                                 </CheckBox>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -147,6 +150,7 @@
                                              IsChecked="{Binding IsChecked, 
                                                          UpdateSourceTrigger=PropertyChanged}"
                                              Style="{StaticResource SingleChoice}"
+                                             IsEnabled="{Binding IsEnabled}"
                                              PreviewMouseDown="RadioButton_PreviewMouseDown">
                                 </RadioButton>
                             </DataTemplate>
