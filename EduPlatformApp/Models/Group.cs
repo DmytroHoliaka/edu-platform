@@ -5,7 +5,7 @@
         public Guid GroupId { get; set; }
         public string? Name { get; set; }
 
-        public Guid CourseId { get; set; }
+        public Guid? CourseId { get; set; }
         public Course? Course { get; set; }
 
         public ICollection<Teacher> Teachers { get; set; } = [];
