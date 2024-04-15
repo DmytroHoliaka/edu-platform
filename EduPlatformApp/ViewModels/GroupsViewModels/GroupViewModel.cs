@@ -46,7 +46,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         private Group? _group;
         private bool _isChecked;
 
-        public Guid GroupId => 
+        public Guid GroupId =>
             Group.GroupId;
 
         public Guid? CourseId =>
@@ -56,8 +56,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             string.IsNullOrWhiteSpace(Group?.Name)
             ? "<not specified>" : Group.Name;
 
-        public bool IsEnabled => 
-            _group?.Teachers.Count > 1;
+        public bool IsEnabled { get; set; } = false;
 
         public CourseViewModel? GroupCourse => Group.Course == null ? null : new(Group.Course);
         public ObservableCollection<TeacherViewModel> GroupTeachers => new(Group.Teachers.Select(t => new TeacherViewModel(t)));
