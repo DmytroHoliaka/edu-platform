@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:course="clr-namespace:EduPlatform.WPF.ViewModels.CoursesViewModels"
              xmlns:group="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
              xmlns:student="clr-namespace:EduPlatform.WPF.ViewModels.StudentsViewModels"
              mc:Ignorable="d" 
@@ -21,13 +22,17 @@
                     x:Name="border"
                     CornerRadius="5">
 
-                    <TreeView ItemsSource="{Binding GroupVMs}" 
+                    <TreeView ItemsSource="{Binding CourseVMs}" 
                               Background="{StaticResource ContentBackground}">
                         <TreeView.Resources>
-                            <HierarchicalDataTemplate DataType="{x:Type group:GroupViewModel}" ItemsSource="{Binding GroupStudents}">
+                            <HierarchicalDataTemplate DataType="{x:Type course:CourseViewModel}" ItemsSource="{Binding GroupVMs}">
+                                <TreeViewItem Header="{Binding CourseName}" />
+                            </HierarchicalDataTemplate>
+
+                            <HierarchicalDataTemplate DataType="{x:Type group:GroupViewModel}" ItemsSource="{Binding StudentVMs}">
                                 <TreeViewItem Header="{Binding GroupName}" />
                             </HierarchicalDataTemplate>
-                            
+
                             <HierarchicalDataTemplate DataType="{x:Type student:StudentViewModel}">
                                 <TreeViewItem Header="{Binding FullName}" />
                             </HierarchicalDataTemplate>
