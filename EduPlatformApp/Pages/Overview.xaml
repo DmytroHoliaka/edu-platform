@@ -32,6 +32,6 @@
 
         <components:CourseTreeView Grid.Row="2" 
                                    Margin="20" 
-                                   DataContext="{Binding GroupSequenceVM}"/>
+                                   DataContext="{Binding CourseSequenceVM}"/>
     </Grid>
 </UserControl>
