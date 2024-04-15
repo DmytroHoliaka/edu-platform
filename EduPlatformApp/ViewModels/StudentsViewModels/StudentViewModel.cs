@@ -43,9 +43,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             string.IsNullOrWhiteSpace(Student?.LastName)
             ? "<not specified>" : Student.LastName;
 
-        public bool IsEnabled =>
-            IsChecked == true ||
-            Student.GroupId is null;
+        public bool IsEnabled { get; set; } = false;
 
         public bool IsChecked
         {
