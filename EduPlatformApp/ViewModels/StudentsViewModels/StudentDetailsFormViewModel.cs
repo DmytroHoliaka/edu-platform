@@ -1,4 +1,5 @@
 ﻿using EduPlatform.WPF.Commands.StudentCommands;
+using EduPlatform.WPF.Models;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
@@ -51,12 +52,14 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public StudentDetailsFormViewModel
         (
+            StudentViewModel? studentVM,
             GroupSequenceViewModel groupSequenceVM,
             ICommand submitCommand,
             ICommand cancelCommand
         )
         {
             GroupVMs = new(groupSequenceVM.GroupVMs);
+            SetMarkers();
             SetupEvents();
 
             SubmitCommand = submitCommand;
@@ -71,6 +74,11 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             }
 
             base.Dispose();
+        }
+
+        private void SetMarkers()
+        {
+            GroupVMs.ToList().ForEach(gvm => gvm.IsEnabled = true);
         }
 
         private void SetupEvents()
