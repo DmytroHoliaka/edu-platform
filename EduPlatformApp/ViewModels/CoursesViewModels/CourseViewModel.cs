@@ -1,5 +1,7 @@
 ﻿using EduPlatform.WPF.Models;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
+using EduPlatform.WPF.ViewModels.GroupsViewModels;
+using System.Collections.ObjectModel;
 
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
@@ -28,6 +30,9 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
         public IEnumerable<Group> Groups =>
             Course.Groups ?? Enumerable.Empty<Group>();
+
+        public ObservableCollection<GroupViewModel> GroupVMs =>
+            new(Course.Groups.Select(g => new GroupViewModel(g)));
 
         public string CourseName =>
             string.IsNullOrWhiteSpace(Course?.Name)
