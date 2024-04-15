@@ -24,5 +24,16 @@ namespace EduPlatform.WPF.Components
         {
             InitializeComponent();
         }
+
+        private void CheckBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.IsChecked == true)
+                {
+                    checkBox.IsEnabled = true;
+                }
+            }
+        }
     }
 }
