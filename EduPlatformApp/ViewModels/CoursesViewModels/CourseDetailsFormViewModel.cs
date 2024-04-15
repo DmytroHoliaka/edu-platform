@@ -54,9 +54,15 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         )
         {
             GroupVMs = new(groupSequenceVM.GroupVMs);
+            SetMarkers();
 
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
+        }
+
+        private void SetMarkers()
+        {
+            GroupVMs.Where(gvm => gvm.CourseId is null).ToList().ForEach(gvm => gvm.IsEnabled = true);
         }
     }
 }
