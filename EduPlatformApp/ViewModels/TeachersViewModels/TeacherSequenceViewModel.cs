@@ -147,21 +147,35 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             _teacherVMs.Add(new TeacherViewModel(teacher5));
         }
 
-        private void RefreshDependentGroups(Teacher targetTeacher)
+        private void RefreshDependenciesOnAdding(Teacher newTeacher)
         {
-            TeacherViewModel? sourceTeacher = GetTeacherViewModelById(targetTeacher.TeacherId);
+            newTeacher.Groups.ToList()
+                .ForEach(g => g.Teachers.Add(newTeacher));
+        }
 
-            sourceTeacher?.Groups.ToList()
-                .ForEach(g => g.Teachers.Remove(sourceTeacher.Teacher));
+        private void RefreshDependenciesOnUpdating(Teacher targetTeacher)
+        {
+            TeacherViewModel sourceTeacherVM = GetTeacherViewModelById(targetTeacher.TeacherId)!;
+
+            sourceTeacherVM.Groups.ToList()
+                .ForEach(g => g.Teachers.Remove(sourceTeacherVM.Teacher));
 
             targetTeacher.Groups.ToList()
                 .ForEach(g => g.Teachers.Add(targetTeacher));
         }
 
+        private void RefreshDependenciesOnDeleting(Guid teacherId)
+        {
+            TeacherViewModel deletingTeacherVM = GetTeacherViewModelById(teacherId)!;
+
+            deletingTeacherVM.Teacher.Groups
+                .ToList().ForEach(g => g.Teachers.Remove(deletingTeacherVM.Teacher));
+        }
+
         private TeacherViewModel? GetTeacherViewModelById(Guid id)
         {
-            TeacherViewModel? teacher = _teacherVMs.FirstOrDefault(tvm => tvm.TeacherId == id);
-            return teacher;
+            TeacherViewModel? teacherVM = _teacherVMs.FirstOrDefault(tvm => tvm.TeacherId == id);
+            return teacherVM;
         }
 
         private void AddTeacher(Teacher teacher)
@@ -173,14 +187,14 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
         private void UpdateTeacher(Teacher targetTeacher)
         {
             Guid targetId = targetTeacher.TeacherId;
-            TeacherViewModel sourceTeacher = GetTeacherViewModelById(targetId)!;
-            sourceTeacher.Teacher = targetTeacher;
+            TeacherViewModel sourceTeacherVM = GetTeacherViewModelById(targetId)!;
+            sourceTeacherVM.Teacher = targetTeacher;
         }
 
         private void DeleteTeacher(Guid teacherId)
         {
-            TeacherViewModel teacher = GetTeacherViewModelById(teacherId)!;
-            _teacherVMs.Remove(teacher);
+            TeacherViewModel teacherVM = GetTeacherViewModelById(teacherId)!;
+            _teacherVMs.Remove(teacherVM);
         }
 
         private void UnfocuseTeacher()
@@ -190,20 +204,21 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 
         private void TeacherStore_TeacherAdded(Teacher teacher)
         {
-            RefreshDependentGroups(teacher);
+            RefreshDependenciesOnAdding(teacher);
             AddTeacher(teacher);
             OnPropertyChanged(nameof(TeacherVMs));
         }
 
         private void TeacherStore_TeacherUpdated(Teacher targetTeacher)
         {
-            RefreshDependentGroups(targetTeacher);
+            RefreshDependenciesOnUpdating(targetTeacher);
             UpdateTeacher(targetTeacher);
             OnPropertyChanged(nameof(TeacherVMs));
         }
 
         private void TeacherStore_TeacherDeleted(Guid teacherId)
         {
+            RefreshDependenciesOnDeleting(teacherId);
             DeleteTeacher(teacherId);
             OnPropertyChanged(nameof(TeacherVMs));
         }
