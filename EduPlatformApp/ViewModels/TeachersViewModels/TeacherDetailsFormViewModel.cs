@@ -57,6 +57,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
         )
         {
             GroupVMs = new(groupSequenceVM.GroupVMs);
+            SetMarkers();
             SetupEvents();
 
             SubmitCommand = submitCommand;
@@ -71,6 +72,12 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             }
 
             base.Dispose();
+        }
+
+        private void SetMarkers()
+        {
+            GroupVMs.Where(gvm => gvm.GroupTeachers.Count > 1)
+                .ToList().ForEach(gvm => gvm.IsEnabled = true);
         }
 
         // ToDo: Maybe you should delete all this events
