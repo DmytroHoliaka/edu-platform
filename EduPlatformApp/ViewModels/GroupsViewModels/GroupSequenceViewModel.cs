@@ -7,6 +7,7 @@ using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
@@ -173,7 +174,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
 
             _groupVMs.Remove(group);
-            OnPropertyChanged(nameof(GroupVMs));
         }
 
         private void UnfocusGroup()
@@ -187,11 +187,33 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             return groupVM;
         }
 
-        private void RefreshDependentStudents(Group targetGroup)
+        private void RefreshDependenciesOnAdding(Group newGroup)
         {
-            GroupViewModel? sourceGroup = GetGroupViewModelById(targetGroup.GroupId);
+            newGroup.Course?.Groups.Add(newGroup);
 
-            sourceGroup?.GroupStudents
+            newGroup.Students
+               ?.ToList()
+                .ForEach(target =>
+                {
+                    target.Group = newGroup;
+                    target.GroupId = newGroup.GroupId;
+                });
+
+            newGroup.Teachers
+               ?.ToList()
+                .ForEach(target =>
+                {
+                    target.Groups.Add(newGroup);
+                });
+        }
+
+        private void RefreshDependenciesOnUpdating(Group targetGroup)
+        {
+            GroupViewModel sourceGroup = GetGroupViewModelById(targetGroup.GroupId)!;
+
+            sourceGroup.Group.Course?.Groups.Remove(sourceGroup.Group);
+
+            sourceGroup.GroupStudents
                 .ToList()
                 .ForEach(svm =>
                 {
@@ -199,24 +221,22 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                     svm.Student.GroupId = null;
                 });
 
+            sourceGroup.GroupTeachers
+                .ToList()
+                .ForEach(tvm =>
+                {
+                    tvm.Teacher.Groups.Remove(sourceGroup.Group);
+                });
+
+
+            targetGroup.Course?.Groups.Add(targetGroup);
+            
             targetGroup.Students
                ?.ToList()
                 .ForEach(target =>
                 {
                     target.Group = targetGroup;
                     target.GroupId = targetGroup.GroupId;
-                });
-        }
-
-        private void RefreshDependentTeachers(Group targetGroup)
-        {
-            GroupViewModel? sourceGroup = GetGroupViewModelById(targetGroup.GroupId);
-
-            sourceGroup?.GroupTeachers
-                .ToList()
-                .ForEach(tvm =>
-                {
-                    tvm.Teacher.Groups.Remove(sourceGroup.Group);
                 });
 
             targetGroup.Teachers
@@ -227,25 +247,38 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 });
         }
 
+        private void RefreshDependenciesOnDeleting(Guid groupId)
+        {
+            GroupViewModel groupVM = GetGroupViewModelById(groupId)!;
+
+            groupVM.Group.Course?.Groups.Remove(groupVM.Group);
+            groupVM.Group.Teachers.ToList().ForEach(t => t.Groups.Remove(groupVM.Group));
+            groupVM.Group.Students.ToList().ForEach(s =>
+            {
+                s.GroupId = null;
+                s.Group = null;
+            });
+        }
+
         private void GroupStore_GroupAdded(Group newGroup)
         {
-            RefreshDependentStudents(newGroup);
-            RefreshDependentTeachers(newGroup);
+            RefreshDependenciesOnAdding(newGroup);
             AddGroup(newGroup);
             OnPropertyChanged(nameof(GroupVMs));
         }
 
         private void GroupStore_GroupUpdated(Group targetGroup)
         {
-            RefreshDependentStudents(targetGroup);
-            RefreshDependentTeachers(targetGroup);
+            RefreshDependenciesOnUpdating(targetGroup);
             UpdateGroup(targetGroup);
             OnPropertyChanged(nameof(GroupVMs));
         }
 
         private void GroupStore_GroupDeleted(Guid groupId)
         {
+            RefreshDependenciesOnDeleting(groupId);
             DeleteGroup(groupId);
+            OnPropertyChanged(nameof(GroupVMs));
         }
 
         private void ViewStore_GroupUnfocused()
