@@ -33,6 +33,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
             GroupDetailsFormVM = new
             (
+                selectedGroup,
                 courseSequenceVM,
                 teacherSequenceVM,
                 studentSequenceVM,
