@@ -18,7 +18,7 @@ namespace EduPlatform.WPF.Commands.GroupCommands
         {
             return 
                 DeletingGroup is not null &&
-                DeletingGroup.GroupStudents.Count == 0;
+                DeletingGroup.StudentVMs.Count == 0;
         }
 
         public override async Task ExecuteAsync(object? parameter)

@@ -213,7 +213,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
             sourceGroup.Group.Course?.Groups.Remove(sourceGroup.Group);
 
-            sourceGroup.GroupStudents
+            sourceGroup.StudentVMs
                 .ToList()
                 .ForEach(svm =>
                 {
@@ -221,7 +221,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                     svm.Student.GroupId = null;
                 });
 
-            sourceGroup.GroupTeachers
+            sourceGroup.TeacherVMs
                 .ToList()
                 .ForEach(tvm =>
                 {

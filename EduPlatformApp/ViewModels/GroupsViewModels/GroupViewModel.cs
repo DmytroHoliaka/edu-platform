@@ -24,9 +24,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 OnPropertyChanged(nameof(Group));
                 OnPropertyChanged(nameof(GroupId));
                 OnPropertyChanged(nameof(GroupName));
-                OnPropertyChanged(nameof(GroupCourse));
-                OnPropertyChanged(nameof(GroupTeachers));
-                OnPropertyChanged(nameof(GroupStudents));
+                OnPropertyChanged(nameof(CourseVM));
+                OnPropertyChanged(nameof(TeacherVMs));
+                OnPropertyChanged(nameof(StudentVMs));
             }
         }
 
@@ -58,9 +58,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public bool IsEnabled { get; set; } = false;
 
-        public CourseViewModel? GroupCourse => Group.Course == null ? null : new(Group.Course);
-        public ObservableCollection<TeacherViewModel> GroupTeachers => new(Group.Teachers.Select(t => new TeacherViewModel(t)));
-        public ObservableCollection<StudentViewModel> GroupStudents => new(Group.Students.Select(s => new StudentViewModel(s)));
+        public CourseViewModel? CourseVM => Group.Course == null ? null : new(Group.Course);
+        public ObservableCollection<TeacherViewModel> TeacherVMs => new(Group.Teachers.Select(t => new TeacherViewModel(t)));
+        public ObservableCollection<StudentViewModel> StudentVMs => new(Group.Students.Select(s => new StudentViewModel(s)));
 
         public ICommand? ExportCsvCommand { get; } = new RelayCommand(ExportIntoCsv);
         public ICommand? ImportCsvCommand { get; } = new RelayCommand(ImportFromCsv);

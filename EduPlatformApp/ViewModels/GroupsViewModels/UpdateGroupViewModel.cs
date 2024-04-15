@@ -51,13 +51,13 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 .ForEach(cvm => cvm.IsChecked = true);
 
             GroupDetailsFormVM.TeacherVMs
-                .Where(tvm => selectedGroup.GroupTeachers
+                .Where(tvm => selectedGroup.TeacherVMs
                     .Any(selected => selected.TeacherId == tvm.TeacherId))
                 .ToList()
                 .ForEach(tvm => tvm.IsChecked = true);
 
             GroupDetailsFormVM.StudentVMs
-                .Where(svm => selectedGroup.GroupStudents
+                .Where(svm => selectedGroup.StudentVMs
                     .Any(selected => selected.StudentId == svm.StudentId))
                 .ToList()
                 .ForEach(svm => svm.IsChecked = true);

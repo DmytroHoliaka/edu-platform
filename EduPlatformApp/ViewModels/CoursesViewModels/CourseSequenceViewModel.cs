@@ -10,8 +10,6 @@ using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
-    // ToDo: Solve problem with "<not specified>". Update with <not specifief> doesn't works
-    // ToDo: Make description label highter
     public class CourseSequenceViewModel : ViewModelBase
     {
         private readonly ObservableCollection<CourseViewModel> _courserVMs;

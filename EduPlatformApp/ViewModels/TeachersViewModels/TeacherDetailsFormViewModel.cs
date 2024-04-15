@@ -76,7 +76,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
 
         private void SetMarkers()
         {
-            GroupVMs.Where(gvm => gvm.GroupTeachers.Count > 1)
+            GroupVMs.Where(gvm => gvm.TeacherVMs.Count > 1)
                 .ToList().ForEach(gvm => gvm.IsEnabled = true);
         }
 
