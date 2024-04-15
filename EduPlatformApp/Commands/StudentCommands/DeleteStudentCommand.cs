@@ -26,12 +26,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
         public override async Task ExecuteAsync(object? parameter)
         {
             // ToDo: Add store in database
-            if (DeletingStudent is null)
-            {
-                return;
-            }
-
-            Guid studentId = DeletingStudent.StudentId;
+            Guid studentId = DeletingStudent!.StudentId;
 
             try
             {
