@@ -62,19 +62,19 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             GroupSequenceVM.SetStudentSequence(StudentSequenceVM);
             GroupSequenceVM.SetTeacherSequence(TeacherSequenceVM);
             GroupSequenceVM.ConfigureCommands();
-            GroupSequenceVM.InsertTestData();
+            //GroupSequenceVM.InsertTestData();
 
             CourseSequenceVM.SetGroupSequence(GroupSequenceVM);
             CourseSequenceVM.ConfigureCommands();
-            CourseSequenceVM.InsertTestData();
+            //CourseSequenceVM.InsertTestData();
 
             TeacherSequenceVM.SetGroupSequence(GroupSequenceVM);
             TeacherSequenceVM.ConfigureCommands();
-            TeacherSequenceVM.InsertTestData();
+            //TeacherSequenceVM.InsertTestData();
 
             StudentSequenceVM.SetGroupSequence(GroupSequenceVM);
             StudentSequenceVM.ConfigureCommands();
-            StudentSequenceVM.InsertTestData();
+            //StudentSequenceVM.InsertTestData();
         }
     }
 }

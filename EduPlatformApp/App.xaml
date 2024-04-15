@@ -296,7 +296,7 @@
                 <Setter Property="BorderThickness" Value="2"/>
                 <Setter Property="FontSize" Value="18"/>
                 <Setter Property="Cursor" Value="Hand"/>
-                
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="RadioButton">
@@ -329,6 +329,9 @@
                                 </Trigger>
                                 <Trigger Property="IsChecked" Value="False">
                                     <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
