@@ -81,6 +81,7 @@
                                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
                                          GroupName="GroupSelection"
                                          Style="{StaticResource SingleChoice}"
+                                         IsEnabled="{Binding IsEnabled}"
                                          PreviewMouseDown="RadioButton_PreviewMouseDown">
                             </RadioButton>
                         </DataTemplate>

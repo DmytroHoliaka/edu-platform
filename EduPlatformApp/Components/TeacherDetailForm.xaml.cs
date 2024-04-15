@@ -27,11 +27,12 @@ namespace EduPlatform.WPF.Components
 
         private void CheckBox_Loaded(object sender, RoutedEventArgs e)
         {
-            CheckBox checkBox = (CheckBox)sender;
-
-            if (checkBox.IsChecked == false)
+            if (sender is CheckBox checkBox)
             {
-                checkBox.IsEnabled = true;
+                if (checkBox.IsChecked == false)
+                {
+                    checkBox.IsEnabled = true;
+                } 
             }
         }
     }
