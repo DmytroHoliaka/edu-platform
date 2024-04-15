@@ -50,6 +50,8 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             }
         }
 
+        public bool IsEnabled { get; set; } = false;
+
         private bool _isChecked;
         private Course? _course;
 
