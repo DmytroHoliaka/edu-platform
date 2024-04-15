@@ -21,6 +21,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                 OnPropertyChanged(nameof(FirstName));
                 OnPropertyChanged(nameof(LastName));
                 OnPropertyChanged(nameof(IsChecked));
+                OnPropertyChanged(nameof(IsEnabled));
             }
         }
 
@@ -55,6 +56,8 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
                 OnPropertyChanged(nameof(IsChecked));
             }
         }
+
+        public bool IsEnabled { get; set; } = false;
 
         private bool _isChecked;
         private Teacher? _teacher;
