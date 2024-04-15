@@ -3,6 +3,7 @@ using EduPlatform.WPF.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
+using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -61,7 +62,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             _courseStore.CourseDeleted += CourseStore_CourseDeleted;
 
             _viewStore = viewStore;
-            _viewStore.TeacherUnfocused += ViewStore_CourseUnfocused;
+            _viewStore.CourseUnfocused += ViewStore_CourseUnfocused;
 
             _modalNavigationStore = modalNavigationStore;
         }
@@ -143,15 +144,43 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             _courserVMs.Add(new CourseViewModel(course5));
         }
 
-        private void RefreshDependentGroups(Course targetCourse)
+        private void RefreshDependenciesOnAdding(Course newCourse)
+        {
+            newCourse.Groups.ToList()
+                .ForEach(g =>
+                {
+                    g.CourseId = newCourse.CourseId;
+                    g.Course = newCourse;
+                });
+        }
+
+        private void RefreshDependenciesOnUpdating(Course targetCourse)
         {
             CourseViewModel? sourceCourse = GetCourseViewModelById(targetCourse.CourseId);
 
-            //sourceCourse?.Groups.ToList()
-            //    .ForEach(g => g.Teachers.Remove(sourceCourse.Teacher));
+            sourceCourse?.Groups.ToList()
+                .ForEach(g =>
+                {
+                    g.CourseId = null;
+                    g.Course = null;
+                });
 
-            //targetCourse.Groups.ToList()
-            //    .ForEach(g => g.Teachers.Add(targetCourse));
+            targetCourse.Groups.ToList()
+                .ForEach(g =>
+                {
+                    g.CourseId = targetCourse.CourseId;
+                    g.Course = targetCourse;
+                });
+        }
+
+        private void RefreshDependenciesOnDeleting(Guid courseId)
+        {
+            CourseViewModel courseVM = GetCourseViewModelById(courseId)!;
+            courseVM.Course.Groups.ToList().ForEach(g =>
+            {
+                g.CourseId = null;
+                g.Course = null;
+            });
         }
 
         private CourseViewModel? GetCourseViewModelById(Guid id)
@@ -184,22 +213,23 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             SelectedCourse = null;
         }
 
-        private void CourseStore_CourseAdded(Course course)
+        private void CourseStore_CourseAdded(Course newCourse)
         {
-            RefreshDependentGroups(course);
-            AddCourse(course);
+            RefreshDependenciesOnAdding(newCourse);
+            AddCourse(newCourse);
             OnPropertyChanged(nameof(CourseVMs));
         }
 
         private void CourseStore_CourseUpdated(Course targetCourse)
         {
-            RefreshDependentGroups(targetCourse);
+            RefreshDependenciesOnUpdating(targetCourse);
             UpdateCourse(targetCourse);
             OnPropertyChanged(nameof(CourseVMs));
         }
 
         private void CourseStore_CourseDeleted(Guid courseId)
         {
+            RefreshDependenciesOnDeleting(courseId);
             DeleteCourse(courseId);
             OnPropertyChanged(nameof(CourseVMs));
         }
