@@ -89,25 +89,35 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
 
         private void UpdateStudent(Student targetStudent)
         {
-            StudentViewModel sourceStudent = GetStudentViewModelById(targetStudent.StudentId)!;
+            StudentViewModel sourceStudentVM = GetStudentViewModelById(targetStudent.StudentId)!;
 
-            sourceStudent.Student = targetStudent;
+            sourceStudentVM.Student = targetStudent;
         }
 
         private void DeleteStudent(Guid sourceId)
         {
-            StudentViewModel sourceStudent = GetStudentViewModelById(sourceId);
+            StudentViewModel deletingStudentVM = GetStudentViewModelById(sourceId)!;
 
-            _studentVMs.Remove(sourceStudent);
-            OnPropertyChanged(nameof(StudentVMs));
+            _studentVMs.Remove(deletingStudentVM);
         }
 
-        private void RefreshDependentGroups(Student targetStudent)
+        private void RefreshDependenciesOnAdding(Student newStudent)
         {
-            StudentViewModel? sourceStudent = GetStudentViewModelById(targetStudent.StudentId);
+            newStudent.Group?.Students.Add(newStudent);
+        }
 
-            sourceStudent?.Group?.Students.Remove(sourceStudent.Student);
+        private void RefreshDependenciesOnUpdating(Student targetStudent)
+        {
+            StudentViewModel sourceStudentVM = GetStudentViewModelById(targetStudent.StudentId)!;
+
+            sourceStudentVM.Group?.Students.Remove(sourceStudentVM.Student);
             targetStudent.Group?.Students.Add(targetStudent);
+        }
+
+        private void RefreshDependenciesOnDeleting(Guid studentId)
+        {
+            StudentViewModel sourceStudentVM = GetStudentViewModelById(studentId)!;
+            sourceStudentVM.Student.Group?.Students.Remove(sourceStudentVM.Student);
         }
 
         private void UnfocuseStudent()
@@ -115,12 +125,12 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             SelectedStudent = null;
         }
 
-        private StudentViewModel? GetStudentViewModelById(Guid sourceId)
+        private StudentViewModel? GetStudentViewModelById(Guid studentId)
         {
-            StudentViewModel? sourceStudent = _studentVMs
-                .FirstOrDefault(svm => svm.StudentId == sourceId);
+            StudentViewModel? studentVM = _studentVMs
+                .FirstOrDefault(svm => svm.StudentId == studentId);
 
-            return sourceStudent;
+            return studentVM;
         }
 
         // ToDo: Remove
@@ -170,21 +180,23 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
 
         private void StudentStore_StudentAdded(Student student)
         {
-            RefreshDependentGroups(student);
+            RefreshDependenciesOnAdding(student);
             AddStudent(student);
             OnPropertyChanged(nameof(StudentVMs));
         }
 
         private void StudentStore_StudentUpdated(Student targetStudent)
         {
-            RefreshDependentGroups(targetStudent);
+            RefreshDependenciesOnUpdating(targetStudent);
             UpdateStudent(targetStudent);
             OnPropertyChanged(nameof(StudentVMs));
         }
 
-        private void StudentStore_StudentDeleted(Guid sourceId)
+        private void StudentStore_StudentDeleted(Guid studentId)
         {
-            DeleteStudent(sourceId);
+            RefreshDependenciesOnDeleting(studentId);
+            DeleteStudent(studentId);
+            OnPropertyChanged(nameof(StudentVMs));
         }
 
         private void ViewStore_StudentUnfocused()
