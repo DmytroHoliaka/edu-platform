@@ -19,14 +19,18 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                                     TeacherSequenceViewModel? teacherSequenceVM,
                                     StudentSequenceViewModel? studentSequenceVM)
         {
-            ICommand? submitCommand = 
+            ICommand? submitCommand =
                 new SubmitCreateGroupCommand(groupStore, this, modalNavigationStore);
 
-            ICommand? cancelCommand = 
+            ICommand? cancelCommand =
                 new CloseFormCommand(modalNavigationStore);
 
-            GroupDetailsFormVM = 
-                new(courseSequenceVM, teacherSequenceVM, studentSequenceVM, submitCommand, cancelCommand);
+            GroupDetailsFormVM = new(null,
+                                     courseSequenceVM,
+                                     teacherSequenceVM,
+                                     studentSequenceVM,
+                                     submitCommand,
+                                     cancelCommand);
         }
     }
 }
