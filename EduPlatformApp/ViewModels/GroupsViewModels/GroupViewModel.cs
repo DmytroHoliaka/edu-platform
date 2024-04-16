@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using EduPlatform.WPF.Models;
+using EduPlatform.Domain.Models;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;

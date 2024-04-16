@@ -1,5 +1,5 @@
 ﻿using EduPlatform.WPF.Commands.StudentCommands;
-using EduPlatform.WPF.Models;
+using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Pages;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;

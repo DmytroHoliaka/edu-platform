@@ -1,4 +1,4 @@
-﻿using EduPlatform.WPF.Models;
+﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 
 namespace EduPlatform.WPF.ViewModels.StudentsViewModels

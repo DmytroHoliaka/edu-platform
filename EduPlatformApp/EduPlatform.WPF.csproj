@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EduPlatform.Domain\EduPlatform.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resourses\Fonts\Alice-Regular.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

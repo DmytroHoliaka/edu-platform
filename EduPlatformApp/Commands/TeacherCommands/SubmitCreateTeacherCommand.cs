@@ -1,5 +1,5 @@
 ﻿using EduPlatform.WPF.Commands.BaseCommands;
-using EduPlatform.WPF.Models;
+using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;

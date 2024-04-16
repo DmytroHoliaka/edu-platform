@@ -1,4 +1,4 @@
-﻿using EduPlatform.WPF.Models;
+﻿using EduPlatform.Domain.Models;
 
 namespace EduPlatform.WPF.Stores
 {
