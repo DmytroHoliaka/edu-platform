@@ -2,7 +2,7 @@
 
 namespace EduPlatform.Domain.Commands
 {
-    internal interface IUpdateStudentCommand
+    public interface IUpdateStudentCommand
     {
         Task Execute(Student targetStudent);
     }

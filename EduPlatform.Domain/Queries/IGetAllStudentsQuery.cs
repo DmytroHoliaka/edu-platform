@@ -2,7 +2,7 @@
 
 namespace EduPlatform.Domain.Queries
 {
-    internal interface IGetAllStudentsQuery
+    public interface IGetAllStudentsQuery
     {
         Task<IEnumerable<Student>> Execute();
     }

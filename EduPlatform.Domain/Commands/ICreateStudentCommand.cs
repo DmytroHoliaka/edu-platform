@@ -2,7 +2,7 @@
 
 namespace EduPlatform.Domain.Commands
 {
-    internal interface ICreateStudentCommand
+    public interface ICreateStudentCommand
     {
         Task Execute(Student newStudent);
     }

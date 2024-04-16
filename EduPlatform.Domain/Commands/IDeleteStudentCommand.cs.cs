@@ -2,7 +2,7 @@
 
 namespace EduPlatform.Domain.Commands
 {
-    internal interface IDeleteStudentCommand
+    public interface IDeleteStudentCommand
     {
         Task Execute(Guid studentId);
     }
