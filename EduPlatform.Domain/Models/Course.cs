@@ -1,4 +1,4 @@
-﻿namespace EduPlatform.WPF.Models
+﻿namespace EduPlatform.Domain.Models
 {
     public class Course
     {
