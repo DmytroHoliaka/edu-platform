@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EduPlatform.Domain\EduPlatform.Domain.csproj" />
+    <ProjectReference Include="..\EduPlatform.EntityFramework\EduPlatform.EntityFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
