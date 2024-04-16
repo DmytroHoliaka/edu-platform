@@ -4,6 +4,6 @@ namespace EduPlatform.Domain.Commands
 {
     public interface IUpdateStudentCommand
     {
-        Task Execute(Student targetStudent);
+        Task ExecuteAsync(Student targetStudent);
     }
 }

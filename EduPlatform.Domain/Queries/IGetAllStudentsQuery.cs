@@ -4,6 +4,6 @@ namespace EduPlatform.Domain.Queries
 {
     public interface IGetAllStudentsQuery
     {
-        Task<IEnumerable<Student>> Execute();
+        Task<IEnumerable<Student>> ExecuteAsync();
     }
 }

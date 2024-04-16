@@ -4,6 +4,6 @@ namespace EduPlatform.Domain.Commands
 {
     public interface IDeleteStudentCommand
     {
-        Task Execute(Guid studentId);
+        Task ExecuteAsync(Guid studentId);
     }
 }

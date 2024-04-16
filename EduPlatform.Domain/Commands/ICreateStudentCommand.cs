@@ -4,6 +4,6 @@ namespace EduPlatform.Domain.Commands
 {
     public interface ICreateStudentCommand
     {
-        Task Execute(Student newStudent);
+        Task ExecuteAsync(Student newStudent);
     }
 }
