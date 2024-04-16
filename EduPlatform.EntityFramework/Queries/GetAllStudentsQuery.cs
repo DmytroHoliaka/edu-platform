@@ -5,14 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduPlatform.EntityFramework.Queries
 {
-    public class GetAllStudentsQuery : IGetAllStudentsQuery
+    public class GetAllStudentsQuery : DataOperationBase, IGetAllStudentsQuery
     {
-        public readonly EduPlatformDbContextFactory _contextFactory;
-
         public GetAllStudentsQuery(EduPlatformDbContextFactory contextFactory)
-        {
-            _contextFactory = contextFactory;
-        }
+            : base(contextFactory)
+        { }
 
         public async Task<IEnumerable<Student>> ExecuteAsync()
         {
