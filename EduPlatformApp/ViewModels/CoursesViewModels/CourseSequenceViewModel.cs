@@ -86,8 +86,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
                                                                   _modalNavigationStore,
                                                                   _groupSequenceVM);
 
-            DeleteCourseCommand = new DeleteCourseCommand(_courseStore,
-                                                          _modalNavigationStore);
+            DeleteCourseCommand = new DeleteCourseCommand(_courseStore);
         }
 
         // ToDo: Remove 

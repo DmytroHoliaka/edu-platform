@@ -4,14 +4,9 @@ using EduPlatform.WPF.ViewModels.CoursesViewModels;
 
 namespace EduPlatform.WPF.Commands.TeacherCommands
 {
-    public class DeleteCourseCommand(
-        CourseStore courseStore,
-        ModalNavigationStore modalNavigationStore)
-        : AsyncCommandBase
+    public class DeleteCourseCommand(CourseStore courseStore) : AsyncCommandBase
     {
         public CourseViewModel? DeletingCourse { get; set; }
-
-        private readonly ModalNavigationStore _modalNavigationStore = modalNavigationStore;
 
         public override bool CanExecute(object? parameter)
         {
