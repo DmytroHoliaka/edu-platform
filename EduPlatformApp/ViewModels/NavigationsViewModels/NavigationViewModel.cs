@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EduPlatform.WPF.Service;
-using System.Windows;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.NavigationsViewModel
