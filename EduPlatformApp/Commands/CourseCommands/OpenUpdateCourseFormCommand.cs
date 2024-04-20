@@ -3,7 +3,7 @@ using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
-namespace EduPlatform.WPF.Commands.TeacherCommands
+namespace EduPlatform.WPF.Commands.CourseCommands
 {
     public class OpenUpdateCourseFormCommand(
         CourseStore courseStore,

@@ -1,10 +1,10 @@
-﻿using EduPlatform.WPF.Commands.BaseCommands;
-using EduPlatform.Domain.Models;
+﻿using EduPlatform.Domain.Models;
+using EduPlatform.WPF.Commands.BaseCommands;
 using EduPlatform.WPF.Stores;
-using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
+using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
-namespace EduPlatform.WPF.Commands.TeacherCommands
+namespace EduPlatform.WPF.Commands.CourseCommands
 {
     public class SubmitCreateCourseCommand(
         CourseStore courseStore,

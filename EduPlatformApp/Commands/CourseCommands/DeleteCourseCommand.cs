@@ -2,7 +2,7 @@
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 
-namespace EduPlatform.WPF.Commands.TeacherCommands
+namespace EduPlatform.WPF.Commands.CourseCommands
 {
     public class DeleteCourseCommand(CourseStore courseStore) : AsyncCommandBase
     {

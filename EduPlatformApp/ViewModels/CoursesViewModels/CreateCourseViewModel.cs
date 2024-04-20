@@ -4,6 +4,7 @@ using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Windows.Input;
+using EduPlatform.WPF.Commands.CourseCommands;
 
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
