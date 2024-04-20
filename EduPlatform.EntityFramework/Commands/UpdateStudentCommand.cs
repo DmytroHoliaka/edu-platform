@@ -1,30 +1,34 @@
 ﻿using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Models;
-using EduPlatform.EntityFramework.DTOs;
-using Microsoft.EntityFrameworkCore.Storage.Json;
+using EduPlatform.EntityFramework.DbContextConfigurations;
+using EduPlatform.EntityFramework.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduPlatform.EntityFramework.Commands
 {
-    public class UpdateStudentCommand : DataOperationBase, IUpdateStudentCommand
+    public class UpdateStudentCommand(EduPlatformDbContextFactory contextFactory) : IUpdateStudentCommand
     {
-        public UpdateStudentCommand(EduPlatformDbContextFactory contextFactory) 
-            : base(contextFactory)
-        { }
-
         public async Task ExecuteAsync(Student targetStudent)
         {
-            using (EduPlatformDbContext context = _contextFactory.Create())
+            using (EduPlatformDbContext context = contextFactory.Create())
             {
-                StudentDto targetStudentDto = new()
-                {
-                    StudentId = targetStudent.StudentId,
-                    FirstName = targetStudent.FirstName,
-                    LastName = targetStudent.LastName,
-                    GroupId = targetStudent.GroupId,
-                    Group = targetStudent.Group,
-                };
+                EntityMapper.SetStudentDbRelationships(context, targetStudent);
 
-                context.Students.Update(targetStudentDto);
+                Student? sourceStudent = context.Students
+                    .Include(s => s.Group)
+                    .FirstOrDefault(s => s.StudentId == targetStudent.StudentId);
+
+                if (sourceStudent is null)
+                {
+                    CreateStudentCommand createStudentCommand = new(contextFactory);
+                    await createStudentCommand.ExecuteAsync(targetStudent);
+                }
+                else
+                {
+                    sourceStudent.FirstName = targetStudent.FirstName;
+                    sourceStudent.LastName = targetStudent.LastName;
+                    sourceStudent.Group = targetStudent.Group;
+                }
 
                 await context.SaveChangesAsync();
             }
