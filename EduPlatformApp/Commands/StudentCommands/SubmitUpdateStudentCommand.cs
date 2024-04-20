@@ -6,22 +6,13 @@ using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
 namespace EduPlatform.WPF.Commands.StudentCommands
 {
-    public class SubmitUpdateStudentCommand : AsyncCommandBase
+    public class SubmitUpdateStudentCommand(
+        StudentViewModel selectedStudent,
+        ModalNavigationStore modalNavigationStore,
+        StudentStore studentStore)
+        : AsyncCommandBase
     {
         public StudentDetailsFormViewModel? FormDetails { get; set; }
-
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly StudentStore _studentStore;
-        private readonly StudentViewModel _selectedStudent;
-
-        public SubmitUpdateStudentCommand(StudentViewModel selectedStudent,
-                                          ModalNavigationStore modalNavigationStore,
-                                          StudentStore studentStore)
-        {
-            _modalNavigationStore = modalNavigationStore;
-            _studentStore = studentStore;
-            _selectedStudent = selectedStudent;
-        }
 
         public override async Task ExecuteAsync(object? parameter)
         {
@@ -36,7 +27,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
 
             Student targetStudent = new()
             {
-                StudentId = _selectedStudent.StudentId,
+                StudentId = selectedStudent.StudentId,
                 FirstName = FormDetails.FirstName,
                 LastName = FormDetails.LastName,
                 GroupId = relatedGroup?.GroupId,
@@ -44,8 +35,8 @@ namespace EduPlatform.WPF.Commands.StudentCommands
             };
             try
             {
-                await _studentStore.Update(targetStudent);
-                _modalNavigationStore.Close();
+                await studentStore.Update(targetStudent);
+                modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
         }

@@ -4,19 +4,14 @@ using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
 namespace EduPlatform.WPF.Commands.StudentCommands
 {
-    public class DeleteStudentCommand : AsyncCommandBase
+    public class DeleteStudentCommand(
+        StudentStore studentStore,
+        ModalNavigationStore modalNavigationStore)
+        : AsyncCommandBase
     {
         public StudentViewModel? DeletingStudent { get; set; }
 
-        private readonly StudentStore _studentStore;
-        private readonly ModalNavigationStore _modalNavigationStore;
-
-        public DeleteStudentCommand(StudentStore studentStore,
-                                    ModalNavigationStore modalNavigationStore)
-        {
-            _studentStore = studentStore;
-            _modalNavigationStore = modalNavigationStore;
-        }
+        private readonly ModalNavigationStore _modalNavigationStore = modalNavigationStore;
 
         public override bool CanExecute(object? parameter)
         {
@@ -30,7 +25,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
 
             try
             {
-                await _studentStore.Delete(studentId);
+                await studentStore.Delete(studentId);
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
         }
