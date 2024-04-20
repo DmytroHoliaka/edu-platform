@@ -1,6 +1,4 @@
-﻿using EduPlatform.Domain.Models;
-
-namespace EduPlatform.Domain.Commands
+﻿namespace EduPlatform.Domain.Commands
 {
     public interface IDeleteStudentCommand
     {
