@@ -1,30 +1,19 @@
 ﻿using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Models;
-using EduPlatform.EntityFramework.DTOs;
+using EduPlatform.EntityFramework.DbContextConfigurations;
+using EduPlatform.EntityFramework.Service;
 
 namespace EduPlatform.EntityFramework.Commands
 {
-    public class CreateStudentCommand : DataOperationBase, ICreateStudentCommand
+    public class CreateStudentCommand(EduPlatformDbContextFactory contextFactory) : ICreateStudentCommand
     {
-        public CreateStudentCommand(EduPlatformDbContextFactory contextFactory) 
-            : base(contextFactory)
-        { }
-
         public async Task ExecuteAsync(Student newStudent)
         {
-            using (EduPlatformDbContext context = _contextFactory.Create())
+            using (EduPlatformDbContext context = contextFactory.Create())
             {
-                StudentDto studentDto = new()
-                {
-                    StudentId = newStudent.StudentId,
-                    FirstName = newStudent.FirstName,
-                    LastName = newStudent.LastName,
-                    GroupId = newStudent.GroupId,
-                    Group = newStudent.Group,
-                };
+                EntityMapper.SetStudentDbRelationships(context, newStudent);
 
-                context.Students.Add(studentDto);
-
+                await context.Students.AddAsync(newStudent);
                 await context.SaveChangesAsync();
             }
         }
