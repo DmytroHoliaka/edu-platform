@@ -1,11 +1,4 @@
-﻿using EduPlatform.WPF.Service;
-using EduPlatform.WPF.Stores;
-using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EduPlatform.WPF.Stores;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
