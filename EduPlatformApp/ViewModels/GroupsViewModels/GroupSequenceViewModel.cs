@@ -7,7 +7,6 @@ using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
