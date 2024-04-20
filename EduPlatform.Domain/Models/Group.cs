@@ -2,7 +2,7 @@
 {
     public class Group
     {
-        public Guid GroupId { get; set; }
+        public Guid GroupId { get; init; }
         public string? Name { get; set; }
 
         public Guid? CourseId { get; set; }
