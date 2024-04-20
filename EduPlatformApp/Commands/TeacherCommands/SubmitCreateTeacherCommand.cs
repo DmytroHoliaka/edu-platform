@@ -6,21 +6,12 @@ using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.Commands.TeacherCommands
 {
-    public class SubmitCreateTeacherCommand : AsyncCommandBase
+    public class SubmitCreateTeacherCommand(
+        TeacherStore teacherStore,
+        ModalNavigationStore modalNavigationStore)
+        : AsyncCommandBase
     {
         public TeacherDetailsFormViewModel? FormDetails { get; set; }
-        private readonly TeacherStore _teacherStore;
-        private readonly ModalNavigationStore _modalNavigationStore;
-
-        public SubmitCreateTeacherCommand
-        (
-            TeacherStore teacherStore,
-            ModalNavigationStore modalNavigationStore
-        )
-        {
-            _teacherStore = teacherStore;
-            _modalNavigationStore = modalNavigationStore;
-        }
 
         public override async Task ExecuteAsync(object? parameter)
         {
@@ -41,8 +32,8 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
             try
             {
-                await _teacherStore.Add(teacher);
-                _modalNavigationStore.Close();
+                await teacherStore.Add(teacher);
+                modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Make label with error message*/ }
         }

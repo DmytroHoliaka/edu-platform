@@ -5,31 +5,20 @@ using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.Commands.TeacherCommands
 {
-    public class OpenCreateTeacherFormCommand : CommandBase
+    public class OpenCreateTeacherFormCommand(
+        TeacherStore teacherStore,
+        ViewStore viewStore,
+        ModalNavigationStore modalNavigationStore,
+        GroupSequenceViewModel groupSequenceVM)
+        : CommandBase
     {
-        private readonly TeacherStore _teacherStore;
-        private readonly ViewStore _viewStore;
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly GroupSequenceViewModel _groupSequenceVM;
-
-        public OpenCreateTeacherFormCommand(TeacherStore teacherStore,
-                                            ViewStore viewStore,
-                                            ModalNavigationStore modalNavigationStore,
-                                            GroupSequenceViewModel groupSequenceVM)
-        {
-            _teacherStore = teacherStore;
-            _viewStore = viewStore;
-            _modalNavigationStore = modalNavigationStore;
-            _groupSequenceVM = groupSequenceVM;
-        }
-
         public override void Execute(object? parameter)
         {
             CreateTeacherViewModel createTeacherVM =
-                new(_teacherStore, _modalNavigationStore, _groupSequenceVM);
+                new(teacherStore, modalNavigationStore, groupSequenceVM);
 
-            _modalNavigationStore.CurrentViewModel = createTeacherVM;
-            _viewStore.UnfocuseTeacher();
+            modalNavigationStore.CurrentViewModel = createTeacherVM;
+            viewStore.UnfocuseTeacher();
         }
     }
 }

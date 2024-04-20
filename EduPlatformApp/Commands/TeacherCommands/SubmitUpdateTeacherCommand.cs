@@ -2,27 +2,17 @@
 using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.Commands.TeacherCommands
 {
-    public class SubmitUpdateTeacherCommand : AsyncCommandBase
+    public class SubmitUpdateTeacherCommand(
+        TeacherViewModel selectedTeacher,
+        ModalNavigationStore modalNavigationStore,
+        TeacherStore teacherStore)
+        : AsyncCommandBase
     {
         public TeacherDetailsFormViewModel? FormDetails { get; set; }
-
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly TeacherStore _teacherStore;
-        private readonly TeacherViewModel _selectedTeacher;
-
-        public SubmitUpdateTeacherCommand(TeacherViewModel selectedTeacher,
-                                          ModalNavigationStore modalNavigationStore,
-                                          TeacherStore teacherStore)
-        {
-            _modalNavigationStore = modalNavigationStore;
-            _teacherStore = teacherStore;
-            _selectedTeacher = selectedTeacher;
-        }
 
         public override async Task ExecuteAsync(object? parameter)
         {
@@ -37,7 +27,7 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
             Teacher targetStudent = new()
             {
-                TeacherId = _selectedTeacher.TeacherId,
+                TeacherId = selectedTeacher.TeacherId,
                 FirstName = FormDetails.FirstName,
                 LastName = FormDetails.LastName,
                 Groups = relatedGroups.Select(rg => rg.Group).ToList()
@@ -45,8 +35,8 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
             try
             {
-                await _teacherStore.Update(targetStudent);
-                _modalNavigationStore.Close();
+                await teacherStore.Update(targetStudent);
+                modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
         }
