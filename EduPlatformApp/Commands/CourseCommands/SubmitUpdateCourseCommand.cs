@@ -2,27 +2,17 @@
 using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 
 namespace EduPlatform.WPF.Commands.TeacherCommands
 {
-    public class SubmitUpdateCourseCommand : AsyncCommandBase
+    public class SubmitUpdateCourseCommand(
+        CourseViewModel selectedCourse,
+        ModalNavigationStore modalNavigationStore,
+        CourseStore courseStore)
+        : AsyncCommandBase
     {
         public CourseDetailsFormViewModel? FormDetails { get; set; }
-
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly CourseStore _courseStore;
-        private readonly CourseViewModel _selectedCourse;
-
-        public SubmitUpdateCourseCommand(CourseViewModel selectedCourse,
-                                         ModalNavigationStore modalNavigationStore,
-                                         CourseStore courseStore)
-        {
-            _modalNavigationStore = modalNavigationStore;
-            _courseStore = courseStore;
-            _selectedCourse = selectedCourse;
-        }
 
         public override async Task ExecuteAsync(object? parameter)
         {
@@ -37,7 +27,7 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
             Course targetCourse = new()
             {
-                CourseId = _selectedCourse.CourseId,
+                CourseId = selectedCourse.CourseId,
                 Name = FormDetails.CourseName,
                 Description = string.IsNullOrWhiteSpace(FormDetails.Description) 
                     ? string.Empty : FormDetails.Description,
@@ -46,8 +36,8 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
             try
             {
-                await _courseStore.Update(targetCourse);
-                _modalNavigationStore.Close();
+                await courseStore.Update(targetCourse);
+                modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
         }
