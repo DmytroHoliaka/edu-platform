@@ -87,8 +87,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                                                                     _modalNavigationStore,
                                                                     _groupSequenceVM);
             
-            DeleteTeacherCommand = new DeleteTeacherCommand(_teacherStore,
-                                                            _modalNavigationStore);
+            DeleteTeacherCommand = new DeleteTeacherCommand(_teacherStore);
         }
 
         // ToDo: Remove
