@@ -2,7 +2,7 @@
 {
     public class Teacher
     {
-        public Guid TeacherId { get; set; }
+        public Guid TeacherId { get; init; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
 
