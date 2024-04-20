@@ -4,14 +4,9 @@ using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
 namespace EduPlatform.WPF.Commands.StudentCommands
 {
-    public class DeleteStudentCommand(
-        StudentStore studentStore,
-        ModalNavigationStore modalNavigationStore)
-        : AsyncCommandBase
+    public class DeleteStudentCommand(StudentStore studentStore) : AsyncCommandBase
     {
         public StudentViewModel? DeletingStudent { get; set; }
-
-        private readonly ModalNavigationStore _modalNavigationStore = modalNavigationStore;
 
         public override bool CanExecute(object? parameter)
         {
@@ -20,7 +15,6 @@ namespace EduPlatform.WPF.Commands.StudentCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            // ToDo: Add store in database
             Guid studentId = DeletingStudent!.StudentId;
 
             try

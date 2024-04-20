@@ -78,7 +78,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
 
             CreateStudentCommand = new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
             UpdateStudentCommand = new OpenUpdateStudentFormCommand(_studentStore, _selectedStudent, _viewStore, _modalNavigationStore, _groupSequenceVM);
-            DeleteStudentCommand = new DeleteStudentCommand(_studentStore, _modalNavigationStore);
+            DeleteStudentCommand = new DeleteStudentCommand(_studentStore);
         }
 
         private void AddStudent(Student student)
