@@ -5,34 +5,25 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Commands.GroupCommands
 {
-    public class SubmitUpdateGroupCommand : AsyncCommandBase
+    public class SubmitUpdateGroupCommand(
+        ModalNavigationStore modalNavigationStore,
+        GroupStore groupStore,
+        GroupViewModel selectedGroup,
+        UpdateGroupViewModel updateGroupViewModel)
+        : AsyncCommandBase
     {
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly GroupStore _groupStore;
-        private readonly GroupViewModel _selectedGroup;
-        private readonly UpdateGroupViewModel _updateGroupViewModel;
-
-        public SubmitUpdateGroupCommand(ModalNavigationStore modalNavigationStore, 
-                                        GroupStore groupStore, 
-                                        GroupViewModel selectedGroup,
-                                        UpdateGroupViewModel updateGroupViewModel)
-        {
-            _modalNavigationStore = modalNavigationStore;
-            _groupStore = groupStore;
-            _selectedGroup = selectedGroup;
-            _updateGroupViewModel = updateGroupViewModel;
-        }
-
         public override async Task ExecuteAsync(object? parameter)
         {
             // ToDo: Add store in database
             GroupDetailsFormViewModel formDetails = 
-                _updateGroupViewModel.GroupDetailsFormVM;
+                updateGroupViewModel.GroupDetailsFormVM;
 
             Group targetGroup = new()
             {
-                GroupId = _selectedGroup.GroupId,
+                GroupId = selectedGroup.GroupId,
                 Name = formDetails.GroupName,
+                CourseId = formDetails.CourseVMs
+                    .FirstOrDefault(c => c.IsChecked == true)?.CourseId,
                 Course = formDetails.CourseVMs
                     .FirstOrDefault(cvm => cvm.IsChecked == true)?.Course,
                 Teachers = formDetails.TeacherVMs
@@ -45,8 +36,8 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
             try
             {
-                await _groupStore.Update(targetGroup);
-                _modalNavigationStore.Close();
+                await groupStore.Update(targetGroup);
+                modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Write validation message*/ }
         }

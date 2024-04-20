@@ -5,30 +5,23 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Commands.GroupCommands
 {
-    public class SubmitCreateGroupCommand : AsyncCommandBase
+    public class SubmitCreateGroupCommand(
+        GroupStore groupStore,
+        CreateGroupViewModel createGroupViewModel,
+        ModalNavigationStore modalNavigationStore)
+        : AsyncCommandBase
     {
-        private readonly GroupStore _groupStore;
-        private readonly CreateGroupViewModel _createGroupViewModel;
-        private readonly ModalNavigationStore _modalNavigationStore;
-
-        public SubmitCreateGroupCommand(GroupStore groupStore,
-                                        CreateGroupViewModel createGroupViewModel,
-                                        ModalNavigationStore modalNavigationStore)
-        {
-            _groupStore = groupStore;
-            _createGroupViewModel = createGroupViewModel;
-            _modalNavigationStore = modalNavigationStore;
-        }
-
         public override async Task ExecuteAsync(object? parameter)
         {
             GroupDetailsFormViewModel formDetails =
-                _createGroupViewModel.GroupDetailsFormVM;
+                createGroupViewModel.GroupDetailsFormVM;
 
             Group group = new()
             {
                 GroupId = Guid.NewGuid(),
                 Name = formDetails.GroupName,
+                CourseId = formDetails.CourseVMs
+                    .FirstOrDefault(cvm => cvm.IsChecked == true)?.CourseId,
                 Course = formDetails.CourseVMs
                     .FirstOrDefault(cvm => cvm.IsChecked == true)?.Course,
                 Teachers = formDetails.TeacherVMs
@@ -41,8 +34,8 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
             try
             {
-                await _groupStore.Add(group);
-                _modalNavigationStore.Close();
+                await groupStore.Add(group);
+                modalNavigationStore.Close();
             }
             catch (Exception) { /*ToDo: Make label with error message*/ }
         }

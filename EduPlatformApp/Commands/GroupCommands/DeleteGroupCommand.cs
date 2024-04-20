@@ -4,15 +4,9 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Commands.GroupCommands
 {
-    public class DeleteGroupCommand : AsyncCommandBase
+    public class DeleteGroupCommand(GroupStore groupStore) : AsyncCommandBase
     {
         public GroupViewModel? DeletingGroup { get; set; }
-        private readonly GroupStore _groupStore;
-
-        public DeleteGroupCommand(GroupStore groupStore)
-        {
-            _groupStore = groupStore;
-        }
 
         public override bool CanExecute(object? parameter)
         {
@@ -28,7 +22,7 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
             try
             {
-                await _groupStore.Delete(groupId);
+                await groupStore.Delete(groupId);
             }
             catch (Exception) { /*ToDo: Make label with error message*/ }
         }
