@@ -1,24 +1,21 @@
 ﻿using EduPlatform.Domain.Commands;
-using EduPlatform.EntityFramework.DTOs;
+using EduPlatform.Domain.Models;
+using EduPlatform.EntityFramework.DbContextConfigurations;
 
 namespace EduPlatform.EntityFramework.Commands
 {
-    public class DeleteStudentCommand : DataOperationBase, IDeleteStudentCommand
+    public class DeleteStudentCommand(EduPlatformDbContextFactory contextFactory) : IDeleteStudentCommand
     {
-        public DeleteStudentCommand(EduPlatformDbContextFactory contextFactory)
-            : base(contextFactory)
-        { }
-
         public async Task ExecuteAsync(Guid studentId)
         {
-            using (EduPlatformDbContext context = _contextFactory.Create())
+            using (EduPlatformDbContext context = contextFactory.Create())
             {
-                StudentDto studentDto = new()
+                Student student = new()
                 {
                     StudentId = studentId
                 };
 
-                context.Students.Remove(studentDto);
+                context.Students.Remove(student);
                 await context.SaveChangesAsync();
             }
         }
