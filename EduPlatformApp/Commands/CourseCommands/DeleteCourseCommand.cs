@@ -10,7 +10,8 @@ namespace EduPlatform.WPF.Commands.CourseCommands
 
         public override bool CanExecute(object? parameter)
         {
-            return DeletingCourse is not null;
+            return DeletingCourse is not null &&
+                   DeletingCourse.GroupVMs.Count == 0;
         }
 
         public override async Task ExecuteAsync(object? parameter)
