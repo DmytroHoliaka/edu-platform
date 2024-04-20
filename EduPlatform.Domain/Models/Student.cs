@@ -2,7 +2,7 @@
 {
     public class Student
     {
-        public Guid StudentId { get; set; }
+        public Guid StudentId { get; init; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
 
