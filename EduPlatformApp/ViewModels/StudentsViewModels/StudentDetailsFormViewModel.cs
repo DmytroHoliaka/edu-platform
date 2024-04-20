@@ -1,8 +1,5 @@
-﻿using EduPlatform.WPF.Commands.StudentCommands;
-using EduPlatform.Domain.Models;
-using EduPlatform.WPF.ViewModels.GeneralViewModels;
+﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
