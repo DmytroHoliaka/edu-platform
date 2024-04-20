@@ -1,16 +1,10 @@
-﻿using EduPlatform.WPF.Commands.BaseCommands;
-using EduPlatform.WPF.Commands.StudentCommands;
-using EduPlatform.WPF.Commands.TeacherCommands;
+﻿using EduPlatform.WPF.Commands.TeacherCommands;
 using EduPlatform.Domain.Models;
-using EduPlatform.WPF.Pages;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
-using System.Threading.Channels;
-using System.Windows;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.TeachersViewModel

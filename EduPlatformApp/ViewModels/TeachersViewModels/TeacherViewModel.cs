@@ -1,6 +1,5 @@
 ﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
-using System.Collections.ObjectModel;
 
 namespace EduPlatform.WPF.ViewModels.TeachersViewModels
 {
