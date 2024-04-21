@@ -5,6 +5,7 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.Commands.CourseCommands;
+using EduPlatform.WPF.Commands.GroupCommands;
 
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
@@ -91,11 +92,6 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
                                                                   _groupSequenceVM);
 
             DeleteCourseCommand = new DeleteCourseCommand(_courseStore);
-        }
-
-        public void LoadCourses()
-        {
-            LoadCoursesCommand.Execute(null);
         }
 
         // ToDo: Remove 
@@ -191,6 +187,11 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         {
             CourseViewModel? courseVM = _courserVMs.FirstOrDefault(cvm => cvm.CourseId == id);
             return courseVM;
+        }
+
+        public void LoadCourses()
+        {
+            LoadCoursesCommand.Execute(null);
         }
 
         private void AddCourse(Course course)
