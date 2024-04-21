@@ -6,6 +6,7 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using EduPlatform.WPF.Service;
 
 namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 {
@@ -175,9 +176,9 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             return teacherVM;
         }
 
-        public void LoadTeachers()
+        public Task LoadTeachers()
         {
-            LoadTeachersCommand.Execute(null);
+            return ((LoadTeachersCommand)LoadTeachersCommand).ExecuteAsync(null);
         }
 
         private void AddTeacher(Teacher teacher)
@@ -207,7 +208,13 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
         private void TeacherStore_TeachersLoaded()
         {
             _teacherVMs.Clear();
-            _teacherStore.Teachers.ToList().ForEach(AddTeacher);
+            _teacherStore.Teachers.ToList().ForEach(
+                t =>
+                {
+                    Teacher clonedTeacher = SerializationCopier.DeepCopy(t)!;
+                    clonedTeacher.Groups = [];
+                    AddTeacher(clonedTeacher);
+                });
         }
 
         private void TeacherStore_TeacherAdded(Teacher teacher)
