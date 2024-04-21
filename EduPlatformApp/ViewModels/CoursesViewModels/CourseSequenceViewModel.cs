@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.Commands.CourseCommands;
 using EduPlatform.WPF.Commands.GroupCommands;
+using EduPlatform.WPF.Service;
+using EduPlatform.WPF.Commands.BaseCommands;
 
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
@@ -189,9 +191,9 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             return courseVM;
         }
 
-        public void LoadCourses()
+        public Task LoadCourses()
         {
-            LoadCoursesCommand.Execute(null);
+            return ((AsyncCommandBase)LoadCoursesCommand).ExecuteAsync(null);
         }
 
         private void AddCourse(Course course)
@@ -221,7 +223,13 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         private void CourseStore_CoursesLoaded()
         {
             _courserVMs.Clear();
-            _courseStore.Courses.ToList().ForEach(AddCourse);
+            _courseStore.Courses.ToList().ForEach(
+                c =>
+                {
+                    Course clonedCourse = SerializationCopier.DeepCopy(c)!;
+                    clonedCourse.Groups = [];
+                    AddCourse(clonedCourse);
+                });
         }
 
         private void CourseStore_CourseAdded(Course newCourse)
