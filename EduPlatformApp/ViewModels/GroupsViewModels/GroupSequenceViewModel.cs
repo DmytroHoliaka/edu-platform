@@ -8,6 +8,7 @@ using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
+using EduPlatform.WPF.Service;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -149,9 +150,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             base.Dispose();
         }
 
-        public void LoadGroups()
+        public Task LoadGroups()
         {
-            LoadGroupsCommand.Execute(null);
+            return ((LoadGroupsCommand)LoadGroupsCommand).ExecuteAsync(null);
         }
 
         private void AddGroup(Group groupItem)
@@ -271,7 +272,15 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         private void GroupsStore_GroupsLoaded()
         {
             _groupVMs.Clear();
-            _groupStore.Groups.ToList().ForEach(AddGroup);
+            _groupStore.Groups.ToList().ForEach(
+                g =>
+                {
+                    Group clonedGroup = SerializationCopier.DeepCopy(g)!;
+                    clonedGroup.Course = null;
+                    clonedGroup.Teachers = [];
+                    clonedGroup.Students = [];
+                    AddGroup(clonedGroup);
+                });
         }
 
         private void GroupStore_GroupAdded(Group newGroup)
