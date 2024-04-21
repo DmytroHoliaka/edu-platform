@@ -11,7 +11,10 @@ namespace EduPlatform.EntityFramework.Queries
         {
             using (EduPlatformDbContext context = contextFactory.Create())
             {
-                IEnumerable<Course> courses = await context.Courses.ToListAsync();
+                IEnumerable<Course> courses = await context.Courses
+                    .Include(c => c.Groups)
+                    .ToListAsync();
+
                 return courses;
             }
         }
