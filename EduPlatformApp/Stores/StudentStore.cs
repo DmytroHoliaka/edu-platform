@@ -11,28 +11,57 @@ namespace EduPlatform.WPF.Stores
         IUpdateStudentCommand updateStudentCommand,
         IDeleteStudentCommand deleteStudentCommand)
     {
+        public event Action? StudentsLoaded;
         public event Action<Student>? StudentAdded;
         public event Action<Student>? StudentUpdated;
         public event Action<Guid>? StudentDeleted;
 
-        private readonly IGetAllStudentsQuery _getAllStudentsQuery = getAllStudentsQuery;
+        public IEnumerable<Student> Students => _students;
+        private readonly List<Student> _students = [];
 
+        public async Task Load()
+        {
+            IEnumerable<Student> studentFromDb = await getAllStudentsQuery.ExecuteAsync();
+            
+            _students.Clear();
+            _students.AddRange(studentFromDb);
+
+            StudentsLoaded?.Invoke();
+        }
 
         public async Task Add(Student newStudent)
         {
             await createStudentCommand.ExecuteAsync(SerializationCopier.DeepCopy(newStudent)!);
+
+            _students.Add(newStudent);
+
             StudentAdded?.Invoke(newStudent);
         }
 
         public async Task Update(Student targetStudent)
         {
             await updateStudentCommand.ExecuteAsync(SerializationCopier.DeepCopy(targetStudent)!);
+            
+            int index = _students.FindIndex(s => s.StudentId == targetStudent.StudentId);
+            
+            if (index == -1)
+            {
+                _students.Add(targetStudent);
+            }
+            else
+            {
+                _students[index] = targetStudent;
+            }
+
             StudentUpdated?.Invoke(targetStudent);
         }
 
         public async Task Delete(Guid studentId)
         {
             await deleteStudentCommand.ExecuteAsync(studentId);
+
+            _students.RemoveAll(s => s.StudentId == studentId);
+
             StudentDeleted?.Invoke(studentId);
         }
     }
