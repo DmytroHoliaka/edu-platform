@@ -1,7 +1,6 @@
 ﻿using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Models;
 using EduPlatform.Domain.Queries;
-Stores: Add event GroupsLoaded and sequence Groups in GroupStoreusing EduPlatform.EntityFramework.Queries;
 using EduPlatform.WPF.Service;
 
 namespace EduPlatform.WPF.Stores
@@ -23,15 +22,17 @@ namespace EduPlatform.WPF.Stores
         public async Task Load()
         {
             IEnumerable<Teacher> teachersFromDb = await getAllTeachersQuery.ExecuteAsync();
+            IEnumerable<Teacher> clonedTeachers = teachersFromDb.Select(SerializationCopier.DeepCopy)!;
 
             _teachers.Clear();
-            _teachers.AddRange(teachersFromDb);
+            _teachers.AddRange(clonedTeachers);
 
             TeachersLoaded?.Invoke();
         }
 
         public async Task Add(Teacher newTeacher)
         {
+            // ToDo: Add to _teachers copy, not original
             await createTeacherCommand.ExecuteAsync(SerializationCopier.DeepCopy(newTeacher)!);
 
             _teachers.Add(newTeacher);
