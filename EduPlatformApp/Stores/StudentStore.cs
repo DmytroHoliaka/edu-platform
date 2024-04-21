@@ -21,10 +21,10 @@ namespace EduPlatform.WPF.Stores
 
         public async Task Load()
         {
-            IEnumerable<Student> studentFromDb = await getAllStudentsQuery.ExecuteAsync();
+            IEnumerable<Student> studentsFromDb = await getAllStudentsQuery.ExecuteAsync();
             
             _students.Clear();
-            _students.AddRange(studentFromDb);
+            _students.AddRange(studentsFromDb);
 
             StudentsLoaded?.Invoke();
         }
