@@ -27,10 +27,10 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 OnPropertyChanged(nameof(SelectedTeacher));
 
                 ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).UpdatingTeacher = value;
-                ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).OnCanExecutedChanded();
+                ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).OnCanExecutedChanged();
 
                 ((DeleteTeacherCommand)DeleteTeacherCommand).DeletingTeacher = value;
-                ((DeleteTeacherCommand)DeleteTeacherCommand).OnCanExecutedChanded();
+                ((DeleteTeacherCommand)DeleteTeacherCommand).OnCanExecutedChanged();
             }
         }
 

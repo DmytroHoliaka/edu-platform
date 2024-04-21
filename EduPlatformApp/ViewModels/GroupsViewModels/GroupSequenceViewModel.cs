@@ -4,10 +4,10 @@ using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
-using EduPlatform.WPF.ViewModels.StudentsViewModel;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -26,10 +26,10 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 OnPropertyChanged(nameof(SelectedGroup));
 
                 ((OpenUpdateGroupFormCommand)UpdateGroupCommand).UpdatingGroup = value;
-                ((CommandBase)UpdateGroupCommand).OnCanExecutedChanded();
+                ((CommandBase)UpdateGroupCommand).OnCanExecutedChanged();
 
                 ((DeleteGroupCommand)DeleteGroupCommand).DeletingGroup = value;
-                ((CommandBase)DeleteGroupCommand).OnCanExecutedChanded();
+                ((CommandBase)DeleteGroupCommand).OnCanExecutedChanged();
             }
         }
 

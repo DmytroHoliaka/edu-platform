@@ -3,7 +3,7 @@ using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.NavigationsViewModel;
-using EduPlatform.WPF.ViewModels.StudentsViewModel;
+using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
@@ -20,10 +20,10 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
         public HubViewModel
         (
             CourseStore courseStore,
-            GroupStore groupStore, 
+            GroupStore groupStore,
             StudentStore studentStore,
             TeacherStore teacherStore,
-            ViewStore viewStore, 
+            ViewStore viewStore,
             ModalNavigationStore modalNavigationStore
         )
         {
@@ -75,6 +75,8 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             StudentSequenceVM.SetGroupSequence(GroupSequenceVM);
             StudentSequenceVM.ConfigureCommands();
             //StudentSequenceVM.InsertTestData();
+
+            StudentSequenceVM.LoadStudents();
         }
     }
 }

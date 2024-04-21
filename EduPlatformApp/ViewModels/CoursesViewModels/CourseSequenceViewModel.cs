@@ -1,5 +1,4 @@
-﻿using EduPlatform.WPF.Commands.TeacherCommands;
-using EduPlatform.Domain.Models;
+﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
@@ -27,10 +26,10 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
                 OnPropertyChanged(nameof(SelectedCourse));
 
                 ((OpenUpdateCourseFormCommand)UpdateCourseCommand).UpdatingCourse = value;
-                ((OpenUpdateCourseFormCommand)UpdateCourseCommand).OnCanExecutedChanded();
+                ((OpenUpdateCourseFormCommand)UpdateCourseCommand).OnCanExecutedChanged();
 
                 ((DeleteCourseCommand)DeleteCourseCommand).DeletingCourse = value;
-                ((DeleteCourseCommand)DeleteCourseCommand).OnCanExecutedChanded();
+                ((DeleteCourseCommand)DeleteCourseCommand).OnCanExecutedChanged();
             }
         }
 
