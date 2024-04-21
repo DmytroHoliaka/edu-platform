@@ -33,6 +33,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
         }
 
+        public ICommand LoadGroupsCommand { get; private set; }
         public ICommand CreateGroupCommand { get; private set; }
         public ICommand UpdateGroupCommand { get; private set; }
         public ICommand DeleteGroupCommand { get; private set; }
@@ -53,6 +54,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _groupVMs = [];
 
             _groupStore = groupStore;
+            _groupStore.GroupsLoaded += GroupsStore_GroupsLoaded;
             _groupStore.GroupAdded += GroupStore_GroupAdded;
             _groupStore.GroupUpdated += GroupStore_GroupUpdated;
             _groupStore.GroupDeleted += GroupStore_GroupDeleted;
@@ -80,6 +82,8 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public void ConfigureCommands()
         {
+            LoadGroupsCommand = new LoadGroupsCommand(_groupStore);
+
             CreateGroupCommand = new OpenCreateGroupFormCommand
             (
                 _groupStore,
@@ -143,6 +147,11 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _groupStore.GroupUpdated -= GroupStore_GroupUpdated;
 
             base.Dispose();
+        }
+
+        public void LoadGroups()
+        {
+            LoadGroupsCommand.Execute(null);
         }
 
         private void AddGroup(Group groupItem)
@@ -257,6 +266,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 s.GroupId = null;
                 s.Group = null;
             });
+        }
+
+        private void GroupsStore_GroupsLoaded()
+        {
+            _groupVMs.Clear();
+            _groupStore.Groups.ToList().ForEach(AddGroup);
         }
 
         private void GroupStore_GroupAdded(Group newGroup)
