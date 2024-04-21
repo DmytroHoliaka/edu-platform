@@ -3,6 +3,7 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+// ToDo: Add dispose for event handlers in all necessary classes
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
     public class CourseDetailsFormViewModel : ViewModelBase
