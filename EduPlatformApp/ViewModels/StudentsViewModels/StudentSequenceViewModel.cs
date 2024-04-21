@@ -1,40 +1,37 @@
-﻿using EduPlatform.WPF.Commands.StudentCommands;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using EduPlatform.Domain.Models;
+using EduPlatform.WPF.Commands.StudentCommands;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
-
-namespace EduPlatform.WPF.ViewModels.StudentsViewModel
+namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 {
     public class StudentSequenceViewModel : ViewModelBase
     {
         private readonly ObservableCollection<StudentViewModel> _studentVMs;
+
         public IEnumerable<StudentViewModel> StudentVMs =>
             _studentVMs.Select(svm => new StudentViewModel(svm.Student));
 
         public StudentViewModel? SelectedStudent
         {
-            get
-            {
-                return _selectedStudent;
-            }
+            get => _selectedStudent;
             set
             {
                 _selectedStudent = value;
                 OnPropertyChanged(nameof(SelectedStudent));
 
                 ((OpenUpdateStudentFormCommand)UpdateStudentCommand).UpdatingStudent = value;
-                ((OpenUpdateStudentFormCommand)UpdateStudentCommand).OnCanExecutedChanded();
+                ((OpenUpdateStudentFormCommand)UpdateStudentCommand).OnCanExecutedChanged();
 
                 ((DeleteStudentCommand)DeleteStudentCommand).DeletingStudent = value;
-                ((DeleteStudentCommand)DeleteStudentCommand).OnCanExecutedChanded();
+                ((DeleteStudentCommand)DeleteStudentCommand).OnCanExecutedChanged();
             }
         }
 
+        public ICommand LoadStudentsCommand { get; set; }
         public ICommand CreateStudentCommand { get; private set; }
         public ICommand UpdateStudentCommand { get; private set; }
         public ICommand DeleteStudentCommand { get; private set; }
@@ -54,6 +51,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
         {
             _studentVMs = [];
             _studentStore = studentStore;
+            _studentStore.StudentsLoaded += StudentStore_StudentsLoaded;
             _studentStore.StudentAdded += StudentStore_StudentAdded;
             _studentStore.StudentUpdated += StudentStore_StudentUpdated;
             _studentStore.StudentDeleted += StudentStore_StudentDeleted;
@@ -62,6 +60,17 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             _viewStore.StudentUnfocused += ViewStore_StudentUnfocused;
 
             _modalNavigationStore = modalNavigationStore;
+        }
+
+        protected override void Dispose()
+        {
+            _studentStore.StudentsLoaded -= StudentStore_StudentsLoaded;
+            _studentStore.StudentAdded -= StudentStore_StudentAdded;
+            _studentStore.StudentUpdated -= StudentStore_StudentUpdated;
+            _studentStore.StudentDeleted -= StudentStore_StudentDeleted;
+            _viewStore.StudentUnfocused -= ViewStore_StudentUnfocused;
+
+            base.Dispose();
         }
 
         public void SetGroupSequence(GroupSequenceViewModel newGroup)
@@ -76,14 +85,25 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
                 return;
             }
 
-            CreateStudentCommand = new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
-            UpdateStudentCommand = new OpenUpdateStudentFormCommand(_studentStore, _selectedStudent, _viewStore, _modalNavigationStore, _groupSequenceVM);
+            LoadStudentsCommand = new LoadStudentsCommand(_studentStore);
+            CreateStudentCommand =
+                new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
+            UpdateStudentCommand = new OpenUpdateStudentFormCommand
+            (
+                _studentStore, _selectedStudent, _viewStore,
+                _modalNavigationStore, _groupSequenceVM
+            );
             DeleteStudentCommand = new DeleteStudentCommand(_studentStore);
+        }
+
+        public void LoadStudents()
+        {
+            LoadStudentsCommand.Execute(null);
         }
 
         private void AddStudent(Student student)
         {
-            _studentVMs.Add(new StudentViewModel(student));
+            _studentVMs.Add(new(student));
         }
 
         private void UpdateStudent(Student targetStudent)
@@ -119,7 +139,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             sourceStudentVM.Student.Group?.Students.Remove(sourceStudentVM.Student);
         }
 
-        private void UnfocuseStudent()
+        private void UnfocusStudent()
         {
             SelectedStudent = null;
         }
@@ -177,6 +197,13 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
             _studentVMs.Add(new StudentViewModel(student4));
         }
 
+
+        private void StudentStore_StudentsLoaded()
+        {
+            _studentVMs.Clear();
+            _studentStore.Students.ToList().ForEach(AddStudent);
+        }
+
         private void StudentStore_StudentAdded(Student student)
         {
             RefreshDependenciesOnAdding(student);
@@ -200,7 +227,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModel
 
         private void ViewStore_StudentUnfocused()
         {
-            UnfocuseStudent();
+            UnfocusStudent();
         }
     }
 }
