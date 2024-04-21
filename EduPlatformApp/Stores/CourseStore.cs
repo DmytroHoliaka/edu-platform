@@ -22,9 +22,10 @@ namespace EduPlatform.WPF.Stores
         public async Task Load()
         {
             IEnumerable<Course> coursesFromDb = await getAllCoursesQuery.ExecuteAsync();
+            IEnumerable<Course> clonedCourses = coursesFromDb.Select(SerializationCopier.DeepCopy)!;
 
             _courses.Clear();
-            _courses.AddRange(coursesFromDb);
+            _courses.AddRange(clonedCourses);
 
             CoursesLoaded?.Invoke();
         }
