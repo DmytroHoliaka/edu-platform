@@ -76,7 +76,10 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             StudentSequenceVM.ConfigureCommands();
             //StudentSequenceVM.InsertTestData();
 
+            CourseSequenceVM.LoadCourses();
+            GroupSequenceVM.LoadGroups();
             StudentSequenceVM.LoadStudents();
+            TeacherSequenceVM.LoadTeachers();
         }
     }
 }
