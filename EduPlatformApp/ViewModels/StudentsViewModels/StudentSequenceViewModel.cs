@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Azure.Messaging;
 using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Commands.StudentCommands;
+using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
@@ -96,9 +98,9 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             DeleteStudentCommand = new DeleteStudentCommand(_studentStore);
         }
 
-        public void LoadStudents()
+        public Task LoadStudents()
         {
-            LoadStudentsCommand.Execute(null);
+            return ((LoadStudentsCommand)LoadStudentsCommand).ExecuteAsync(null);
         }
 
         private void AddStudent(Student student)
@@ -201,7 +203,13 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         private void StudentStore_StudentsLoaded()
         {
             _studentVMs.Clear();
-            _studentStore.Students.ToList().ForEach(AddStudent);
+            _studentStore.Students.ToList().ForEach(
+                s =>
+                {
+                    Student clonedStudent = SerializationCopier.DeepCopy(s)!;
+                    clonedStudent.Group = null;
+                    AddStudent(clonedStudent);
+                });
         }
 
         private void StudentStore_StudentAdded(Student student)
