@@ -2,6 +2,7 @@
 using EduPlatform.Domain.Models;
 using EduPlatform.Domain.Queries;
 using EduPlatform.WPF.Service;
+using System.Collections.Generic;
 
 namespace EduPlatform.WPF.Stores
 {
@@ -22,9 +23,10 @@ namespace EduPlatform.WPF.Stores
         public async Task Load()
         {
             IEnumerable<Group> groupsFromDb = await getAllGroupsQuery.ExecuteAsync();
+            IEnumerable<Group> clonedGroups = groupsFromDb.Select(SerializationCopier.DeepCopy)!;
 
             _groups.Clear();
-            _groups.AddRange(groupsFromDb);
+            _groups.AddRange(clonedGroups);
 
             GroupsLoaded?.Invoke();
         }
