@@ -33,6 +33,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             }
         }
 
+        public ICommand LoadCoursesCommand { get; private set; }
         public ICommand CreateCourseCommand { get; private set; }
         public ICommand UpdateCourseCommand { get; private set; }
         public ICommand DeleteCourseCommand { get; private set; }
@@ -53,6 +54,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         {
             _courserVMs = [];
             _courseStore = courseStore;
+            _courseStore.CoursesLoaded += CourseStore_CoursesLoaded;
             _courseStore.CourseAdded += CourseStore_CourseAdded;
             _courseStore.CourseUpdated += CourseStore_CourseUpdated;
             _courseStore.CourseDeleted += CourseStore_CourseDeleted;
@@ -75,6 +77,8 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
                 return;
             }
 
+            LoadCoursesCommand = new LoadCoursesCommand(_courseStore);
+
             CreateCourseCommand = new OpenCreateCourseFormCommand(_courseStore,
                                                                   _viewStore,
                                                                   _modalNavigationStore,
@@ -87,6 +91,11 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
                                                                   _groupSequenceVM);
 
             DeleteCourseCommand = new DeleteCourseCommand(_courseStore);
+        }
+
+        public void LoadCourses()
+        {
+            LoadCoursesCommand.Execute(null);
         }
 
         // ToDo: Remove 
@@ -203,9 +212,15 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             _courserVMs.Remove(courseVM);
         }
 
-        private void UnfocuseCourse()
+        private void UnfocusCourse()
         {
             SelectedCourse = null;
+        }
+
+        private void CourseStore_CoursesLoaded()
+        {
+            _courserVMs.Clear();
+            _courseStore.Courses.ToList().ForEach(AddCourse);
         }
 
         private void CourseStore_CourseAdded(Course newCourse)
@@ -231,7 +246,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
         private void ViewStore_CourseUnfocused()
         {
-            UnfocuseCourse();
+            UnfocusCourse();
         }
     }
 }
