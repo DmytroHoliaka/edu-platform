@@ -34,6 +34,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             }
         }
 
+        public ICommand LoadTeachersCommand { get; private set; }
         public ICommand CreateTeacherCommand { get; private set; }
         public ICommand UpdateTeacherCommand { get; private set; }
         public ICommand DeleteTeacherCommand { get; private set; }
@@ -54,6 +55,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
         {
             _teacherVMs = [];
             _teacherStore = teacherStore;
+            _teacherStore.TeachersLoaded += TeacherStore_TeachersLoaded;
             _teacherStore.TeacherAdded += TeacherStore_TeacherAdded;
             _teacherStore.TeacherUpdated += TeacherStore_TeacherUpdated;
             _teacherStore.TeacherDeleted += TeacherStore_TeacherDeleted;
@@ -75,6 +77,8 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             {
                 return;
             }
+
+            LoadTeachersCommand = new LoadTeachersCommand(_teacherStore);
 
             CreateTeacherCommand = new OpenCreateTeacherFormCommand(_teacherStore,
                                                                     _viewStore,
@@ -171,6 +175,11 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             return teacherVM;
         }
 
+        public void LoadTeachers()
+        {
+            LoadTeachersCommand.Execute(null);
+        }
+
         private void AddTeacher(Teacher teacher)
         {
             TeacherViewModel teacherVM = new(teacher);
@@ -190,9 +199,15 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             _teacherVMs.Remove(teacherVM);
         }
 
-        private void UnfocuseTeacher()
+        private void UnfocusTeacher()
         {
             SelectedTeacher = null;
+        }
+
+        private void TeacherStore_TeachersLoaded()
+        {
+            _teacherVMs.Clear();
+            _teacherStore.Teachers.ToList().ForEach(AddTeacher);
         }
 
         private void TeacherStore_TeacherAdded(Teacher teacher)
@@ -218,7 +233,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 
         private void ViewStore_TeacherUnfocused()
         {
-            UnfocuseTeacher();
+            UnfocusTeacher();
         }
     }
 }
