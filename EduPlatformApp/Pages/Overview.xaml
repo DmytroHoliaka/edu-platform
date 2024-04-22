@@ -11,24 +11,24 @@
     <Grid Background="{StaticResource ContentBackground}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.6*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
                Text="Overview"
-               FontSize="40"
+               FontSize="38"
                FontFamily="{StaticResource Alice}"
                Foreground="{StaticResource MenuBackground}"
-               VerticalAlignment="Center"
+               VerticalAlignment="Bottom"
                HorizontalAlignment="Center"
             />
 
         <Border Grid.Row="1"
-                Background="{StaticResource Separator}"
+                Background="{StaticResource MenuBackground}"
                 Height="3"
-                Margin="100 0"/>
+                Margin="200 14 180 40"/>
 
         <components:CourseTreeView Grid.Row="2" 
                                    Margin="20" 
