@@ -7,6 +7,7 @@ using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using EduPlatform.WPF.Commands.GroupCommands;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -14,10 +15,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
     {
         public Group Group
         {
-            get
-            {
-                return _group!;
-            }
+            get { return _group!; }
             set
             {
                 _group = value;
@@ -32,10 +30,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get { return _isChecked; }
             set
             {
                 _isChecked = value;
@@ -54,43 +49,34 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public string GroupName =>
             string.IsNullOrWhiteSpace(Group?.Name)
-            ? "<not specified>" : Group.Name;
+                ? "<not specified>"
+                : Group.Name;
 
         public bool IsEnabled { get; set; } = false;
 
-        public CourseViewModel? CourseVM => Group.Course == null ? null : new(Group.Course);
-        public ObservableCollection<TeacherViewModel> TeacherVMs => new(Group.Teachers.Select(t => new TeacherViewModel(t)));
-        public ObservableCollection<StudentViewModel> StudentVMs => new(Group.Students.Select(s => new StudentViewModel(s)));
+        public CourseViewModel? CourseVM =>
+            Group.Course == null ? null : new(Group.Course);
 
-        public ICommand? ExportCsvCommand { get; } = new RelayCommand(ExportIntoCsv);
-        public ICommand? ImportCsvCommand { get; } = new RelayCommand(ImportFromCsv);
-        public ICommand? CreateDocsCommand { get; } = new RelayCommand(CreateDocs);
-        public ICommand? CreatePdfCommand { get; } = new RelayCommand(CreatePdf);
+        public ObservableCollection<TeacherViewModel> TeacherVMs =>
+            new(Group.Teachers.Select(t => new TeacherViewModel(t)));
+
+        public ObservableCollection<StudentViewModel> StudentVMs =>
+            new(Group.Students.Select(s => new StudentViewModel(s)));
+
+        public ICommand? ExportCsvCommand { get; }
+        public ICommand? ImportCsvCommand { get; }
+        public ICommand? CreateDocsCommand { get; }
+        public ICommand? CreatePdfCommand { get; }
 
 
         public GroupViewModel(Group groupItem)
         {
             Group = groupItem;
-        }
 
-        private static void ExportIntoCsv()
-        {
-            MessageBox.Show("Export");
-        }
-
-        private static void ImportFromCsv()
-        {
-            MessageBox.Show("Import");
-        }
-
-        private static void CreateDocs()
-        {
-            MessageBox.Show("Docs");
-        }
-
-        private static void CreatePdf()
-        {
-            MessageBox.Show("Pdf");
+            ExportCsvCommand = new ExportGroupsCommand(this);
+            ImportCsvCommand = null;
+            CreateDocsCommand = null;
+            CreatePdfCommand = null;
         }
     }
 }
