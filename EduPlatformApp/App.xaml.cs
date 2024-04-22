@@ -101,9 +101,9 @@ namespace EduPlatform.WPF
             _eduPlatformViewModel = new(_courseStore, _groupStore, _studentStore, _teacherStore, _viewStore, _modalNavigationStore);
 
             // ToDo: Remove this lines
-            EduPlatformDbContext context = _eduPlatformDbContextFactory.Create();
-            context.Database.EnsureDeleted();
-            context.Dispose();
+            //EduPlatformDbContext context = _eduPlatformDbContextFactory.Create();
+            //context.Database.EnsureDeleted();
+            //context.Dispose();
         }
 
         //public App(EduPlatformDbContextFactory eduPlatformDbContextFactory)

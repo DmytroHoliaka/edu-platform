@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resourses\Fonts\Alice-Regular.ttf" />
+    <None Remove="Resources\Fonts\Alice-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resourses\Fonts\Alice-Regular.ttf">
+    <Resource Include="Resources\Fonts\Alice-Regular.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
