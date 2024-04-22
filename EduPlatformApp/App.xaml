@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:EduPlatform.WPF">
     <Application.Resources>
         <ResourceDictionary>
-            <FontFamily x:Key="Alice">pack://application:,,,/Resourses/Fonts/#Alice</FontFamily>
+            <FontFamily x:Key="Alice">pack://application:,,,/Resources/Fonts/#Alice</FontFamily>
 
             <SolidColorBrush x:Key="ContentBackground" Color="#FFF3E0"/>
             <SolidColorBrush x:Key="MenuBackground" Color="#623277"/>
@@ -337,6 +337,28 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+
+            <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="0 8"/>
+            </Style>
+
+            <Style x:Key="ListViewMainStyle" TargetType="ListView">
+                <Setter Property="Padding" Value="20 11"/>
+            </Style>
+
+            <Style x:Key="ListViewItemMainStyle" TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+
+            <Style x:Key="ListViewItemTextStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource Alice}"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="Padding" Value="0 8"/>
             </Style>
 
         </ResourceDictionary>
