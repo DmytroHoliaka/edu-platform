@@ -231,6 +231,7 @@
                 <Setter Property="FontSize" Value="18"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Foreground" Value="{StaticResource MenuBackground}"/>
+                <Setter Property="MaxLength" Value="100"/>
             </Style>
 
             <Style x:Key="AdvancedFormInput" TargetType="TextBox" BasedOn="{StaticResource FormInput}">
