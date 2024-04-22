@@ -23,15 +23,15 @@
                 <ListView Background="{StaticResource ContentBackground}"
                           ItemsSource="{Binding GroupVMs}"
                           SelectedItem="{Binding SelectedGroup}"
+                          Style="{StaticResource ListViewMainStyle}"
                           SelectionMode="Single">
+
                     <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemMainStyle}"/>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border Padding="5 10" TextBlock.FontFamily="20">
+                            <Border>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -39,7 +39,8 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0"
-                                           Text="{Binding GroupName}"/>
+                                           Text="{Binding GroupName}"
+                                           Style="{StaticResource ListViewItemTextStyle}"/>
 
                                     <custom:DropdownMenu Grid.Column="1"
                                                          Margin="0 0 10 0"
@@ -57,7 +58,6 @@
                                                 <Button Content="Create pdf"
                                                         Command="{Binding CreatePdfCommand}"/>
                                             </StackPanel>
-
                                         </Border>
                                     </custom:DropdownMenu>
                                 </Grid>
