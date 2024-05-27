@@ -6,6 +6,7 @@ using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.Commands.GroupCommands;
+using EduPlatform.WPF.Service.DataExport;
 using EduPlatform.WPF.Stores;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
@@ -54,7 +55,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public bool IsEnabled { get; set; } = false;
 
         public CourseViewModel? CourseVM =>
-            Group.Course == null ? null : new(Group.Course);
+            Group.Course == null ? null : new CourseViewModel(Group.Course);
 
         public ObservableCollection<TeacherViewModel> TeacherVMs =>
             new(Group.Teachers.Select(t => new TeacherViewModel(t)));
@@ -64,7 +65,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public ICommand? ExportCsvCommand { get; }
         public ICommand? ImportCsvCommand { get; }
-        public ICommand? CreateDocsCommand { get; }
+        public ICommand? CreateDocxCommand { get; }
         public ICommand? CreatePdfCommand { get; }
 
         public GroupViewModel(Group groupItem)
@@ -76,10 +77,10 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         {
             Group = groupItem;
 
-            ExportCsvCommand = new ExportStudentsCommand(this);
+            ExportCsvCommand = new ExportStudentsCommand(this, new CsvExporter());
             ImportCsvCommand = new ImportStudentsCommand(studentStore, this);
-            CreateDocsCommand = null;
-            CreatePdfCommand = null;
+            CreateDocxCommand = new ExportStudentsCommand(this, new DocxExporter());
+            CreatePdfCommand = new ExportStudentsCommand(this, new PdfExporter());
         }
     }
 }
