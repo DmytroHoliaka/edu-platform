@@ -16,7 +16,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
     {
         private readonly ObservableCollection<GroupViewModel> _groupVMs;
         public IEnumerable<GroupViewModel> GroupVMs =>
-            _groupVMs.Select(gvm => new GroupViewModel(gvm.Group));
+            _groupVMs.Select(gvm => new GroupViewModel(gvm.Group, _studentStore));
 
         public GroupViewModel? SelectedGroup
         {
@@ -40,6 +40,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public ICommand DeleteGroupCommand { get; private set; }
 
         private readonly GroupStore _groupStore;
+        private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
         private GroupViewModel? _selectedGroup;
@@ -49,6 +50,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
 
         public GroupSequenceViewModel(GroupStore groupStore,
+                                      StudentStore studentStore,
                                       ViewStore viewStore,
                                       ModalNavigationStore modalNavigationStore)
         {
@@ -59,6 +61,8 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _groupStore.GroupAdded += GroupStore_GroupAdded;
             _groupStore.GroupUpdated += GroupStore_GroupUpdated;
             _groupStore.GroupDeleted += GroupStore_GroupDeleted;
+
+            _studentStore = studentStore;
 
             _viewStore = viewStore;
             _viewStore.GroupUnfocused += ViewStore_GroupUnfocused;
@@ -157,7 +161,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         private void AddGroup(Group groupItem)
         {
-            GroupViewModel item = new(groupItem);
+            GroupViewModel item = new(groupItem, _studentStore);
             _groupVMs.Add(item);
         }
 
