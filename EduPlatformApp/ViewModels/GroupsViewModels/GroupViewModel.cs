@@ -1,13 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using EduPlatform.Domain.Models;
+﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using EduPlatform.WPF.Commands.GroupCommands;
+using EduPlatform.WPF.Stores;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -68,13 +67,17 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public ICommand? CreateDocsCommand { get; }
         public ICommand? CreatePdfCommand { get; }
 
-
         public GroupViewModel(Group groupItem)
         {
             Group = groupItem;
+        }
 
-            ExportCsvCommand = new ExportGroupsCommand(this);
-            ImportCsvCommand = null;
+        public GroupViewModel(Group groupItem, StudentStore studentStore)
+        {
+            Group = groupItem;
+
+            ExportCsvCommand = new ExportStudentsCommand(this);
+            ImportCsvCommand = new ImportStudentsCommand(studentStore, this);
             CreateDocsCommand = null;
             CreatePdfCommand = null;
         }
