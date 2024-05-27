@@ -4,16 +4,13 @@ using System.IO;
 
 namespace EduPlatform.WPF.Service.DataExport;
 
-public class CsvExporter : IDataExporter
+public class CsvExporter : DataExporter
 {
-    public async Task ExportStudent(GroupViewModel groupVM)
+    public override async Task ExportStudent(GroupViewModel groupVM)
     {
-        string fileName = $"Students of {groupVM.GroupName}({DateTime.Now:yyyy.MM.dd hh-mm-ss.ffff}).csv";
-        DirectoryInfo currentDir = new(AppDomain.CurrentDomain.BaseDirectory);
-
-        string dirPath = currentDir?.Parent?.Parent?.Parent?.Parent?.FullName + "/ExportedData/";
-        FileSystemManager.EnsureDirectoryCreated(dirPath);
-        string filePath = dirPath + "/" + fileName;
+        string filePath = GetFilePath(
+            groupName: groupVM.GroupName, 
+            extension: ".csv");
 
         using (StreamWriter writer = new(filePath))
         {
