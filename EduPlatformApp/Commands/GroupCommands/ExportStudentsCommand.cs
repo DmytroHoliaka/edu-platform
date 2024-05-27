@@ -5,12 +5,10 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Commands.GroupCommands;
 
-public class ExportStudentsCommand(GroupViewModel groupVM) : AsyncCommandBase
+public class ExportStudentsCommand(GroupViewModel groupVM, DataExporter exporter) : AsyncCommandBase
 {
     public override async Task ExecuteAsync(object? parameter)
     {
-        CsvExporter exporter = new();
-
         try
         {
             await exporter.ExportStudent(groupVM);
