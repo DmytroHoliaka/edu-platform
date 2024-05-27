@@ -53,8 +53,8 @@
                                                         Command="{Binding ExportCsvCommand}"/>
                                                 <Button Content="Import from csv"
                                                         Command="{Binding ImportCsvCommand}"/>
-                                                <Button Content="Create docs"
-                                                        Command="{Binding CreateDocsCommand}"/>
+                                                <Button Content="Create docx"
+                                                        Command="{Binding CreateDocxCommand}"/>
                                                 <Button Content="Create pdf"
                                                         Command="{Binding CreatePdfCommand}"/>
                                             </StackPanel>
