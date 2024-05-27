@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Windows;
-using EduPlatform.Domain.Models;
+﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel;
@@ -8,7 +6,6 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.NavigationsViewModel;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.ViewModels.TeachersViewModel;
-using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
@@ -41,6 +38,7 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             GroupSequenceVM = new
             (
                 _groupStore,
+                studentStore,
                 viewStore,
                 modalNavigationStore
             );

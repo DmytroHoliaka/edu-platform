@@ -2,7 +2,6 @@
 using EduPlatform.Domain.Models;
 using EduPlatform.Domain.Queries;
 using EduPlatform.WPF.Service;
-using System.Collections.Generic;
 
 namespace EduPlatform.WPF.Stores
 {

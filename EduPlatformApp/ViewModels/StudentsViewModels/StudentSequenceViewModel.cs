@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Azure.Messaging;
 using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Commands.StudentCommands;
 using EduPlatform.WPF.Service;

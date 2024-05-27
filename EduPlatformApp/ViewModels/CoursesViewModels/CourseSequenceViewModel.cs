@@ -5,7 +5,6 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.Commands.CourseCommands;
-using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Commands.BaseCommands;
 
