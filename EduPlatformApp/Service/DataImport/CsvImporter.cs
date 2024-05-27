@@ -2,7 +2,6 @@
 using System.Text;
 using System.Windows.Forms;
 using EduPlatform.Domain.Models;
-using EduPlatform.WPF.Service.DataExport;
 using EduPlatform.WPF.Service.Validators;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;

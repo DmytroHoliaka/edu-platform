@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using EduPlatform.WPF.Commands.BaseCommands;
+﻿using EduPlatform.WPF.Commands.BaseCommands;
 using EduPlatform.WPF.Service.DataImport;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
