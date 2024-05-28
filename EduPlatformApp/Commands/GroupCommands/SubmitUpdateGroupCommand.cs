@@ -14,7 +14,6 @@ namespace EduPlatform.WPF.Commands.GroupCommands
     {
         public override async Task ExecuteAsync(object? parameter)
         {
-            // ToDo: Add store in database
             GroupDetailsFormViewModel formDetails = 
                 updateGroupViewModel.GroupDetailsFormVM;
 

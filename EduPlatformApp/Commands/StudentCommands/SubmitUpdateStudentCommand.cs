@@ -16,8 +16,6 @@ namespace EduPlatform.WPF.Commands.StudentCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            // ToDo: Add store in database
-
             if (FormDetails is null)
             {
                 return;

@@ -17,7 +17,6 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            // ToDo: Work with database
             Guid groupId = DeletingGroup!.GroupId;
 
             try
