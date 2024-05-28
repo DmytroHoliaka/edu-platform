@@ -7,6 +7,7 @@ using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Windows;
+using QuestPDF.Infrastructure;
 
 // ToDo: Complete UI 
 namespace EduPlatform.WPF
@@ -129,6 +130,8 @@ namespace EduPlatform.WPF
 
             MainWindow.Show();
             base.OnStartup(e);
+
+            QuestPDF.Settings.License = LicenseType.Community;
         }
     }
 
