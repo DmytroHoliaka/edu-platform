@@ -21,6 +21,7 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
                 return;
             }
 
+            FormDetails.ErrorMessage = null;
             IEnumerable<GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked == true);
 
             Teacher targetStudent = new()
@@ -36,7 +37,10 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
                 await teacherStore.Update(targetStudent);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception)
+            {
+                FormDetails.ErrorMessage = "Cannot update teacher. Try again later.";
+            }
         }
     }
 }
