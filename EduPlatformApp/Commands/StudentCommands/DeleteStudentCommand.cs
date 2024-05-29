@@ -15,13 +15,17 @@ namespace EduPlatform.WPF.Commands.StudentCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            Guid studentId = DeletingStudent!.StudentId;
+            DeletingStudent!.ErrorMessage = null;
+            Guid studentId = DeletingStudent.StudentId;
 
             try
             {
                 await studentStore.Delete(studentId);
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception)
+            {
+                DeletingStudent.ErrorMessage = "Cannot delete this student. Try again later.";
+            }
         }
     }
 }
