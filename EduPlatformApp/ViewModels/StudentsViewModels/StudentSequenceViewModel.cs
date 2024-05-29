@@ -9,7 +9,7 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 {
-    public class StudentSequenceViewModel : ViewModelBase
+    public class StudentSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<StudentViewModel> _studentVMs;
 
@@ -32,6 +32,19 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+
         public ICommand LoadStudentsCommand { get; set; }
         public ICommand CreateStudentCommand { get; private set; }
         public ICommand UpdateStudentCommand { get; private set; }
@@ -42,6 +55,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         private readonly StudentStore _studentStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private string? _errorMessage;
 
         public StudentSequenceViewModel
         (
@@ -86,7 +100,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
                 return;
             }
 
-            LoadStudentsCommand = new LoadStudentsCommand(_studentStore);
+            LoadStudentsCommand = new LoadStudentsCommand(_studentStore, this);
             CreateStudentCommand =
                 new OpenCreateStudentFormCommand(_studentStore, _viewStore, _modalNavigationStore, _groupSequenceVM);
             UpdateStudentCommand = new OpenUpdateStudentFormCommand
