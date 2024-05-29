@@ -20,6 +20,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
                 return;
             }
 
+            FormDetails.ErrorMessage = null;
             GroupViewModel? relatedGroup = FormDetails.GroupVMs.FirstOrDefault(gvm => gvm.IsChecked == true);
 
             Student student = new()
@@ -36,7 +37,10 @@ namespace EduPlatform.WPF.Commands.StudentCommands
                 await studentStore.Add(student);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Make label with error message*/ }
+            catch (Exception)
+            {
+                FormDetails.ErrorMessage = "Cannot create student. Try again later.";
+            }
         }
     }
 }
