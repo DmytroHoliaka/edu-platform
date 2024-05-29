@@ -86,26 +86,20 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             GroupSequenceVM.SetStudentSequence(StudentSequenceVM);
             GroupSequenceVM.SetTeacherSequence(TeacherSequenceVM);
             GroupSequenceVM.ConfigureCommands();
-            //GroupSequenceVM.InsertTestData();
 
             CourseSequenceVM.SetGroupSequence(GroupSequenceVM);
             CourseSequenceVM.ConfigureCommands();
-            //CourseSequenceVM.InsertTestData();
 
             TeacherSequenceVM.SetGroupSequence(GroupSequenceVM);
             TeacherSequenceVM.ConfigureCommands();
-            //TeacherSequenceVM.InsertTestData();
 
             StudentSequenceVM.SetGroupSequence(GroupSequenceVM);
             StudentSequenceVM.ConfigureCommands();
-            //StudentSequenceVM.InsertTestData();
-
-            InitializeData();
         }
 
-        private void InitializeData()
+        public async Task ConfigureDataFromDatabase()
         {
-            LoadData();
+            await LoadDataAsync();
 
             List<ISequenceViewModel> errorComponents =
             [
@@ -136,20 +130,12 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             return errorMsg;
         }
 
-        private void LoadData()
+        private async Task LoadDataAsync()
         {
-            Task courseLoadingTask = CourseSequenceVM.LoadCourses();
-            Task groupLoadingTask = GroupSequenceVM.LoadGroups();
-            Task studentLoadingTask = StudentSequenceVM.LoadStudents();
-            Task teacherLoadingTask = TeacherSequenceVM.LoadTeachers();
-
-            Task.WaitAll
-            (
-                courseLoadingTask,
-                groupLoadingTask,
-                studentLoadingTask,
-                teacherLoadingTask
-            );
+            await CourseSequenceVM.LoadCourses();
+            await GroupSequenceVM.LoadGroups();
+            await StudentSequenceVM.LoadStudents();
+            await TeacherSequenceVM.LoadTeachers();
         }
 
         private void SetRelationships()
