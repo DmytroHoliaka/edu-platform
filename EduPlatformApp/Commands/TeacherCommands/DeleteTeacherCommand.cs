@@ -17,13 +17,17 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            Guid teacherId = DeletingTeacher!.TeacherId;
-            
+            DeletingTeacher!.ErrorMessage = null;
+            Guid teacherId = DeletingTeacher.TeacherId;
+
             try
             {
                 await teacherStore.Delete(teacherId);
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception)
+            {
+                DeletingTeacher.ErrorMessage = "Cannot delete this teacher. Try again later.";
+            }
         }
     }
 }
