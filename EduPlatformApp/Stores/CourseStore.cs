@@ -2,7 +2,7 @@
 using EduPlatform.Domain.Models;
 using EduPlatform.Domain.Queries;
 using EduPlatform.WPF.Service;
-// ToDo: Limit count of symbols in all input fields
+
 namespace EduPlatform.WPF.Stores
 {
     public class CourseStore(

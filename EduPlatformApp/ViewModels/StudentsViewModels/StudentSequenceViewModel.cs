@@ -167,52 +167,6 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             return studentVM;
         }
 
-        // ToDo: Remove
-        public void InsertTestData()
-        {
-            Student student1 = new()
-            {
-                StudentId = Guid.NewGuid(),
-                FirstName = "John",
-                LastName = "Student",
-                Group = _groupSequenceVM.GroupVMs.ElementAt(0).Group,
-                GroupId = _groupSequenceVM.GroupVMs.ElementAt(0).GroupId,
-            };
-
-            Student student2 = new()
-            {
-                StudentId = Guid.NewGuid(),
-                FirstName = "Alex",
-                LastName = "Student",
-                Group = _groupSequenceVM.GroupVMs.ElementAt(1).Group,
-                GroupId = _groupSequenceVM.GroupVMs.ElementAt(1).GroupId,
-            };
-
-            Student student3 = new()
-            {
-                StudentId = Guid.NewGuid(),
-                FirstName = "Dmytro",
-                LastName = "Student",
-                Group = _groupSequenceVM.GroupVMs.ElementAt(2).Group,
-                GroupId = _groupSequenceVM.GroupVMs.ElementAt(2).GroupId,
-            };
-
-            Student student4 = new()
-            {
-                StudentId = Guid.NewGuid(),
-                FirstName = "Richard",
-                LastName = "Student",
-                Group = null,
-                GroupId = null,
-            };
-
-            _studentVMs.Add(new StudentViewModel(student1));
-            _studentVMs.Add(new StudentViewModel(student2));
-            _studentVMs.Add(new StudentViewModel(student3));
-            _studentVMs.Add(new StudentViewModel(student4));
-        }
-
-
         private void StudentStore_StudentsLoaded()
         {
             _studentVMs.Clear();

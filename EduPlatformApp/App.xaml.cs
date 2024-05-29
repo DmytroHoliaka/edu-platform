@@ -50,7 +50,7 @@ namespace EduPlatform.WPF
         public App()
         {
             // ToDo: Decompose constructor
-            // ToDo: Use JSON configuration file
+            // ToDo: Use JSON configuration file #1
             string connectionString = @"Server=(localdb)\mssqllocaldb;Database=EduPlatform;Trusted_Connection=True;";
 
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer(connectionString).Options;
@@ -100,23 +100,14 @@ namespace EduPlatform.WPF
             _viewStore = new();
 
             _eduPlatformViewModel = new(_courseStore, _groupStore, _studentStore, _teacherStore, _viewStore, _modalNavigationStore);
-
-            // ToDo: Remove this lines
-            //EduPlatformDbContext context = _eduPlatformDbContextFactory.Create();
-            //context.Database.EnsureDeleted();
-            //context.Dispose();
         }
 
-        //public App(EduPlatformDbContextFactory eduPlatformDbContextFactory)
-        //{
-        //    _eduPlatformDbContextFactory = eduPlatformDbContextFactory;
-        //}
-
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             using (EduPlatformDbContext context = _eduPlatformDbContextFactory.Create())
             {
-                context.Database.Migrate();
+                // ToDo: Maybe this method must be before load data in _eduPlatformVideModel constructor
+                context.Database.Migrate(); 
             }
 
             MainWindow = new MainWindow()

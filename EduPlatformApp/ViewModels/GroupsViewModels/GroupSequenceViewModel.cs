@@ -126,40 +126,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             DeleteGroupCommand = new DeleteGroupCommand(_groupStore);
         }
 
-        // ToDo: Remove
-        public void InsertTestData()
-        {
-            _groupVMs.Add(new GroupViewModel(new Group()
-            {
-                GroupId = Guid.NewGuid(),
-                Name = "Group 1",
-                CourseId = Guid.Empty,
-            }));
-
-            _groupVMs.Add(new GroupViewModel(new Group()
-            {
-                GroupId = Guid.NewGuid(),
-                Name = "Group 2",
-                CourseId = Guid.Empty,
-            }));
-
-            _groupVMs.Add(new GroupViewModel(new Group()
-            {
-                GroupId = Guid.NewGuid(),
-                Name = "Group 3",
-                CourseId = Guid.Empty,
-            }));
-
-            _groupVMs.Add(new GroupViewModel(new Group()
-            {
-                GroupId = Guid.NewGuid(),
-                Name = "Group 4",
-                CourseId = Guid.Empty,
-            }));
-
-
-        }
-
         protected override void Dispose()
         {
             _groupStore.GroupAdded -= GroupStore_GroupAdded;

@@ -109,56 +109,6 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             DeleteCourseCommand = new DeleteCourseCommand(_courseStore);
         }
 
-        // ToDo: Remove 
-        public void InsertTestData()
-        {
-            Course course1 = new()
-            {
-                CourseId = Guid.NewGuid(),
-                Name = "C# basic",
-                Description = "Course about basic C#",
-                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(0, 2)).Select(gvm => gvm.Group).ToList(),
-            };
-
-            Course course2 = new()
-            {
-                CourseId = Guid.NewGuid(),
-                Name = "Python Fundamentals",
-                Description = "Course covering the fundamentals of Python programming",
-                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(1, 3)).Select(gvm => gvm.Group).ToList(),
-            };
-
-            Course course3 = new()
-            {
-                CourseId = Guid.NewGuid(),
-                Name = "Web Development 101",
-                Description = "Introduction to web development technologies and concepts",
-                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(3, 4)).Select(gvm => gvm.Group).ToList(),
-            };
-
-            Course course4 = new()
-            {
-                CourseId = Guid.NewGuid(),
-                Name = "Data Structures and Algorithms",
-                Description = "Course on data structures and algorithms",
-                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(2, 3)).Select(gvm => gvm.Group).ToList(),
-            };
-
-            Course course5 = new()
-            {
-                CourseId = Guid.NewGuid(),
-                Name = "Mobile App Development",
-                Description = "Course on developing mobile applications",
-                Groups = _groupSequenceVM!.GroupVMs.Take(new Range(0, 4)).Select(gvm => gvm.Group).ToList(),
-            };
-
-            _courserVMs.Add(new CourseViewModel(course1));
-            _courserVMs.Add(new CourseViewModel(course2));
-            _courserVMs.Add(new CourseViewModel(course3));
-            _courserVMs.Add(new CourseViewModel(course4));
-            _courserVMs.Add(new CourseViewModel(course5));
-        }
-
         private void RefreshDependenciesOnAdding(Course newCourse)
         {
             newCourse.Groups.ToList()

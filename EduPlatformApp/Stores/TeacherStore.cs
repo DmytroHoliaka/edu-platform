@@ -32,7 +32,6 @@ namespace EduPlatform.WPF.Stores
 
         public async Task Add(Teacher newTeacher)
         {
-            // ToDo: Add to _teachers copy, not original
             await createTeacherCommand.ExecuteAsync(SerializationCopier.DeepCopy(newTeacher)!);
 
             _teachers.Add(newTeacher);
