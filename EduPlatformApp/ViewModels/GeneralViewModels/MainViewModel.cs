@@ -19,7 +19,7 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             _modalNavigationStore.CurrentViewModelChanged += ModalNavigationStore_CurrentViewModelChanged;
         } 
 
-        protected override void Dispose()
+        public override void Dispose()
         {
             _modalNavigationStore.CurrentViewModelChanged -= ModalNavigationStore_CurrentViewModelChanged;
             base.Dispose();
