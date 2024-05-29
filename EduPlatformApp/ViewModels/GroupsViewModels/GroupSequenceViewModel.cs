@@ -16,7 +16,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
     {
         private readonly ObservableCollection<GroupViewModel> _groupVMs;
         public IEnumerable<GroupViewModel> GroupVMs =>
-            _groupVMs.Select(gvm => new GroupViewModel(gvm.Group, _studentStore));
+            _groupVMs.Select(gvm => new GroupViewModel(gvm.Group, _groupStore, _studentStore));
 
         public GroupViewModel? SelectedGroup
         {
@@ -84,6 +84,17 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             _modalNavigationStore = modalNavigationStore;
         }
 
+        public override void Dispose()
+        {
+            _groupStore.GroupsLoaded -= GroupsStore_GroupsLoaded;
+            _groupStore.GroupAdded -= GroupStore_GroupAdded;
+            _groupStore.GroupUpdated -= GroupStore_GroupUpdated;
+            _groupStore.GroupDeleted -= GroupStore_GroupDeleted;
+            _viewStore.GroupUnfocused -= ViewStore_GroupUnfocused;
+
+            base.Dispose();
+        }
+
         public void SetCourseSequence(CourseSequenceViewModel newCourseSequence)
         {
             _courseSequenceVM = newCourseSequence;
@@ -126,14 +137,6 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             DeleteGroupCommand = new DeleteGroupCommand(_groupStore);
         }
 
-        protected override void Dispose()
-        {
-            _groupStore.GroupAdded -= GroupStore_GroupAdded;
-            _groupStore.GroupUpdated -= GroupStore_GroupUpdated;
-
-            base.Dispose();
-        }
-
         public Task LoadGroups()
         {
             return ((LoadGroupsCommand)LoadGroupsCommand).ExecuteAsync(null);
@@ -141,7 +144,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         private void AddGroup(Group groupItem)
         {
-            GroupViewModel item = new(groupItem, _studentStore);
+            GroupViewModel item = new(groupItem, _groupStore, _studentStore);
             _groupVMs.Add(item);
         }
 
