@@ -21,14 +21,16 @@ namespace EduPlatform.WPF.Commands.CourseCommands
                 return;
             }
 
+            FormDetails.ErrorMessage = null;
             IEnumerable<GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked == true);
 
             Course targetCourse = new()
             {
                 CourseId = selectedCourse.CourseId,
                 Name = FormDetails.CourseName,
-                Description = string.IsNullOrWhiteSpace(FormDetails.Description) 
-                    ? string.Empty : FormDetails.Description,
+                Description = string.IsNullOrWhiteSpace(FormDetails.Description)
+                    ? string.Empty
+                    : FormDetails.Description,
                 Groups = relatedGroups.Select(rg => rg.Group).ToList()
             };
 
@@ -37,7 +39,10 @@ namespace EduPlatform.WPF.Commands.CourseCommands
                 await courseStore.Update(targetCourse);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception)
+            {
+                FormDetails.ErrorMessage = "Cannot update course. Try again later.";
+            }
         }
     }
 }
