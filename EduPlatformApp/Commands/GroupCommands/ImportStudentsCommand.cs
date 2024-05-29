@@ -1,4 +1,7 @@
-﻿using EduPlatform.WPF.Commands.BaseCommands;
+﻿using System.Windows.Forms;
+using EduPlatform.Domain.Models;
+using EduPlatform.WPF.Commands.BaseCommands;
+using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Service.DataImport;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
@@ -6,11 +9,18 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace EduPlatform.WPF.Commands.GroupCommands;
 
-public class ImportStudentsCommand(StudentStore studentStore, GroupViewModel groupVM) : AsyncCommandBase
+public class ImportStudentsCommand(
+    StudentStore studentStore,
+    GroupStore groupStore,
+    GroupViewModel groupVM) : AsyncCommandBase
 {
-    // ToDo: Before importing students into a group, you have to clear the group where you are uploading new students.
     public override async Task ExecuteAsync(object? parameter)
     {
+        if (await GroupService.RemoveStudentsFromGroup(groupVM, groupStore) is Group targetGroup == false)
+        {
+            return;
+        }
+
         OpenFileDialog dialog = new()
         {
             Filter = "CSV Files (*.csv)|*.csv",
@@ -22,7 +32,7 @@ public class ImportStudentsCommand(StudentStore studentStore, GroupViewModel gro
             string filePath = dialog.FileName;
 
             CsvImporter importer = new();
-            await importer.ImportStudents(studentStore, groupVM, filePath);
+            await importer.ImportStudents(studentStore, targetGroup, filePath);
         }
     }
 }
