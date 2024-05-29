@@ -77,7 +77,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             _modalNavigationStore = modalNavigationStore;
         }
 
-        protected override void Dispose()
+        public override void Dispose()
         {
             _studentStore.StudentsLoaded -= StudentStore_StudentsLoaded;
             _studentStore.StudentAdded -= StudentStore_StudentAdded;
