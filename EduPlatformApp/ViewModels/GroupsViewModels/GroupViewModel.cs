@@ -38,21 +38,25 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
         }
 
-        private Group? _group;
-        private bool _isChecked;
-
-        public Guid GroupId =>
-            Group.GroupId;
-
-        public Guid? CourseId =>
-            Group.Course?.CourseId;
-
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+        
         public string GroupName =>
             string.IsNullOrWhiteSpace(Group?.Name)
                 ? "<not specified>"
                 : Group.Name;
 
-        public bool IsEnabled { get; set; } = false;
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+        public Guid GroupId => Group.GroupId;
+        public Guid? CourseId => Group.Course?.CourseId;
 
         public CourseViewModel? CourseVM =>
             Group.Course == null ? null : new CourseViewModel(Group.Course);
@@ -63,10 +67,16 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public ObservableCollection<StudentViewModel> StudentVMs =>
             new(Group.Students.Select(s => new StudentViewModel(s)));
 
+        public bool IsEnabled { get; set; } = false;
+
         public ICommand? ExportCsvCommand { get; }
         public ICommand? ImportCsvCommand { get; }
         public ICommand? CreateDocxCommand { get; }
         public ICommand? CreatePdfCommand { get; }
+        
+        private Group? _group;
+        private bool _isChecked;
+        private string? _errorMessage;
 
         public GroupViewModel(Group groupItem)
         {
