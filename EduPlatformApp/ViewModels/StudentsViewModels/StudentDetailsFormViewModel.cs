@@ -69,43 +69,16 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             ICommand cancelCommand
         )
         {
-            GroupVMs = new(groupSequenceVM.GroupVMs);
+            GroupVMs = new ObservableCollection<GroupViewModel>(groupSequenceVM.GroupVMs);
             SetMarkers();
-            SetupEvents();
 
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
         }
 
-        protected override void Dispose()
-        {
-            foreach (GroupViewModel group in GroupVMs)
-            {
-                group.PropertyChanged -= Group_PropertyChanged;
-            }
-
-            base.Dispose();
-        }
-
         private void SetMarkers()
         {
             GroupVMs.ToList().ForEach(gvm => gvm.IsEnabled = true);
-        }
-
-        private void SetupEvents()
-        {
-            foreach (GroupViewModel group in GroupVMs)
-            {
-                group.PropertyChanged += Group_PropertyChanged;
-            }
-        }
-
-        private void Group_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GroupViewModel.IsChecked))
-            {
-                OnPropertyChanged(nameof(CanSubmit));
-            }
         }
     }
 }
