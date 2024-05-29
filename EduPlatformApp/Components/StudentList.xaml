@@ -34,15 +34,31 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="0 8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.Column="0"
+                                    <TextBlock Grid.Row="0"
                                                Text="{Binding FullName}"
                                                Style="{StaticResource ListViewItemTextStyle}" />
+
+                                    <Grid Grid.Row="1" Margin="0 2 0 0">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasErrorMessage}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+
+                                        <TextBlock Text="{Binding ErrorMessage}"
+                                                   Style="{StaticResource ListViewItemErrorMessageStyle}" />
+                                    </Grid>
                                 </Grid>
                             </Border>
                         </DataTemplate>
