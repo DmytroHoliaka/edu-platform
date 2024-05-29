@@ -16,6 +16,8 @@ namespace EduPlatform.WPF.Commands.GroupCommands
             GroupDetailsFormViewModel formDetails =
                 createGroupViewModel.GroupDetailsFormVM;
 
+            formDetails.ErrorMessage = null;
+
             Group group = new()
             {
                 GroupId = Guid.NewGuid(),
@@ -37,7 +39,10 @@ namespace EduPlatform.WPF.Commands.GroupCommands
                 await groupStore.Add(group);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Make label with error message*/ }
+            catch (Exception)
+            {
+                formDetails.ErrorMessage = "Cannot create group. Try again later.";
+            }
         }
     }
 }
