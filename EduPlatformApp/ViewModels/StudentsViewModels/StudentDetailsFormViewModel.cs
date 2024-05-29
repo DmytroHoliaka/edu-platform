@@ -36,16 +36,30 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
                 OnPropertyChanged(nameof(CanSubmit));
             }
         }
+        
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
 
         public bool CanSubmit =>
             string.IsNullOrWhiteSpace(FirstName) == false
             && string.IsNullOrWhiteSpace(LastName) == false;
+        
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
         private string? _firstName;
         private string? _lastName;
+        private string? _errorMessage;
 
         public StudentDetailsFormViewModel
         (
