@@ -10,7 +10,7 @@ using EduPlatform.WPF.Service;
 
 namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 {
-    public class TeacherSequenceViewModel : ViewModelBase
+    public class TeacherSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<TeacherViewModel> _teacherVMs;
         public IEnumerable<TeacherViewModel> TeacherVMs =>
@@ -35,6 +35,19 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+
         public ICommand LoadTeachersCommand { get; private set; }
         public ICommand CreateTeacherCommand { get; private set; }
         public ICommand UpdateTeacherCommand { get; private set; }
@@ -45,7 +58,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
         private readonly TeacherStore _teacherStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
-
+        private string? _errorMessage;
 
         public TeacherSequenceViewModel
         (
@@ -79,7 +92,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
                 return;
             }
 
-            LoadTeachersCommand = new LoadTeachersCommand(_teacherStore);
+            LoadTeachersCommand = new LoadTeachersCommand(_teacherStore, this);
 
             CreateTeacherCommand = new OpenCreateTeacherFormCommand(_teacherStore,
                                                                     _viewStore,
