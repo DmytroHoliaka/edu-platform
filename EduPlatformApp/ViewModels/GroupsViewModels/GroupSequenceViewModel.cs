@@ -12,7 +12,7 @@ using EduPlatform.WPF.Service;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
-    public class GroupSequenceViewModel : ViewModelBase
+    public class GroupSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<GroupViewModel> _groupVMs;
         public IEnumerable<GroupViewModel> GroupVMs =>
@@ -34,6 +34,19 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+
         public ICommand LoadGroupsCommand { get; private set; }
         public ICommand CreateGroupCommand { get; private set; }
         public ICommand UpdateGroupCommand { get; private set; }
@@ -47,6 +60,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         private CourseSequenceViewModel? _courseSequenceVM;
         private TeacherSequenceViewModel? _teacherSequenceVM;
         private StudentSequenceViewModel? _studentSequenceVM;
+        private string? _errorMessage;
 
 
         public GroupSequenceViewModel(GroupStore groupStore,
@@ -87,7 +101,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public void ConfigureCommands()
         {
-            LoadGroupsCommand = new LoadGroupsCommand(_groupStore);
+            LoadGroupsCommand = new LoadGroupsCommand(_groupStore, this);
 
             CreateGroupCommand = new OpenCreateGroupFormCommand
             (
