@@ -15,7 +15,6 @@ namespace EduPlatform.WPF.Commands.StudentCommands
     {
         public StudentViewModel? UpdatingStudent { get; set; } = selectedStudent;
 
-
         public override bool CanExecute(object? parameter)
         {
             return UpdatingStudent is not null;
