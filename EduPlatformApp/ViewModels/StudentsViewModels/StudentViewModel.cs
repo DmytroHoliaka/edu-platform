@@ -24,27 +24,6 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             }
         }
 
-        public Group? Group =>
-            Student.Group;
-
-        public Guid StudentId => Student.StudentId;
-        public Guid? GroupId => Student.GroupId;
-
-        public string FullName =>
-             string.IsNullOrWhiteSpace(Student?.FirstName) || string.IsNullOrWhiteSpace(Student?.LastName)
-             ? "<not specified>"
-             : $"{Student.FirstName} {Student.LastName}";
-
-        public string FirstName =>
-            string.IsNullOrWhiteSpace(Student?.FirstName)
-            ? "<not specified>" : Student.FirstName;
-            
-        public string LastName =>
-            string.IsNullOrWhiteSpace(Student?.LastName)
-            ? "<not specified>" : Student.LastName;
-
-        public bool IsEnabled { get; set; } = false;
-
         public bool IsChecked
         {
             get
@@ -58,8 +37,40 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public string FullName =>
+            string.IsNullOrWhiteSpace(Student?.FirstName) || string.IsNullOrWhiteSpace(Student?.LastName)
+                ? "<not specified>"
+                : $"{Student.FirstName} {Student.LastName}";
+
+        public string FirstName =>
+            string.IsNullOrWhiteSpace(Student?.FirstName)
+                ? "<not specified>" : Student.FirstName;
+
+        public string LastName =>
+            string.IsNullOrWhiteSpace(Student?.LastName)
+                ? "<not specified>" : Student.LastName;
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+        public Group? Group => Student.Group;
+        public Guid StudentId => Student.StudentId;
+        public Guid? GroupId => Student.GroupId;
+
+        public bool IsEnabled { get; set; } = false;
+
         private bool _isChecked;
         private Student? _student;
+        private string? _errorMessage;
 
         public StudentViewModel(Student student)
         {
