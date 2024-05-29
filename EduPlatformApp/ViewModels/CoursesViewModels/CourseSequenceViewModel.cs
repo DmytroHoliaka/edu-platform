@@ -81,6 +81,17 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             _modalNavigationStore = modalNavigationStore;
         }
 
+        public override void Dispose()
+        {
+            _courseStore.CoursesLoaded -= CourseStore_CoursesLoaded;
+            _courseStore.CourseAdded -= CourseStore_CourseAdded;
+            _courseStore.CourseUpdated -= CourseStore_CourseUpdated;
+            _courseStore.CourseDeleted -= CourseStore_CourseDeleted;
+            _viewStore.CourseUnfocused -= ViewStore_CourseUnfocused;
+
+            base.Dispose();
+        }
+
         public void SetGroupSequence(GroupSequenceViewModel newGroup)
         {
             _groupSequenceVM = newGroup;
