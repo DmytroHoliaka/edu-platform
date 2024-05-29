@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Windows;
 using QuestPDF.Infrastructure;
 
-// ToDo: Complete UI 
 namespace EduPlatform.WPF
 {
     /// <summary>
@@ -19,43 +18,72 @@ namespace EduPlatform.WPF
     {
         private readonly EduPlatformDbContextFactory _eduPlatformDbContextFactory;
 
-        private readonly IGetAllCoursesQuery _getAllCoursesQuery;
-        private readonly ICreateCourseCommand _createCourseCommand;
-        private readonly IUpdateCourseCommand _updateCourseCommand;
-        private readonly IDeleteCourseCommand _deleteCourseCommand;
+        private IGetAllCoursesQuery _getAllCoursesQuery;
+        private ICreateCourseCommand _createCourseCommand;
+        private IUpdateCourseCommand _updateCourseCommand;
+        private IDeleteCourseCommand _deleteCourseCommand;
 
-        private readonly IGetAllGroupsQuery _getAllGroupsQuery;
-        private readonly ICreateGroupCommand _createGroupCommand;
-        private readonly IUpdateGroupCommand _updateGroupCommand;
-        private readonly IDeleteGroupCommand _deleteGroupCommand;
+        private IGetAllGroupsQuery _getAllGroupsQuery;
+        private ICreateGroupCommand _createGroupCommand;
+        private IUpdateGroupCommand _updateGroupCommand;
+        private IDeleteGroupCommand _deleteGroupCommand;
+        
+        private IGetAllStudentsQuery _getAllStudentsQuery;
+        private ICreateStudentCommand _createStudentCommand;
+        private IUpdateStudentCommand _updateStudentCommand;
+        private IDeleteStudentCommand _deleteStudentCommand;
 
-        private readonly IGetAllStudentsQuery _getAllStudentsQuery;
-        private readonly ICreateStudentCommand _createStudentCommand;
-        private readonly IUpdateStudentCommand _updateStudentCommand;
-        private readonly IDeleteStudentCommand _deleteStudentCommand;
+        private IGetAllTeachersQuery _getAllTeachersQuery;
+        private ICreateTeacherCommand _createTeacherCommand;
+        private IUpdateTeacherCommand _updateTeacherCommand;
+        private IDeleteTeacherCommand _deleteTeacherCommand;
 
-        private readonly IGetAllTeachersQuery _getAllTeachersQuery;
-        private readonly ICreateTeacherCommand _createTeacherCommand;
-        private readonly IUpdateTeacherCommand _updateTeacherCommand;
-        private readonly IDeleteTeacherCommand _deleteTeacherCommand;
-
-        private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly CourseStore _courseStore;
-        private readonly GroupStore _groupStore;
-        private readonly StudentStore _studentStore;
-        private readonly TeacherStore _teacherStore;
-        private readonly ViewStore _viewStore;
-        private readonly HubViewModel _eduPlatformViewModel;
-
+        private ModalNavigationStore _modalNavigationStore;
+        private CourseStore _courseStore;
+        private GroupStore _groupStore;
+        private StudentStore _studentStore;
+        private TeacherStore _teacherStore;
+        private ViewStore _viewStore;
+        private HubViewModel _eduPlatformViewModel;
+        
         public App()
         {
-            // ToDo: Decompose constructor
             // ToDo: Use JSON configuration file #1
             string connectionString = @"Server=(localdb)\mssqllocaldb;Database=EduPlatform;Trusted_Connection=True;";
 
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer(connectionString).Options;
-            _eduPlatformDbContextFactory = new(options);
+            _eduPlatformDbContextFactory = new EduPlatformDbContextFactory(options);
 
+            InitializeServices();
+
+        }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            using (EduPlatformDbContext context = _eduPlatformDbContextFactory.Create())
+            {
+                await context.Database.MigrateAsync();
+            }
+
+            await _eduPlatformViewModel.ConfigureDataFromDatabase();
+
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel
+                (
+                    _eduPlatformViewModel,
+                    _modalNavigationStore
+                )
+            };
+
+            MainWindow.Show();
+            base.OnStartup(e);
+
+            QuestPDF.Settings.License = LicenseType.Community;
+        }
+
+        private void InitializeServices()
+        {
             _getAllCoursesQuery = new GetAllCoursesQuery(_eduPlatformDbContextFactory);
             _createCourseCommand = new CreateCourseCommand(_eduPlatformDbContextFactory);
             _updateCourseCommand = new UpdateCourseCommand(_eduPlatformDbContextFactory);
@@ -76,53 +104,30 @@ namespace EduPlatform.WPF
             _updateTeacherCommand = new UpdateTeacherCommand(_eduPlatformDbContextFactory);
             _deleteTeacherCommand = new DeleteTeacherCommand(_eduPlatformDbContextFactory);
 
-            _courseStore = new(_getAllCoursesQuery,
-                               _createCourseCommand,
-                               _updateCourseCommand,
-                               _deleteCourseCommand);
+            _courseStore = new CourseStore(_getAllCoursesQuery,
+                                           _createCourseCommand,
+                                           _updateCourseCommand,
+                                           _deleteCourseCommand);
 
-            _groupStore = new(_getAllGroupsQuery,
-                              _createGroupCommand,
-                              _updateGroupCommand,
-                              _deleteGroupCommand);
+            _groupStore = new GroupStore(_getAllGroupsQuery,
+                                         _createGroupCommand,
+                                         _updateGroupCommand,
+                                         _deleteGroupCommand);
 
-            _studentStore = new(_getAllStudentsQuery,
-                                _createStudentCommand,
-                                _updateStudentCommand,
-                                _deleteStudentCommand);
+            _studentStore = new StudentStore(_getAllStudentsQuery,
+                                             _createStudentCommand,
+                                             _updateStudentCommand,
+                                             _deleteStudentCommand);
 
-            _teacherStore = new(_getAllTeachersQuery,
-                                _createTeacherCommand,
-                                _updateTeacherCommand,
-                                _deleteTeacherCommand);
+            _teacherStore = new TeacherStore(_getAllTeachersQuery,
+                                             _createTeacherCommand,
+                                             _updateTeacherCommand,
+                                             _deleteTeacherCommand);
 
-            _modalNavigationStore = new();
-            _viewStore = new();
+            _modalNavigationStore = new ModalNavigationStore();
+            _viewStore = new ViewStore();
 
-            _eduPlatformViewModel = new(_courseStore, _groupStore, _studentStore, _teacherStore, _viewStore, _modalNavigationStore);
-        }
-
-        protected override async void OnStartup(StartupEventArgs e)
-        {
-            using (EduPlatformDbContext context = _eduPlatformDbContextFactory.Create())
-            {
-                // ToDo: Maybe this method must be before load data in _eduPlatformVideModel constructor
-                context.Database.Migrate(); 
-            }
-
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel
-                (
-                    _eduPlatformViewModel,
-                    _modalNavigationStore
-                )
-            };
-
-            MainWindow.Show();
-            base.OnStartup(e);
-
-            QuestPDF.Settings.License = LicenseType.Community;
+            _eduPlatformViewModel = new HubViewModel(_courseStore, _groupStore, _studentStore, _teacherStore, _viewStore, _modalNavigationStore);
         }
     }
 
