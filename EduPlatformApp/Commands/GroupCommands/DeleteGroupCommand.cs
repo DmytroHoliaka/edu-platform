@@ -17,13 +17,17 @@ namespace EduPlatform.WPF.Commands.GroupCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            Guid groupId = DeletingGroup!.GroupId;
+            DeletingGroup!.ErrorMessage = null;
+            Guid groupId = DeletingGroup.GroupId;
 
             try
             {
                 await groupStore.Delete(groupId);
             }
-            catch (Exception) { /*ToDo: Make label with error message*/ }
+            catch (Exception)
+            {
+                DeletingGroup.ErrorMessage = "Cannot delete this group. Try again later.";
+            }
         }
     }
 }
