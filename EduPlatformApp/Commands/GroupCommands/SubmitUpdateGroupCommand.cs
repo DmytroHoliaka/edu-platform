@@ -17,6 +17,8 @@ namespace EduPlatform.WPF.Commands.GroupCommands
             GroupDetailsFormViewModel formDetails = 
                 updateGroupViewModel.GroupDetailsFormVM;
 
+            formDetails.ErrorMessage = null;
+
             Group targetGroup = new()
             {
                 GroupId = selectedGroup.GroupId,
@@ -38,7 +40,10 @@ namespace EduPlatform.WPF.Commands.GroupCommands
                 await groupStore.Update(targetGroup);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception)
+            {
+                formDetails.ErrorMessage = "Cannot update group. Try again later.";
+            }
         }
     }
 }
