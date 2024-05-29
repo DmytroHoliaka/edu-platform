@@ -25,6 +25,32 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public bool IsChecked
+        {
+            get
+            {
+                return _isChecked;
+            }
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+            }
+        }
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+
         public Guid CourseId => 
             Course.CourseId;
 
@@ -42,23 +68,11 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             string.IsNullOrWhiteSpace(Course?.Description) 
             ? "<not specified>" : Course.Description;
 
-        public bool IsChecked
-        {
-            get
-            {
-                return _isChecked;
-            }
-            set
-            {
-                _isChecked = value;
-                OnPropertyChanged(nameof(IsChecked));
-            }
-        }
-
         public bool IsEnabled { get; set; } = false;
 
         private bool _isChecked;
         private Course? _course;
+        private string? _errorMessage;
 
         public CourseViewModel(Course course)
         {
