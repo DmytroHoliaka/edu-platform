@@ -1,4 +1,7 @@
-﻿using EduPlatform.Domain.Models;
+﻿using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel;
@@ -9,6 +12,7 @@ using EduPlatform.WPF.ViewModels.TeachersViewModel;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
+    // ToDo: Check does all database commands and queries using correctly handling
     public class HubViewModel : ViewModelBase
     {
         public NavigationViewModel NavigationVM { get; }
@@ -18,6 +22,20 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
         public StudentSequenceViewModel StudentSequenceVM { get; }
         public TeacherSequenceViewModel TeacherSequenceVM { get; }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(ErrorMessage) == false;
+
+        private string? _errorMessage;
         private readonly GroupStore _groupStore;
 
         public HubViewModel
@@ -82,8 +100,38 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             StudentSequenceVM.ConfigureCommands();
             //StudentSequenceVM.InsertTestData();
 
+            InitializeData();
+        }
+
+        private void InitializeData()
+        {
             LoadData();
             SetRelationships();
+
+            List<ISequenceViewModel> errorComponents =
+            [
+                CourseSequenceVM,
+                GroupSequenceVM,
+                StudentSequenceVM,
+                TeacherSequenceVM
+            ];
+
+            if (errorComponents.Exists(e => string.IsNullOrWhiteSpace(e.ErrorMessage)))
+            {
+                ErrorMessage = BuildErrorMessage(errorComponents);
+            }
+        }
+
+        private static string BuildErrorMessage(List<ISequenceViewModel> errorComponents)
+        {
+            string errorMsg =
+                string.Join(
+                    separator: Environment.NewLine,
+                    values: errorComponents
+                        .Where(e => string.IsNullOrWhiteSpace(e.ErrorMessage) == false)
+                        .Select(e => e.ErrorMessage));
+
+            return errorMsg;
         }
 
         private void LoadData()
