@@ -10,10 +10,10 @@ namespace EduPlatform.WPF.Service.DataImport;
 
 public class CsvImporter : IDataImporter
 {
-    public async Task ImportStudents(StudentStore? studentStore, GroupViewModel? groupVM, string? csvPath)
+    public async Task ImportStudents(StudentStore? studentStore, Group? group, string? csvPath)
     {
         ArgumentNullException.ThrowIfNull(studentStore, nameof(studentStore));
-        ArgumentNullException.ThrowIfNull(groupVM, nameof(groupVM));
+        ArgumentNullException.ThrowIfNull(group, nameof(group));
         ArgumentException.ThrowIfNullOrWhiteSpace(csvPath);
 
         CsvValidator validator = new();
@@ -41,9 +41,11 @@ public class CsvImporter : IDataImporter
                     StudentId = Guid.NewGuid(),
                     FirstName = firstName,
                     LastName = lastName,
-                    GroupId = groupVM.GroupId,
-                    Group = groupVM.Group
+                    GroupId = group.GroupId,
+                    Group = group
                 };
+
+                //group.Group.Students.Add(student);
 
                 await studentStore.Add(student);
             }
