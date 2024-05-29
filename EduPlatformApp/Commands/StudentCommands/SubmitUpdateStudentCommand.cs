@@ -21,6 +21,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
                 return;
             }
 
+            FormDetails.ErrorMessage = null;
             GroupViewModel? relatedGroup = FormDetails.GroupVMs.FirstOrDefault(gvm => gvm.IsChecked == true);
 
             Student targetStudent = new()
@@ -36,7 +37,10 @@ namespace EduPlatform.WPF.Commands.StudentCommands
                 await studentStore.Update(targetStudent);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Write validation message*/ }
+            catch (Exception)
+            {
+                FormDetails.ErrorMessage = "Cannot update student. Try again later.";
+            }
         }
     }
 }
