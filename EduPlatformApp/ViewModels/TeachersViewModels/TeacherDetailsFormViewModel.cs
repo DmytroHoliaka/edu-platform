@@ -72,43 +72,15 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
         {
             GroupVMs = new(groupSequenceVM.GroupVMs);
             SetMarkers();
-            SetupEvents();
 
             SubmitCommand = submitCommand;
             CancelCommand = cancelCommand;
-        }
-
-        protected override void Dispose()
-        {
-            foreach (GroupViewModel group in GroupVMs)
-            {
-                group.PropertyChanged -= Group_PropertyChanged;
-            }
-
-            base.Dispose();
         }
 
         private void SetMarkers()
         {
             GroupVMs.Where(gvm => gvm.TeacherVMs.Count > 1)
                 .ToList().ForEach(gvm => gvm.IsEnabled = true);
-        }
-
-        // ToDo: Maybe you should delete all this events
-        private void SetupEvents()
-        {
-            foreach (GroupViewModel group in GroupVMs)
-            {
-                group.PropertyChanged += Group_PropertyChanged;
-            }
-        }
-
-        private void Group_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(GroupViewModel.IsChecked))
-            {
-                OnPropertyChanged(nameof(CanSubmit));
-            }
         }
     }
 }
