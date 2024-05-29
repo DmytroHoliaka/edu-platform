@@ -88,13 +88,37 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Row="3">
-            <Button Content="Cancel" 
+        <Grid Grid.Row="3" Margin="25 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                Content="Cancel" 
                     HorizontalAlignment="Left"
                     Command="{Binding CancelCommand}"
                     Style="{StaticResource FormButton}"/>
 
-            <Button Content="Submit" 
+            <Grid Grid.Column="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasErrorMessage}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Style="{StaticResource CourseFormErrorMessageStyle}"/>
+            </Grid>
+
+            <Button Grid.Column="2" 
+                    Content="Submit" 
                     HorizontalAlignment="Right"
                     Command="{Binding SubmitCommand}"
                     IsEnabled="{Binding CanSubmit}"
