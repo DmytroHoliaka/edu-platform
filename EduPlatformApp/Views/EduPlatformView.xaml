@@ -35,138 +35,170 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="3*" />
-        </Grid.ColumnDefinitions>
+        <Grid Background="{StaticResource ContentBackground}">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasErrorMessage}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <Grid
-            Grid.Column="0"
-            Background="{StaticResource MenuBackground}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="3*" />
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
-                <TextBlock
-                    Grid.Row="0"
-                    Style="{StaticResource MenuTitle}"
-                    Text="General" />
-
-                <Button
-                    Style="{StaticResource MenuButton}"
-                    Margin="30,55,30,0"
-                    Content="Overview"
-                    Command="{Binding NavigationVM.ChangePageCommand}"
-                    CommandParameter="{x:Static service:PageId.Overview}" />
-            </Grid>
-
-            <GridSplitter Grid.Row="1"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"
-                          Background="{StaticResource Separator}"
-                          Height="3" />
-
-            <Grid Grid.Row="2">
-                <TextBlock
-                    Grid.Row="1"
-                    Style="{StaticResource MenuTitle}"
-                    Text="Operations" />
-
-                <StackPanel Orientation="Vertical">
-                    <Button
-                        Style="{StaticResource MenuButton}"
-                        Margin="30,55,30,0"
-                        Content="Courses"
-                        Command="{Binding NavigationVM.ChangePageCommand}"
-                        CommandParameter="{x:Static service:PageId.Courses}" />
-
-                    <Button
-                        Style="{StaticResource MenuButton}"
-                        Margin="30,15,30,0"
-                        Content="Groups"
-                        Command="{Binding NavigationVM.ChangePageCommand}"
-                        CommandParameter="{x:Static service:PageId.Groups}" />
-
-                    <Button
-                        Style="{StaticResource MenuButton}"
-                        Margin="30,15,30,0"
-                        Content="Students"
-                        Command="{Binding NavigationVM.ChangePageCommand}"
-                        CommandParameter="{x:Static service:PageId.Students}" />
-
-                    <Button
-                        Style="{StaticResource MenuButton}"
-                        Margin="30,15,30,0"
-                        Content="Teachers"
-                        Command="{Binding NavigationVM.ChangePageCommand}"
-                        CommandParameter="{x:Static service:PageId.Teachers}"/>
-
-                </StackPanel>
-            </Grid>
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Style="{StaticResource ErrorMessageStyle}" />
         </Grid>
 
-        <GridSplitter Grid.Column="1"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Stretch"
-                      Width="5"
-                      Background="{StaticResource Separator}" />
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasErrorMessage}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <Grid
-            Grid.Column="2"
-            Background="{StaticResource ContentBackground}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
 
-            <ContentControl Content="{Binding }">
-                <ContentControl.Style>
-                    <Style TargetType="{x:Type ContentControl}">
-                        <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding NavigationVM.PageId,  
+                <Grid
+                    Grid.Column="0"
+                    Background="{StaticResource MenuBackground}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <TextBlock
+                            Grid.Row="0"
+                            Style="{StaticResource MenuTitle}"
+                            Text="General" />
+
+                        <Button
+                            Style="{StaticResource MenuButton}"
+                            Margin="30,55,30,0"
+                            Content="Overview"
+                            Command="{Binding NavigationVM.ChangePageCommand}"
+                            CommandParameter="{x:Static service:PageId.Overview}" />
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center"
+                                  Background="{StaticResource Separator}"
+                                  Height="3" />
+
+                    <Grid Grid.Row="2">
+                        <TextBlock
+                            Grid.Row="1"
+                            Style="{StaticResource MenuTitle}"
+                            Text="Operations" />
+
+                        <StackPanel Orientation="Vertical">
+                            <Button
+                                Style="{StaticResource MenuButton}"
+                                Margin="30,55,30,0"
+                                Content="Courses"
+                                Command="{Binding NavigationVM.ChangePageCommand}"
+                                CommandParameter="{x:Static service:PageId.Courses}" />
+
+                            <Button
+                                Style="{StaticResource MenuButton}"
+                                Margin="30,15,30,0"
+                                Content="Groups"
+                                Command="{Binding NavigationVM.ChangePageCommand}"
+                                CommandParameter="{x:Static service:PageId.Groups}" />
+
+                            <Button
+                                Style="{StaticResource MenuButton}"
+                                Margin="30,15,30,0"
+                                Content="Students"
+                                Command="{Binding NavigationVM.ChangePageCommand}"
+                                CommandParameter="{x:Static service:PageId.Students}" />
+
+                            <Button
+                                Style="{StaticResource MenuButton}"
+                                Margin="30,15,30,0"
+                                Content="Teachers"
+                                Command="{Binding NavigationVM.ChangePageCommand}"
+                                CommandParameter="{x:Static service:PageId.Teachers}" />
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <GridSplitter Grid.Column="1"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Stretch"
+                              Width="5"
+                              Background="{StaticResource Separator}" />
+
+                <Grid
+                    Grid.Column="2"
+                    Background="{StaticResource ContentBackground}">
+
+                    <ContentControl Content="{Binding }">
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding NavigationVM.PageId,  
                                                   NotifyOnSourceUpdated=True,
                                                   UpdateSourceTrigger=PropertyChanged}"
-                                Value="{x:Static service:PageId.Overview}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource OverviewPage}" />
-                            </DataTrigger>
+                                        Value="{x:Static service:PageId.Overview}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource OverviewPage}" />
+                                    </DataTrigger>
 
-                            <DataTrigger
-                                Binding="{Binding NavigationVM.PageId,  
+                                    <DataTrigger
+                                        Binding="{Binding NavigationVM.PageId,  
                                                   NotifyOnSourceUpdated=True,
                                                   UpdateSourceTrigger=PropertyChanged}"
-                                Value="{x:Static service:PageId.Courses}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource CoursesPage}" />
-                            </DataTrigger>
+                                        Value="{x:Static service:PageId.Courses}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource CoursesPage}" />
+                                    </DataTrigger>
 
-                            <DataTrigger
-                                Binding="{Binding NavigationVM.PageId,  
+                                    <DataTrigger
+                                        Binding="{Binding NavigationVM.PageId,  
                                                   NotifyOnSourceUpdated=True,
                                                   UpdateSourceTrigger=PropertyChanged}"
-                                Value="{x:Static service:PageId.Groups}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource GroupsPage}" />
-                            </DataTrigger>
+                                        Value="{x:Static service:PageId.Groups}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource GroupsPage}" />
+                                    </DataTrigger>
 
-                            <DataTrigger
-                                Binding="{Binding NavigationVM.PageId,  
+                                    <DataTrigger
+                                        Binding="{Binding NavigationVM.PageId,  
                                                   NotifyOnSourceUpdated=True,
                                                   UpdateSourceTrigger=PropertyChanged}"
-                                Value="{x:Static service:PageId.Students}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource StudentsPage}" />
-                            </DataTrigger>
+                                        Value="{x:Static service:PageId.Students}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource StudentsPage}" />
+                                    </DataTrigger>
 
-                            <DataTrigger
-                                Binding="{Binding NavigationVM.PageId,  
+                                    <DataTrigger
+                                        Binding="{Binding NavigationVM.PageId,  
                                                   NotifyOnSourceUpdated=True,
                                                   UpdateSourceTrigger=PropertyChanged}"
-                                Value="{x:Static service:PageId.Teachers}">
-                                <Setter Property="ContentTemplate" Value="{StaticResource TeachersPage}" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentControl.Style>
-            </ContentControl>
+                                        Value="{x:Static service:PageId.Teachers}">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource TeachersPage}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
