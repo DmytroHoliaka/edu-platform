@@ -25,7 +25,8 @@
                           SelectionMode="Single">
 
                     <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemMainStyle}" />
+                        <Style TargetType="ListViewItem"
+                               BasedOn="{StaticResource ListViewItemMainStyle}" />
                     </ListView.ItemContainerStyle>
 
                     <ListView.ItemTemplate>
@@ -36,9 +37,32 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0"
-                                           Text="{Binding CourseName}"
-                                           Style="{StaticResource ListViewItemTextStyle}" />
+                                <Grid Grid.Column="0" Margin="0 8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               Text="{Binding CourseName}"
+                                               Style="{StaticResource ListViewItemTextStyle}" />
+
+                                    <Grid Grid.Row="1" Margin="0 2 0 0">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasErrorMessage}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+
+                                        <TextBlock Text="{Binding ErrorMessage}"
+                                                   Style="{StaticResource ListViewItemErrorMessageStyle}" />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
