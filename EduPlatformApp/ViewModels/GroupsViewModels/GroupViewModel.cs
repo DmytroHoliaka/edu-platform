@@ -83,12 +83,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             Group = groupItem;
         }
 
-        public GroupViewModel(Group groupItem, StudentStore studentStore)
+        public GroupViewModel(Group groupItem, GroupStore groupStore, StudentStore studentStore)
         {
             Group = groupItem;
 
             ExportCsvCommand = new ExportStudentsCommand(this, new CsvExporter());
-            ImportCsvCommand = new ImportStudentsCommand(studentStore, this);
+            ImportCsvCommand = new ImportStudentsCommand(studentStore, groupStore, this);
             CreateDocxCommand = new ExportStudentsCommand(this, new DocxExporter());
             CreatePdfCommand = new ExportStudentsCommand(this, new PdfExporter());
         }
