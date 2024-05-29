@@ -30,4 +30,8 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\NavigationCommands\" />
+  </ItemGroup>
 </Project>
