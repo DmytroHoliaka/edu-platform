@@ -1,9 +1,10 @@
 ﻿using EduPlatform.WPF.Commands.BaseCommands;
 using EduPlatform.WPF.Stores;
+using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
 namespace EduPlatform.WPF.Commands.StudentCommands
 {
-    public class LoadStudentsCommand(StudentStore studentStore) : AsyncCommandBase
+    public class LoadStudentsCommand(StudentStore studentStore, StudentSequenceViewModel studentSequenceViewModel) : AsyncCommandBase
     {
         public override async Task ExecuteAsync(object? parameter)
         {
@@ -13,8 +14,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
             }
             catch (Exception)
             {
-                // ToDo: Write correct exception handling
-                throw;
+                studentSequenceViewModel.ErrorMessage = "Unable to load student data from database";
             }
         }
     }
