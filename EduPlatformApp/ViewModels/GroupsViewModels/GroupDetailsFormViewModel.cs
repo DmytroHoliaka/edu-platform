@@ -30,15 +30,29 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
         public bool CanSubmit
             => string.IsNullOrWhiteSpace(GroupName) == false
                && (TeacherVMs?.Any(t => t.IsChecked == true) ?? false);
+        
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
         public ICommand? SubmitCommand { get; }
         public ICommand? CancelCommand { get; }
 
         private string? _groupName;
         private readonly GroupViewModel? _selectedGroup;
+        private string? _errorMessage;
 
         public GroupDetailsFormViewModel
         (
