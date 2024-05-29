@@ -1,32 +1,29 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using System.Windows.Input;
+using EduPlatform.WPF.Commands.NavigationCommands;
 using EduPlatform.WPF.Service;
-using System.Windows.Input;
+using EduPlatform.WPF.ViewModels.GeneralViewModels;
 
-namespace EduPlatform.WPF.ViewModels.NavigationsViewModel
+namespace EduPlatform.WPF.ViewModels.NavigationsViewModels
 {
-    // ToDo: ObservableObject implements IPropertyChanged. Try add ObservableObject in ViewModelBase
-    public class NavigationViewModel : ObservableObject
+    public class NavigationViewModel : ViewModelBase
     {
         public PageId PageId
         {
-            get => _pageId; 
-            set => SetProperty(ref _pageId, value);
+            get => _pageId;
+            set
+            {
+                _pageId = value;
+                OnPropertyChanged(nameof(PageId));
+            }
         }
 
-        public ICommand ChangePageCommand => new RelayCommand<PageId>(ChangePage);
-        
+        public ICommand ChangePageCommand { get; }
         private PageId _pageId;
-
 
         public NavigationViewModel()
         {
             PageId = PageId.Overview;
-        }
-
-        private void ChangePage(PageId newPage)
-        {
-            PageId = newPage;
+            ChangePageCommand = new ChangePageCommand(this);
         }
     }
 }
