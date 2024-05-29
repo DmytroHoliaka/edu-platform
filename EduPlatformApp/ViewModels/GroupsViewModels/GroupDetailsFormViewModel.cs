@@ -76,7 +76,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             CancelCommand = cancelCommand;
         }
 
-        protected override void Dispose()
+        public override void Dispose()
         {
             foreach (TeacherViewModel teacher in TeacherVMs)
             {
