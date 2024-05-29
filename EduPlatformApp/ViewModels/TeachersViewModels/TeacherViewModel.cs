@@ -7,10 +7,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
     {
         public Teacher Teacher
         {
-            get
-            {
-                return _teacher!;
-            }
+            get => _teacher!;
             set
             {
                 _teacher = value;
@@ -25,31 +22,9 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             }
         }
 
-        public Guid TeacherId => 
-            Teacher.TeacherId;
-
-        public IEnumerable<Group> Groups =>
-            Teacher.Groups ?? Enumerable.Empty<Group>();
-
-        public string FullName =>
-             string.IsNullOrWhiteSpace(Teacher?.FirstName) || string.IsNullOrWhiteSpace(Teacher?.LastName)
-             ? "<not specified>"
-             : $"{Teacher.FirstName} {Teacher.LastName}";
-
-        public string FirstName =>
-            string.IsNullOrWhiteSpace(Teacher?.FirstName)
-            ? "<not specified>" : Teacher.FirstName;
-
-        public string LastName =>
-            string.IsNullOrWhiteSpace(Teacher?.LastName)
-            ? "<not specified>" : Teacher.LastName;
-
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get => _isChecked;
             set
             {
                 _isChecked = value;
@@ -57,10 +32,39 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public string FullName =>
+            string.IsNullOrWhiteSpace(Teacher?.FirstName) || string.IsNullOrWhiteSpace(Teacher?.LastName)
+                ? "<not specified>"
+                : $"{Teacher.FirstName} {Teacher.LastName}";
+
+        public string FirstName =>
+            string.IsNullOrWhiteSpace(Teacher?.FirstName)
+                ? "<not specified>" : Teacher.FirstName;
+
+        public string LastName =>
+            string.IsNullOrWhiteSpace(Teacher?.LastName)
+                ? "<not specified>" : Teacher.LastName;
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+        public Guid TeacherId => Teacher.TeacherId;
+        public IEnumerable<Group> Groups => Teacher.Groups;
+
         public bool IsEnabled { get; set; } = false;
 
         private bool _isChecked;
         private Teacher? _teacher;
+        private string? _errorMessage;
 
         public TeacherViewModel(Teacher teacher)
         {
