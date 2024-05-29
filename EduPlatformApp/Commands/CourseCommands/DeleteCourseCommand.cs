@@ -16,6 +16,7 @@ namespace EduPlatform.WPF.Commands.CourseCommands
 
         public override async Task ExecuteAsync(object? parameter)
         {
+            DeletingCourse!.ErrorMessage = null;
             Guid courseId = DeletingCourse!.CourseId;
 
             try
@@ -24,7 +25,7 @@ namespace EduPlatform.WPF.Commands.CourseCommands
             }
             catch (Exception)
             {
-                /*ToDo: Write validation message*/
+                DeletingCourse.ErrorMessage = "Cannot delete this course. Try again later.";
             }
         }
     }
