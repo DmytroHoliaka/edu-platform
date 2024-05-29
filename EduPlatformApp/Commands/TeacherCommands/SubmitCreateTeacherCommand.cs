@@ -20,7 +20,8 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
                 return;
             }
 
-            IEnumerable<GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked == true);
+            FormDetails.ErrorMessage = null;
+            IEnumerable <GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked == true);
 
             Teacher teacher = new()
             {
@@ -35,7 +36,10 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
                 await teacherStore.Add(teacher);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Make label with error message*/ }
+            catch (Exception)
+            {
+                FormDetails.ErrorMessage = "Cannot create teacher. Try again later.";
+            }
         }
     }
 }
