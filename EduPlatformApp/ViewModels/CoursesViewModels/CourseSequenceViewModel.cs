@@ -10,7 +10,7 @@ using EduPlatform.WPF.Commands.BaseCommands;
 
 namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 {
-    public class CourseSequenceViewModel : ViewModelBase
+    public class CourseSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<CourseViewModel> _courserVMs;
         public IEnumerable<CourseViewModel> CourseVMs =>
@@ -35,6 +35,19 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             }
         }
 
+        public string? ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(HasErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
+
         public ICommand LoadCoursesCommand { get; private set; }
         public ICommand CreateCourseCommand { get; private set; }
         public ICommand UpdateCourseCommand { get; private set; }
@@ -45,6 +58,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         private readonly CourseStore _courseStore;
         private readonly ViewStore _viewStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private string? _errorMessage;
 
 
         public CourseSequenceViewModel
@@ -79,7 +93,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
                 return;
             }
 
-            LoadCoursesCommand = new LoadCoursesCommand(_courseStore);
+            LoadCoursesCommand = new LoadCoursesCommand(_courseStore, this);
 
             CreateCourseCommand = new OpenCreateCourseFormCommand(_courseStore,
                                                                   _viewStore,
