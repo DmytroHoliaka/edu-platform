@@ -20,6 +20,7 @@ namespace EduPlatform.WPF.Commands.CourseCommands
                 return;
             }
 
+            FormDetails.ErrorMessage = null;
             IEnumerable<GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked == true);
 
             Course course = new()
@@ -35,7 +36,10 @@ namespace EduPlatform.WPF.Commands.CourseCommands
                 await courseStore.Add(course);
                 modalNavigationStore.Close();
             }
-            catch (Exception) { /*ToDo: Make label with error message*/ }
+            catch (Exception)
+            {
+                FormDetails.ErrorMessage = "Cannot create course. Try again later.";
+            }
         }
     }
 }
