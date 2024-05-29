@@ -106,7 +106,6 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
         private void InitializeData()
         {
             LoadData();
-            SetRelationships();
 
             List<ISequenceViewModel> errorComponents =
             [
@@ -116,10 +115,13 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
                 TeacherSequenceVM
             ];
 
-            if (errorComponents.Exists(e => string.IsNullOrWhiteSpace(e.ErrorMessage)))
+            if (errorComponents.Exists(e => string.IsNullOrWhiteSpace(e.ErrorMessage) == false))
             {
                 ErrorMessage = BuildErrorMessage(errorComponents);
+                return;
             }
+
+            SetRelationships();
         }
 
         private static string BuildErrorMessage(List<ISequenceViewModel> errorComponents)
