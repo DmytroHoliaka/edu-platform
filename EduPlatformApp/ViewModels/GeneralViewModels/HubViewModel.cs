@@ -12,7 +12,6 @@ using EduPlatform.WPF.ViewModels.TeachersViewModel;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
-    // ToDo: Check does all database commands and queries using correctly handling
     public class HubViewModel : ViewModelBase
     {
         public NavigationViewModel NavigationVM { get; }

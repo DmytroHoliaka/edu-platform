@@ -49,7 +49,7 @@ namespace EduPlatform.WPF
         public App()
         {
             // ToDo: Use JSON configuration file #1
-            string connectionString = @"Server=(localdb)\mssqllocaldb;Database=EduPlatform;Trusted_Connection=True;";
+            string connectionString = @"Server=(localdb)\mssqllocaldb;Database=EduPlatform2;Trusted_Connection=True;";
 
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer(connectionString).Options;
             _eduPlatformDbContextFactory = new EduPlatformDbContextFactory(options);

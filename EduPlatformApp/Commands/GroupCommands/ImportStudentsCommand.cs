@@ -8,6 +8,7 @@ namespace EduPlatform.WPF.Commands.GroupCommands;
 
 public class ImportStudentsCommand(StudentStore studentStore, GroupViewModel groupVM) : AsyncCommandBase
 {
+    // ToDo: Before importing students into a group, you have to clear the group where you are uploading new students.
     public override async Task ExecuteAsync(object? parameter)
     {
         OpenFileDialog dialog = new()
