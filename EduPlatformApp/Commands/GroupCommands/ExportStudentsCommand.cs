@@ -16,8 +16,7 @@ public class ExportStudentsCommand(GroupViewModel groupVM, DataExporter exporter
         }
         catch (Exception)
         {
-            // ToDo: Create correct error handling
-            throw;
+            MessageBox.Show("There was an exception during the export. Please try again later.");
         }
     }
 }
