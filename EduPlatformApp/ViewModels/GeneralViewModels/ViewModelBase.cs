@@ -2,7 +2,7 @@
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -11,9 +11,9 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual void Dispose()
+        public virtual void Dispose()
         {
-
+            
         }
     }
 }
