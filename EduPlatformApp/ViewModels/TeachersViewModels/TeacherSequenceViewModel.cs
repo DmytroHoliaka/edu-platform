@@ -80,6 +80,15 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             _modalNavigationStore = modalNavigationStore;
         }
 
+        public override void Dispose()
+        {
+            _teacherStore.TeachersLoaded -= TeacherStore_TeachersLoaded;
+            _teacherStore.TeacherAdded -= TeacherStore_TeacherAdded;
+            _teacherStore.TeacherUpdated -= TeacherStore_TeacherUpdated;
+            _teacherStore.TeacherDeleted -= TeacherStore_TeacherDeleted;
+            _viewStore.TeacherUnfocused -= ViewStore_TeacherUnfocused;
+        }
+
         public void SetGroupSequence(GroupSequenceViewModel newGroup)
         {
             _groupSequenceVM = newGroup;
