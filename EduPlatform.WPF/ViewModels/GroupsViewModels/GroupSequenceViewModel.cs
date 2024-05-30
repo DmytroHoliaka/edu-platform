@@ -7,8 +7,8 @@ using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using EduPlatform.WPF.Service;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
+using EduPlatform.WPF.Service.Utilities;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {

@@ -1,5 +1,5 @@
 ﻿using EduPlatform.WPF.Commands.BaseCommands;
-using EduPlatform.WPF.Service;
+using EduPlatform.WPF.Service.Utilities;
 using EduPlatform.WPF.ViewModels.NavigationsViewModels;
 
 namespace EduPlatform.WPF.Commands.NavigationCommands;

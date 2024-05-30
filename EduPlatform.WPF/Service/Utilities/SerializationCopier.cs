@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace EduPlatform.WPF.Service
+namespace EduPlatform.WPF.Service.Utilities
 {
-    public class SerializationCopier
+    public static class SerializationCopier
     {
         public static T? DeepCopy<T>(T obj)
         {
-            JsonSerializerSettings settings = new() 
-            { 
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore 
+            JsonSerializerSettings settings = new()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
 
             string json = JsonConvert.SerializeObject(obj, settings);

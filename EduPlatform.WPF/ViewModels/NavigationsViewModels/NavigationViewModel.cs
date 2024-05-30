@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using EduPlatform.WPF.Commands.NavigationCommands;
-using EduPlatform.WPF.Service;
+using EduPlatform.WPF.Service.Utilities;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 
 namespace EduPlatform.WPF.ViewModels.NavigationsViewModels

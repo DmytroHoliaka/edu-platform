@@ -3,7 +3,7 @@ using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
-namespace EduPlatform.WPF.Service;
+namespace EduPlatform.WPF.Service.DataManagement;
 
 public static class GroupService
 {

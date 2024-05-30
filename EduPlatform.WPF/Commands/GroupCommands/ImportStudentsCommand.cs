@@ -1,7 +1,7 @@
 ﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Commands.BaseCommands;
-using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Service.DataImport;
+using EduPlatform.WPF.Service.DataManagement;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;

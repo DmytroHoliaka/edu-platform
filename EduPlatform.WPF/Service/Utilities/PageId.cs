@@ -1,4 +1,4 @@
-﻿namespace EduPlatform.WPF.Service
+﻿namespace EduPlatform.WPF.Service.Utilities
 {
     public enum PageId
     {

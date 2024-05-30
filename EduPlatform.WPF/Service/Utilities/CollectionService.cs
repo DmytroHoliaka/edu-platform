@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace EduPlatform.WPF.Service;
+namespace EduPlatform.WPF.Service.Utilities;
 
 public static class CollectionService
 {

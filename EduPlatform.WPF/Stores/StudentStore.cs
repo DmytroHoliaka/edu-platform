@@ -1,7 +1,7 @@
 ﻿using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Models;
 using EduPlatform.Domain.Queries;
-using EduPlatform.WPF.Service;
+using EduPlatform.WPF.Service.Utilities;
 
 namespace EduPlatform.WPF.Stores
 {

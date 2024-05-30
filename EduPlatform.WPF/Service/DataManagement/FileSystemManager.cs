@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace EduPlatform.WPF.Service;
+namespace EduPlatform.WPF.Service.DataManagement;
 
 public static class FileSystemManager
 {

@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Commands.TeacherCommands;
-using EduPlatform.WPF.Service;
+using EduPlatform.WPF.Service.Utilities;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
