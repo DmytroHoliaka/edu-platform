@@ -5,9 +5,9 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduPlatform.WPF", "EduPlatformApp\EduPlatform.WPF.csproj", "{53E55990-C813-4179-B764-70DBCF14290C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPlatform.EntityFramework", "EduPlatform.EntityFramework\EduPlatform.EntityFramework.csproj", "{00352E0F-9BCD-4B86-AB1D-D5556A03878F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduPlatform.EntityFramework", "EduPlatform.EntityFramework\EduPlatform.EntityFramework.csproj", "{00352E0F-9BCD-4B86-AB1D-D5556A03878F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPlatform.Domain", "EduPlatform.Domain\EduPlatform.Domain.csproj", "{C8865700-FE29-4E03-AFE7-39FFA3EA4B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduPlatform.Domain", "EduPlatform.Domain\EduPlatform.Domain.csproj", "{C8865700-FE29-4E03-AFE7-39FFA3EA4B90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
