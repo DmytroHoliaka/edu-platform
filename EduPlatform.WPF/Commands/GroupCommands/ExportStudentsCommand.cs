@@ -5,14 +5,18 @@ using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Commands.GroupCommands;
 
-public class ExportStudentsCommand(GroupViewModel groupVM, DataExporter exporter) : AsyncCommandBase
+public class ExportStudentsCommand(
+    GroupViewModel groupVM, 
+    DataExporter exporter, 
+    string? folderName) : AsyncCommandBase
 {
     public override async Task ExecuteAsync(object? parameter)
     {
         try
         {
             await exporter.ExportStudent(groupVM);
-            MessageBox.Show("Students successfully exported (folder ExportedData in the root directory)");
+            MessageBox.Show($"Students successfully exported (folderName {folderName ?? "<not specified>"} " +
+                            $"in the root directory)");
         }
         catch (Exception)
         {

@@ -89,13 +89,29 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         {
             Group = groupItem;
 
+            const string dirName = "ExportedData";
             DirectoryInfo currentDir = new(AppDomain.CurrentDomain.BaseDirectory);
-            string dirPath = currentDir.Parent?.Parent?.Parent?.Parent?.FullName + "/ExportedData/";
+            string dirPath = currentDir.Parent?.Parent?.Parent?.Parent?.FullName + "/" + dirName + "/";
 
-            ExportCsvCommand = new ExportStudentsCommand(this, new CsvExporter(new SystemClock(), dirPath));
-            ImportCsvCommand = new ImportStudentsCommand(studentStore, groupStore, this);
-            CreateDocxCommand = new ExportStudentsCommand(this, new DocxExporter(new SystemClock(), dirPath));
-            CreatePdfCommand = new ExportStudentsCommand(this, new PdfExporter(new SystemClock(), dirPath));
+            ExportCsvCommand = new ExportStudentsCommand(
+                groupVM: this, 
+                exporter: new CsvExporter(new SystemClock(), dirPath), 
+                folderName: dirName);
+
+            ImportCsvCommand = new ImportStudentsCommand(
+                studentStore: studentStore, 
+                groupStore: groupStore, 
+                groupVM: this);
+
+            CreateDocxCommand = new ExportStudentsCommand(
+                groupVM: this, 
+                exporter: new DocxExporter(new SystemClock(), dirPath), 
+                folderName: dirName);
+
+            CreatePdfCommand = new ExportStudentsCommand(
+                groupVM: this, 
+                exporter: new PdfExporter(new SystemClock(), dirPath), 
+                folderName: dirName);
         }
     }
 }
