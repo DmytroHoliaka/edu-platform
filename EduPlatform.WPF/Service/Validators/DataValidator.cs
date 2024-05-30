@@ -2,7 +2,7 @@
 
 public abstract class DataValidator
 {
-    public static bool IsValidCorrect(string lineId)
+    public static bool IsValidId(string? lineId)
     {
         if (int.TryParse(lineId, out int id) == false)
         {

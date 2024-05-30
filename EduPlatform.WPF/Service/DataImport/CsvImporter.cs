@@ -45,8 +45,6 @@ public class CsvImporter : IDataImporter
                     Group = group
                 };
 
-                //group.Group.Students.Add(student);
-
                 await studentStore.Add(student);
             }
         }

@@ -50,7 +50,7 @@ public class CsvValidator : IFileValidator
                 return errors;
             }
 
-            AddBodyHeaders(
+            AddBodyErrors(
                 reader: reader,
                 errors: errors);
         }
@@ -100,7 +100,7 @@ public class CsvValidator : IFileValidator
         }
     }
 
-    private static void AddBodyHeaders(StreamReader reader, List<RowError> errors)
+    private static void AddBodyErrors(StreamReader reader, List<RowError> errors)
     {
         int lineCount = 1;
         List<int> ids = [];
@@ -113,7 +113,7 @@ public class CsvValidator : IFileValidator
             if (columns.Length != ColumnCount)
             {
                 errors.Add(new RowError(lineNumber: lineCount,
-                                        columnName: $"<not specified>",
+                                        columnName: "<not specified>",
                                         explanation: "Incorrect number of columns"));
 
                 continue;
@@ -123,7 +123,7 @@ public class CsvValidator : IFileValidator
             string firstName = columns[1];
             string lastName = columns[2];
 
-            if (DataValidator.IsValidCorrect(localId) == false)
+            if (DataValidator.IsValidId(localId) == false)
             {
                 errors.Add(new RowError(lineNumber: lineCount,
                                         columnName: FirstColumn,
@@ -144,14 +144,14 @@ public class CsvValidator : IFileValidator
             {
                 errors.Add(new RowError(lineNumber: lineCount,
                                         columnName: SecondColumn,
-                                        explanation: "Cannot be empty or white space"));
+                                        explanation: "First name cannot be empty or white space"));
             }
 
             if (string.IsNullOrWhiteSpace(lastName))
             {
                 errors.Add(new RowError(lineNumber: lineCount,
                                         columnName: ThirdColumn,
-                                        explanation: "Cannot be empty or white space"));
+                                        explanation: "Second name cannot be empty or white space"));
             }
         }
     }
