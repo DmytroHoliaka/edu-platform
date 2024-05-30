@@ -7,7 +7,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Service.DataExport;
+using EduPlatform.WPF.Service.Time;
 using EduPlatform.WPF.Stores;
+using System.IO;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -87,10 +89,13 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         {
             Group = groupItem;
 
-            ExportCsvCommand = new ExportStudentsCommand(this, new CsvExporter());
+            DirectoryInfo currentDir = new(AppDomain.CurrentDomain.BaseDirectory);
+            string dirPath = currentDir.Parent?.Parent?.Parent?.Parent?.FullName + "/ExportedData/";
+
+            ExportCsvCommand = new ExportStudentsCommand(this, new CsvExporter(new SystemClock(), dirPath));
             ImportCsvCommand = new ImportStudentsCommand(studentStore, groupStore, this);
-            CreateDocxCommand = new ExportStudentsCommand(this, new DocxExporter());
-            CreatePdfCommand = new ExportStudentsCommand(this, new PdfExporter());
+            CreateDocxCommand = new ExportStudentsCommand(this, new DocxExporter(new SystemClock(), dirPath));
+            CreatePdfCommand = new ExportStudentsCommand(this, new PdfExporter(new SystemClock(), dirPath));
         }
     }
 }
