@@ -1,4 +1,6 @@
-﻿using EduPlatform.Domain.Commands;
+﻿using System.Data;
+using System.IO;
+using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Queries;
 using EduPlatform.EntityFramework.Commands;
 using EduPlatform.EntityFramework.DbContextConfigurations;
@@ -7,6 +9,7 @@ using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QuestPDF.Infrastructure;
@@ -26,9 +29,8 @@ namespace EduPlatform.WPF
                 .ConfigureServices(
                     (context, services) =>
                     {
-                        // ToDo: Use JSON configuration file #1
-                        const string connectionString =
-                            @"Server=(localdb)\mssqllocaldb;Database=EduPlatform2;Trusted_Connection=True;";
+                        string connectionString = context.Configuration.GetConnectionString(name: "MSSQL Server")
+                            ?? throw new DataException("Cannot get connection string from configuration");
 
                         services.AddSingleton<DbContextOptions>(
                             new DbContextOptionsBuilder().UseSqlServer(connectionString).Options);
