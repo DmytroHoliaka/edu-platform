@@ -1,4 +1,5 @@
-﻿using EduPlatform.WPF.ViewModels.GroupsViewModels;
+﻿using EduPlatform.WPF.Service.Time;
+using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -28,11 +29,22 @@ public class PdfExporter : DataExporter
     private const float ItemRowSpacing = 0.25f;
     private const float ItemVerticalSpacing = 0.35f;
 
-    public override async Task ExportStudent(GroupViewModel groupVM)
+    private readonly string _folderPath;
+
+    public PdfExporter(IClock clock, string? folderPath) : base(clock)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(folderPath, nameof(folderPath));
+        _folderPath = folderPath;
+    }
+
+    public override async Task ExportStudent(GroupViewModel? groupVM)
+    {
+        ArgumentNullException.ThrowIfNull(groupVM, nameof(groupVM));
+
         string filePath = GetFilePath(
             groupName: groupVM.GroupName,
-            extension: ".pdf");
+            extension: ".pdf",
+            folderPath: _folderPath);
 
         await Task.Run(
             () =>
