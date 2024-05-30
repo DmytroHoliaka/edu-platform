@@ -6,8 +6,10 @@ namespace EduPlatform.WPF.HostBuilders;
 
 public static class StoreExtensions
 {
-    public static IHostBuilder AddStores(this IHostBuilder hostBuilder)
+    public static IHostBuilder AddStores(this IHostBuilder? hostBuilder)
     {
+        ArgumentNullException.ThrowIfNull(hostBuilder, nameof(hostBuilder));
+        
         hostBuilder.ConfigureServices(
             (context, services) =>
             {

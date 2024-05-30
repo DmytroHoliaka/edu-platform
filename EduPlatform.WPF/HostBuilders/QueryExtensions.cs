@@ -7,8 +7,10 @@ namespace EduPlatform.WPF.HostBuilders;
 
 public static class QueryExtensions
 {
-    public static IHostBuilder AddQueries(this IHostBuilder hostBuilder)
+    public static IHostBuilder AddQueries(this IHostBuilder? hostBuilder)
     {
+        ArgumentNullException.ThrowIfNull(hostBuilder, nameof(hostBuilder));
+
         hostBuilder.ConfigureServices(
             (context, services) =>
             {

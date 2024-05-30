@@ -7,8 +7,10 @@ namespace EduPlatform.WPF.HostBuilders;
 
 public static class CommandExtensions
 {
-    public static IHostBuilder AddCommands(this IHostBuilder hostBuilder)
+    public static IHostBuilder AddCommands(this IHostBuilder? hostBuilder)
     {
+        ArgumentNullException.ThrowIfNull(hostBuilder, nameof(hostBuilder));
+
         hostBuilder.ConfigureServices(
             (context, services) =>
             {
@@ -31,7 +33,7 @@ public static class CommandExtensions
                 services.AddSingleton<IUpdateTeacherCommand, UpdateTeacherCommand>();
                 services.AddSingleton<IDeleteTeacherCommand, DeleteTeacherCommand>();
             });
-
+        
         return hostBuilder;
     }
 }

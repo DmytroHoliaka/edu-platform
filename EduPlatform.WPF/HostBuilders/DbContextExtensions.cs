@@ -9,8 +9,10 @@ namespace EduPlatform.WPF.HostBuilders;
 
 public static class DbContextExtensions
 {
-    public static IHostBuilder AddDbContext(this IHostBuilder hostBuilder)
+    public static IHostBuilder AddDbContext(this IHostBuilder? hostBuilder)
     {
+        ArgumentNullException.ThrowIfNull(hostBuilder, nameof(hostBuilder));
+
         hostBuilder.ConfigureServices(
             (context, services) =>
             {

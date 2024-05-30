@@ -6,8 +6,10 @@ namespace EduPlatform.WPF.HostBuilders;
 
 public static class ViewModelExtensions
 {
-    public static IHostBuilder AddViewModels(this IHostBuilder hostBuilder)
+    public static IHostBuilder AddViewModels(this IHostBuilder? hostBuilder)
     {
+        ArgumentNullException.ThrowIfNull(hostBuilder, nameof(hostBuilder));
+
         hostBuilder.ConfigureServices(
             (context, services) =>
             {

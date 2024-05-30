@@ -6,8 +6,10 @@ namespace EduPlatform.WPF.HostBuilders;
 
 public static class ViewExtensions
 {
-    public static IHostBuilder AddViews(this IHostBuilder hostBuilder)
+    public static IHostBuilder AddViews(this IHostBuilder? hostBuilder)
     {
+        ArgumentNullException.ThrowIfNull(hostBuilder, nameof(hostBuilder));
+
         hostBuilder.ConfigureServices(
             (context, services) =>
             {
