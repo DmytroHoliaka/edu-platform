@@ -1,12 +1,21 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using DocumentFormat.OpenXml.Wordprocessing;
+using EduPlatform.WPF.Service.Time;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 
 namespace EduPlatform.WPF.Service.DataExport;
 
 public class DocxExporter : DataExporter
 {
+    private readonly string _folderPath;
+
+    public DocxExporter(IClock clock, string? folderPath) : base(clock)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(folderPath, nameof(folderPath));
+        _folderPath = folderPath;
+    }
+
     private const string CourseFont = "Algerian";
     private const string CourseHalfPoints = "46";
 
@@ -16,11 +25,14 @@ public class DocxExporter : DataExporter
     private const string StudentFont = "Bell MT";
     private const string StudentHalfPoints = "28";
 
-    public override async Task ExportStudent(GroupViewModel groupVM)
+    public override async Task ExportStudent(GroupViewModel? groupVM)
     {
+        ArgumentNullException.ThrowIfNull(groupVM, nameof(groupVM));
+
         string filePath = GetFilePath(
             groupVM.GroupName,
-            extension: ".docx");
+            extension: ".docx",
+            folderPath: _folderPath);
 
         await Task.Run(
             () =>
