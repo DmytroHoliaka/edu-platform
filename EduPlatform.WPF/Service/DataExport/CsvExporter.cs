@@ -26,7 +26,7 @@ public class CsvExporter : DataExporter
 
         using (StreamWriter writer = new(filePath))
         {
-            const string headerLine = $"LocalId, FirstName, LastName";
+            const string headerLine = $"LocalId,FirstName,LastName";
             await writer.WriteLineAsync(headerLine);
 
             int localId = 0;

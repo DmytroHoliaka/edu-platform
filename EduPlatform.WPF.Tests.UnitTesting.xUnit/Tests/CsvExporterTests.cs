@@ -55,7 +55,7 @@ public class CsvExporterTests(CsvExporterFixture fixture) : IClassFixture<CsvExp
 
         const string expected =
             """
-            LocalId, FirstName, LastName
+            LocalId,FirstName,LastName
             1,John,Doe
             2,Alex,Jordan
             
