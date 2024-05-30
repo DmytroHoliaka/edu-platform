@@ -40,5 +40,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\NavigationCommands\" />
+    <Folder Include="Service\Time\" />
   </ItemGroup>
+
 </Project>
