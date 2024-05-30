@@ -15,7 +15,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
     {
         public Group Group
         {
-            get { return _group!; }
+            get => _group!;
             set
             {
                 _group = value;
@@ -30,7 +30,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public bool IsChecked
         {
-            get { return _isChecked; }
+            get => _isChecked;
             set
             {
                 _isChecked = value;
@@ -50,7 +50,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         }
         
         public string GroupName =>
-            string.IsNullOrWhiteSpace(Group?.Name)
+            string.IsNullOrWhiteSpace(Group.Name)
                 ? "<not specified>"
                 : Group.Name;
 

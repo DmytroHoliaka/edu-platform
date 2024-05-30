@@ -1,37 +1,40 @@
-﻿using EduPlatform.WPF.Commands.TeacherCommands;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using EduPlatform.Domain.Models;
+using EduPlatform.WPF.Commands.TeacherCommands;
+using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModels;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using EduPlatform.WPF.Service;
 
-namespace EduPlatform.WPF.ViewModels.TeachersViewModel
+namespace EduPlatform.WPF.ViewModels.TeachersViewModels
 {
     public class TeacherSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<TeacherViewModel> _teacherVMs;
+
         public IEnumerable<TeacherViewModel> TeacherVMs =>
             _teacherVMs.Select(tvm => new TeacherViewModel(tvm.Teacher));
 
         public TeacherViewModel? SelectedTeacher
         {
-            get
-            {
-                return _selectedTeacher;
-            }
+            get => _selectedTeacher;
             set
             {
                 _selectedTeacher = value;
                 OnPropertyChanged(nameof(SelectedTeacher));
 
-                ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).UpdatingTeacher = value;
-                ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).OnCanExecutedChanged();
+                if (UpdateTeacherCommand is not null)
+                {
+                    ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).UpdatingTeacher = value;
+                    ((OpenUpdateTeacherFormCommand)UpdateTeacherCommand).OnCanExecutedChanged();
+                }
 
-                ((DeleteTeacherCommand)DeleteTeacherCommand).DeletingTeacher = value;
-                ((DeleteTeacherCommand)DeleteTeacherCommand).OnCanExecutedChanged();
+                if (DeleteTeacherCommand is not null)
+                {
+                    ((DeleteTeacherCommand)DeleteTeacherCommand).DeletingTeacher = value;
+                    ((DeleteTeacherCommand)DeleteTeacherCommand).OnCanExecutedChanged();
+                }
             }
         }
 
@@ -48,10 +51,10 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
-        public ICommand LoadTeachersCommand { get; private set; }
-        public ICommand CreateTeacherCommand { get; private set; }
-        public ICommand UpdateTeacherCommand { get; private set; }
-        public ICommand DeleteTeacherCommand { get; private set; }
+        public ICommand? LoadTeachersCommand { get; private set; }
+        public ICommand? CreateTeacherCommand { get; private set; }
+        public ICommand? UpdateTeacherCommand { get; private set; }
+        public ICommand? DeleteTeacherCommand { get; private set; }
 
         private GroupSequenceViewModel? _groupSequenceVM;
         private TeacherViewModel? _selectedTeacher;
@@ -103,17 +106,19 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
 
             LoadTeachersCommand = new LoadTeachersCommand(_teacherStore, this);
 
-            CreateTeacherCommand = new OpenCreateTeacherFormCommand(_teacherStore,
-                                                                    _viewStore,
-                                                                    _modalNavigationStore,
-                                                                    _groupSequenceVM);
+            CreateTeacherCommand = new OpenCreateTeacherFormCommand(
+                _teacherStore,
+                _viewStore,
+                _modalNavigationStore,
+                _groupSequenceVM);
 
-            UpdateTeacherCommand = new OpenUpdateTeacherFormCommand(_teacherStore,
-                                                                    _selectedTeacher,
-                                                                    _viewStore,
-                                                                    _modalNavigationStore,
-                                                                    _groupSequenceVM);
-            
+            UpdateTeacherCommand = new OpenUpdateTeacherFormCommand(
+                _teacherStore,
+                _selectedTeacher,
+                _viewStore,
+                _modalNavigationStore,
+                _groupSequenceVM);
+
             DeleteTeacherCommand = new DeleteTeacherCommand(_teacherStore);
         }
 
@@ -148,9 +153,9 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModel
             return teacherVM;
         }
 
-        public Task LoadTeachers()
+        public Task? LoadTeachers()
         {
-            return ((LoadTeachersCommand)LoadTeachersCommand).ExecuteAsync(null);
+            return (LoadTeachersCommand as LoadTeachersCommand)?.ExecuteAsync(null);
         }
 
         private void AddTeacher(Teacher teacher)

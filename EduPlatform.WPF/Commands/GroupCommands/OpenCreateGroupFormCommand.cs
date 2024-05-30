@@ -3,7 +3,7 @@ using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.Commands.GroupCommands
 {

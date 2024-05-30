@@ -8,7 +8,7 @@ namespace EduPlatform.WPF.Components
     /// <summary>
     /// Interaction logic for GroupDetailForm.xaml
     /// </summary>
-    public partial class GroupDetailForm : UserControl
+    public partial class GroupDetailForm
     {
         public GroupDetailForm()
         {

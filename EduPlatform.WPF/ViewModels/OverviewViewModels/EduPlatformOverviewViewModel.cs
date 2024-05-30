@@ -1,4 +1,6 @@
-﻿namespace EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel
+﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
+
+namespace EduPlatform.WPF.ViewModels.OverviewViewModels
 {
     public class EduPlatformOverviewViewModel : ViewModelBase
     {

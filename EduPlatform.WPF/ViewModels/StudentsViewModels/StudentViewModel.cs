@@ -7,10 +7,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
     {
         public Student Student
         {
-            get
-            {
-                return _student!;
-            }
+            get => _student!;
             set
             {
                 _student = value;
@@ -26,10 +23,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get => _isChecked;
             set
             {
                 _isChecked = value;
@@ -49,16 +43,16 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         }
 
         public string FullName =>
-            string.IsNullOrWhiteSpace(Student?.FirstName) || string.IsNullOrWhiteSpace(Student?.LastName)
+            string.IsNullOrWhiteSpace(Student.FirstName) || string.IsNullOrWhiteSpace(Student.LastName)
                 ? "<not specified>"
                 : $"{Student.FirstName} {Student.LastName}";
 
         public string FirstName =>
-            string.IsNullOrWhiteSpace(Student?.FirstName)
+            string.IsNullOrWhiteSpace(Student.FirstName)
                 ? "<not specified>" : Student.FirstName;
 
         public string LastName =>
-            string.IsNullOrWhiteSpace(Student?.LastName)
+            string.IsNullOrWhiteSpace(Student.LastName)
                 ? "<not specified>" : Student.LastName;
 
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
@@ -66,7 +60,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         public Guid StudentId => Student.StudentId;
         public Guid? GroupId => Student.GroupId;
 
-        public bool IsEnabled { get; set; } = false;
+        public bool IsEnabled { get; set; }
 
         private bool _isChecked;
         private Student? _student;

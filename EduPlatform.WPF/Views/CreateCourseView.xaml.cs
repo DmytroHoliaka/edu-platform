@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace EduPlatform.WPF.Views
+﻿namespace EduPlatform.WPF.Views
 {
     /// <summary>
     /// Interaction logic for CreateCourseView.xaml
     /// </summary>
-    public partial class CreateCourseView : UserControl
+    public partial class CreateCourseView
     {
         public CreateCourseView()
         {

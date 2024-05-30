@@ -11,10 +11,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
         public string? CourseName
         {
-            get
-            {
-                return _courseName;
-            }
+            get => _courseName;
             set
             {
                 _courseName = value;
@@ -25,10 +22,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
         public string? Description
         {
-            get
-            {
-                return _description;
-            }
+            get => _description;
             set
             {
                 _description = value;

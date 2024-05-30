@@ -6,7 +6,7 @@ namespace EduPlatform.WPF.Components
     /// <summary>
     /// Interaction logic for CourseDetailForm.xaml
     /// </summary>
-    public partial class CourseDetailForm : UserControl
+    public partial class CourseDetailForm
     {
         public CourseDetailForm()
         {

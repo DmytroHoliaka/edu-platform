@@ -1,7 +1,6 @@
 ﻿using EduPlatform.WPF.Commands.BaseCommands;
 using EduPlatform.WPF.Stores;
-using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.Commands.TeacherCommands
 {

@@ -24,11 +24,17 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
                 _selectedStudent = value;
                 OnPropertyChanged(nameof(SelectedStudent));
 
-                ((OpenUpdateStudentFormCommand)UpdateStudentCommand).UpdatingStudent = value;
-                ((OpenUpdateStudentFormCommand)UpdateStudentCommand).OnCanExecutedChanged();
+                if (UpdateStudentCommand is not null)
+                {
+                    ((OpenUpdateStudentFormCommand)UpdateStudentCommand).UpdatingStudent = value;
+                    ((OpenUpdateStudentFormCommand)UpdateStudentCommand).OnCanExecutedChanged();
+                }
 
-                ((DeleteStudentCommand)DeleteStudentCommand).DeletingStudent = value;
-                ((DeleteStudentCommand)DeleteStudentCommand).OnCanExecutedChanged();
+                if (DeleteStudentCommand is not null)
+                {
+                    ((DeleteStudentCommand)DeleteStudentCommand).DeletingStudent = value;
+                    ((DeleteStudentCommand)DeleteStudentCommand).OnCanExecutedChanged();
+                }
             }
         }
 
@@ -45,10 +51,10 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
-        public ICommand LoadStudentsCommand { get; set; }
-        public ICommand CreateStudentCommand { get; private set; }
-        public ICommand UpdateStudentCommand { get; private set; }
-        public ICommand DeleteStudentCommand { get; private set; }
+        public ICommand? LoadStudentsCommand { get; private set; }
+        public ICommand? CreateStudentCommand { get; private set; }
+        public ICommand? UpdateStudentCommand { get; private set; }
+        public ICommand? DeleteStudentCommand { get; private set; }
 
         private GroupSequenceViewModel? _groupSequenceVM;
         private StudentViewModel? _selectedStudent;
@@ -111,14 +117,14 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             DeleteStudentCommand = new DeleteStudentCommand(_studentStore);
         }
 
-        public Task LoadStudents()
+        public Task? LoadStudents()
         {
-            return ((LoadStudentsCommand)LoadStudentsCommand).ExecuteAsync(null);
+            return (LoadStudentsCommand as LoadStudentsCommand)?.ExecuteAsync(null);
         }
 
         private void AddStudent(Student student)
         {
-            _studentVMs.Add(new(student));
+            _studentVMs.Add(new StudentViewModel(student));
         }
 
         private void UpdateStudent(Student targetStudent)

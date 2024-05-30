@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace EduPlatform.WPF.Pages
+﻿namespace EduPlatform.WPF.Pages
 {
     /// <summary>
     /// Interaction logic for Teachers.xaml
     /// </summary>
-    public partial class Teachers : UserControl
+    public partial class Teachers
     {
         public Teachers()
         {

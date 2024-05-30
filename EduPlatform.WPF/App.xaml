@@ -1,7 +1,6 @@
 ﻿<Application x:Class="EduPlatform.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:EduPlatform.WPF">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="Alice">pack://application:,,,/Resources/Fonts/#Alice</FontFamily>

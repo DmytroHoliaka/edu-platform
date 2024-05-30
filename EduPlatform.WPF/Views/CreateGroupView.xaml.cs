@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace EduPlatform.WPF.Views
+﻿namespace EduPlatform.WPF.Views
 {
     /// <summary>
     /// Interaction logic for AddGroupView.xaml
     /// </summary>
-    public partial class CreateGroupView : UserControl
+    public partial class CreateGroupView
     {
         public CreateGroupView()
         {

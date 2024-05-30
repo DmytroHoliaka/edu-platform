@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.TeachersViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
@@ -17,10 +16,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public string? GroupName
         {
-            get
-            {
-                return _groupName;
-            }
+            get => _groupName;
 
             set
             {
@@ -43,8 +39,8 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public bool CanSubmit
             => string.IsNullOrWhiteSpace(GroupName) == false
-               && (TeacherVMs?.Any(t => t.IsChecked == true) ?? false);
-        
+               && (TeacherVMs.Any(t => t.IsChecked));
+
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
         public ICommand? SubmitCommand { get; }
@@ -65,10 +61,13 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         )
         {
             _selectedGroup = selectedGroup;
-            CourseVMs = new(courseSequenceVM?.CourseVMs ?? Enumerable.Empty<CourseViewModel>());
-            TeacherVMs = new(teacherSequenceVM?.TeacherVMs ?? Enumerable.Empty<TeacherViewModel>());
-            StudentVMs = new(studentSequenceVM?.StudentVMs ?? Enumerable.Empty<StudentViewModel>());
-            
+            CourseVMs = new ObservableCollection<CourseViewModel>(
+                courseSequenceVM?.CourseVMs ?? Enumerable.Empty<CourseViewModel>());
+            TeacherVMs = new ObservableCollection<TeacherViewModel>(
+                teacherSequenceVM?.TeacherVMs ?? Enumerable.Empty<TeacherViewModel>());
+            StudentVMs = new ObservableCollection<StudentViewModel>(
+                studentSequenceVM?.StudentVMs ?? Enumerable.Empty<StudentViewModel>());
+
             SetMarkers();
             SetupEvents();
 
@@ -93,11 +92,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
             if (_selectedGroup is not null)
             {
-                TeacherVMs.Where(tvm => tvm.Groups.FirstOrDefault(tvm => tvm.GroupId == _selectedGroup.GroupId)?.Teachers.Count <= 1)
+                TeacherVMs.Where(
+                        tvm => tvm.Groups.FirstOrDefault(i => i.GroupId == _selectedGroup.GroupId)?.Teachers.Count <= 1)
                     .ToList().ForEach(tvm => tvm.IsEnabled = false);
             }
 
-            StudentVMs.Where(svm => svm.IsChecked == true || svm.Group is null)
+            StudentVMs.Where(svm => svm.IsChecked || svm.Group is null)
                 .ToList().ForEach(svm => svm.IsEnabled = true);
         }
 

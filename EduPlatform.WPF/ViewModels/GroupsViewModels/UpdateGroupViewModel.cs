@@ -3,9 +3,9 @@ using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -17,22 +17,21 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         (
             GroupViewModel selectedGroup,
             ModalNavigationStore modalNavigationStore,
-            CourseSequenceViewModel courseSequenceVM,
-            TeacherSequenceViewModel teacherSequenceVM,
-            StudentSequenceViewModel studentSequenceVM,
+            CourseSequenceViewModel? courseSequenceVM,
+            TeacherSequenceViewModel? teacherSequenceVM,
+            StudentSequenceViewModel? studentSequenceVM,
             GroupStore groupStore
         )
         {
-            ICommand? submitCommand = new SubmitUpdateGroupCommand(
+            ICommand submitCommand = new SubmitUpdateGroupCommand(
                 modalNavigationStore,
                 groupStore,
                 selectedGroup,
                 this);
 
-            ICommand? cancelCommand = new CloseFormCommand(modalNavigationStore);
+            ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 
-            GroupDetailsFormVM = new
-            (
+            GroupDetailsFormVM = new GroupDetailsFormViewModel(
                 selectedGroup,
                 courseSequenceVM,
                 teacherSequenceVM,

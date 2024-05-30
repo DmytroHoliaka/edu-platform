@@ -8,7 +8,10 @@
             {
                 await ExecuteAsync(parameter);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
 
         public abstract Task ExecuteAsync(object? parameter);

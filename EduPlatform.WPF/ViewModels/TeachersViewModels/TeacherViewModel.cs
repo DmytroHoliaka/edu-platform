@@ -44,16 +44,16 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
         }
 
         public string FullName =>
-            string.IsNullOrWhiteSpace(Teacher?.FirstName) || string.IsNullOrWhiteSpace(Teacher?.LastName)
+            string.IsNullOrWhiteSpace(Teacher.FirstName) || string.IsNullOrWhiteSpace(Teacher.LastName)
                 ? "<not specified>"
                 : $"{Teacher.FirstName} {Teacher.LastName}";
 
         public string FirstName =>
-            string.IsNullOrWhiteSpace(Teacher?.FirstName)
+            string.IsNullOrWhiteSpace(Teacher.FirstName)
                 ? "<not specified>" : Teacher.FirstName;
 
         public string LastName =>
-            string.IsNullOrWhiteSpace(Teacher?.LastName)
+            string.IsNullOrWhiteSpace(Teacher.LastName)
                 ? "<not specified>" : Teacher.LastName;
 
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;

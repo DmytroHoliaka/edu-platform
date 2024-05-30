@@ -4,17 +4,18 @@ using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
 using EduPlatform.WPF.Service;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
     public class GroupSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<GroupViewModel> _groupVMs;
+
         public IEnumerable<GroupViewModel> GroupVMs =>
             _groupVMs.Select(gvm => new GroupViewModel(gvm.Group, _groupStore, _studentStore));
 
@@ -26,11 +27,17 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
                 _selectedGroup = value;
                 OnPropertyChanged(nameof(SelectedGroup));
 
-                ((OpenUpdateGroupFormCommand)UpdateGroupCommand).UpdatingGroup = value;
-                ((CommandBase)UpdateGroupCommand).OnCanExecutedChanged();
+                if (UpdateGroupCommand is not null)
+                {
+                    ((OpenUpdateGroupFormCommand)UpdateGroupCommand).UpdatingGroup = value;
+                    ((CommandBase)UpdateGroupCommand).OnCanExecutedChanged();
+                }
 
-                ((DeleteGroupCommand)DeleteGroupCommand).DeletingGroup = value;
-                ((CommandBase)DeleteGroupCommand).OnCanExecutedChanged();
+                if (DeleteGroupCommand is not null)
+                {
+                    ((DeleteGroupCommand)DeleteGroupCommand).DeletingGroup = value;
+                    ((CommandBase)DeleteGroupCommand).OnCanExecutedChanged();
+                }
             }
         }
 
@@ -47,10 +54,10 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
-        public ICommand LoadGroupsCommand { get; private set; }
-        public ICommand CreateGroupCommand { get; private set; }
-        public ICommand UpdateGroupCommand { get; private set; }
-        public ICommand DeleteGroupCommand { get; private set; }
+        public ICommand? LoadGroupsCommand { get; private set; }
+        public ICommand? CreateGroupCommand { get; private set; }
+        public ICommand? UpdateGroupCommand { get; private set; }
+        public ICommand? DeleteGroupCommand { get; private set; }
 
         private readonly GroupStore _groupStore;
         private readonly StudentStore _studentStore;
@@ -64,9 +71,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
 
         public GroupSequenceViewModel(GroupStore groupStore,
-                                      StudentStore studentStore,
-                                      ViewStore viewStore,
-                                      ModalNavigationStore modalNavigationStore)
+            StudentStore studentStore,
+            ViewStore viewStore,
+            ModalNavigationStore modalNavigationStore)
         {
             _groupVMs = [];
 
@@ -137,9 +144,9 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             DeleteGroupCommand = new DeleteGroupCommand(_groupStore);
         }
 
-        public Task LoadGroups()
+        public Task? LoadGroups()
         {
-            return ((LoadGroupsCommand)LoadGroupsCommand).ExecuteAsync(null);
+            return (LoadGroupsCommand as LoadGroupsCommand)?.ExecuteAsync(null);
         }
 
         private void AddGroup(Group groupItem)
@@ -150,7 +157,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         private void UpdateGroup(Group targetGroup)
         {
-            GroupViewModel sourceGroupVM = GetGroupViewModelById(targetGroup.GroupId)!;
+            GroupViewModel? sourceGroupVM = GetGroupViewModelById(targetGroup.GroupId);
 
             if (sourceGroupVM is null)
             {
@@ -162,7 +169,7 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
         private void DeleteGroup(Guid groupId)
         {
-            GroupViewModel group = GetGroupViewModelById(groupId)!;
+            GroupViewModel? group = GetGroupViewModelById(groupId);
 
             if (group is null)
             {
@@ -188,19 +195,17 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
             newGroup.Course?.Groups.Add(newGroup);
 
             newGroup.Students
-               ?.ToList()
-                .ForEach(target =>
-                {
-                    target.Group = newGroup;
-                    target.GroupId = newGroup.GroupId;
-                });
+                .ToList()
+                .ForEach(
+                    target =>
+                    {
+                        target.Group = newGroup;
+                        target.GroupId = newGroup.GroupId;
+                    });
 
             newGroup.Teachers
-               ?.ToList()
-                .ForEach(target =>
-                {
-                    target.Groups.Add(newGroup);
-                });
+                .ToList()
+                .ForEach(target => { target.Groups.Add(newGroup); });
         }
 
         private void RefreshDependenciesOnUpdating(Group targetGroup)
@@ -211,36 +216,32 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
             sourceGroup.StudentVMs
                 .ToList()
-                .ForEach(svm =>
-                {
-                    svm.Student.Group = null;
-                    svm.Student.GroupId = null;
-                });
+                .ForEach(
+                    svm =>
+                    {
+                        svm.Student.Group = null;
+                        svm.Student.GroupId = null;
+                    });
 
             sourceGroup.TeacherVMs
                 .ToList()
-                .ForEach(tvm =>
-                {
-                    tvm.Teacher.Groups.Remove(sourceGroup.Group);
-                });
+                .ForEach(tvm => { tvm.Teacher.Groups.Remove(sourceGroup.Group); });
 
 
             targetGroup.Course?.Groups.Add(targetGroup);
-            
+
             targetGroup.Students
-               ?.ToList()
-                .ForEach(target =>
-                {
-                    target.Group = targetGroup;
-                    target.GroupId = targetGroup.GroupId;
-                });
+                .ToList()
+                .ForEach(
+                    target =>
+                    {
+                        target.Group = targetGroup;
+                        target.GroupId = targetGroup.GroupId;
+                    });
 
             targetGroup.Teachers
-               ?.ToList()
-                .ForEach(target =>
-                {
-                    target.Groups.Add(targetGroup);
-                });
+                .ToList()
+                .ForEach(target => { target.Groups.Add(targetGroup); });
         }
 
         private void RefreshDependenciesOnDeleting(Guid groupId)
@@ -249,11 +250,12 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 
             groupVM.Group.Course?.Groups.Remove(groupVM.Group);
             groupVM.Group.Teachers.ToList().ForEach(t => t.Groups.Remove(groupVM.Group));
-            groupVM.Group.Students.ToList().ForEach(s =>
-            {
-                s.GroupId = null;
-                s.Group = null;
-            });
+            groupVM.Group.Students.ToList().ForEach(
+                s =>
+                {
+                    s.GroupId = null;
+                    s.Group = null;
+                });
         }
 
         private void GroupsStore_GroupsLoaded()

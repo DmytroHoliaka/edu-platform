@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Service.Validators;
 using EduPlatform.WPF.Stores;
-using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Service.DataImport;
 

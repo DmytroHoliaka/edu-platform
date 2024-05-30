@@ -20,7 +20,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
             ICommand submitCommand = new SubmitUpdateStudentCommand(selectedStudent, modalNavigationStore, studentStore);
             ICommand cancelCommand = new CloseFormCommand(modalNavigationStore);
 
-            StudentDetailsFormVM = new(selectedStudent, groupSequenceVM, submitCommand, cancelCommand)
+            StudentDetailsFormVM = new(groupSequenceVM, submitCommand, cancelCommand)
             {
                 FirstName = selectedStudent.FirstName,
                 LastName = selectedStudent.LastName,

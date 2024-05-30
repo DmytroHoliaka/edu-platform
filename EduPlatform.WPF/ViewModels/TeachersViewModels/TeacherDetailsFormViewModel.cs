@@ -1,7 +1,6 @@
 ﻿using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace EduPlatform.WPF.ViewModels.TeachersViewModels
@@ -12,10 +11,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
 
         public string? FirstName
         {
-            get
-            {
-                return _firstName;
-            }
+            get => _firstName;
             set
             {
                 _firstName = value;
@@ -26,10 +22,7 @@ namespace EduPlatform.WPF.ViewModels.TeachersViewModels
 
         public string? LastName
         {
-            get
-            {
-                return _lastName;
-            }
+            get => _lastName;
             set
             {
                 _lastName = value;

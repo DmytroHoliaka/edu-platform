@@ -22,7 +22,7 @@ namespace EduPlatform.WPF.Commands.TeacherCommands
             }
 
             FormDetails.ErrorMessage = null;
-            IEnumerable<GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked == true);
+            IEnumerable<GroupViewModel> relatedGroups = FormDetails.GroupVMs.Where(gmv => gmv.IsChecked);
 
             Teacher targetStudent = new()
             {

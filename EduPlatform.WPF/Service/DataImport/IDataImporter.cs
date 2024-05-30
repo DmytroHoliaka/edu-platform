@@ -1,6 +1,5 @@
 ﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
-using EduPlatform.WPF.ViewModels.GroupsViewModels;
 
 namespace EduPlatform.WPF.Service.DataImport;
 

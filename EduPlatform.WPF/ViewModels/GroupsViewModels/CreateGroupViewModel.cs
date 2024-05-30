@@ -3,9 +3,9 @@ using EduPlatform.WPF.Commands.GroupCommands;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
 using System.Windows.Input;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GroupsViewModels
 {
@@ -14,23 +14,24 @@ namespace EduPlatform.WPF.ViewModels.GroupsViewModels
         public GroupDetailsFormViewModel GroupDetailsFormVM { get; }
 
         public CreateGroupViewModel(GroupStore groupStore,
-                                    ModalNavigationStore modalNavigationStore,
-                                    CourseSequenceViewModel? courseSequenceVM,
-                                    TeacherSequenceViewModel? teacherSequenceVM,
-                                    StudentSequenceViewModel? studentSequenceVM)
+            ModalNavigationStore modalNavigationStore,
+            CourseSequenceViewModel? courseSequenceVM,
+            TeacherSequenceViewModel? teacherSequenceVM,
+            StudentSequenceViewModel? studentSequenceVM)
         {
-            ICommand? submitCommand =
+            ICommand submitCommand =
                 new SubmitCreateGroupCommand(groupStore, this, modalNavigationStore);
 
-            ICommand? cancelCommand =
+            ICommand cancelCommand =
                 new CloseFormCommand(modalNavigationStore);
 
-            GroupDetailsFormVM = new(null,
-                                     courseSequenceVM,
-                                     teacherSequenceVM,
-                                     studentSequenceVM,
-                                     submitCommand,
-                                     cancelCommand);
+            GroupDetailsFormVM = new GroupDetailsFormViewModel(
+                null,
+                courseSequenceVM,
+                teacherSequenceVM,
+                studentSequenceVM,
+                submitCommand,
+                cancelCommand);
         }
     }
 }

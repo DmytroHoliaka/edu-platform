@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace EduPlatform.WPF.Pages
+﻿namespace EduPlatform.WPF.Pages
 {
     /// <summary>
     /// Interaction logic for Groups.xaml
     /// </summary>
-    public partial class Groups : UserControl
+    public partial class Groups
     {
         public Groups()
         {

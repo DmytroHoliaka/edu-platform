@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using EduPlatform.Domain.Models;
+﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Commands.BaseCommands;
 using EduPlatform.WPF.Service;
 using EduPlatform.WPF.Service.DataImport;

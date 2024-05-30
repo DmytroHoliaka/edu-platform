@@ -11,10 +11,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public string? FirstName
         {
-            get
-            {
-                return _firstName;
-            }
+            get => _firstName;
             set
             {
                 _firstName = value;
@@ -25,10 +22,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
 
         public string? LastName
         {
-            get
-            {
-                return _lastName;
-            }
+            get => _lastName;
             set
             {
                 _lastName = value;
@@ -61,9 +55,7 @@ namespace EduPlatform.WPF.ViewModels.StudentsViewModels
         private string? _lastName;
         private string? _errorMessage;
 
-        public StudentDetailsFormViewModel
-        (
-            StudentViewModel? studentVM,
+        public StudentDetailsFormViewModel(
             GroupSequenceViewModel groupSequenceVM,
             ICommand submitCommand,
             ICommand cancelCommand

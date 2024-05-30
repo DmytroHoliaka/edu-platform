@@ -9,10 +9,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
     {
         public Course Course
         {
-            get
-            {
-                return _course!;
-            }
+            get => _course!;
             set
             {
                 _course = value;
@@ -38,10 +35,7 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get => _isChecked;
             set
             {
                 _isChecked = value;
@@ -54,18 +48,17 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         public Guid CourseId => 
             Course.CourseId;
 
-        public IEnumerable<Group> Groups =>
-            Course.Groups ?? Enumerable.Empty<Group>();
+        public IEnumerable<Group> Groups => Course.Groups;
 
         public ObservableCollection<GroupViewModel> GroupVMs =>
             new(Course.Groups.Select(g => new GroupViewModel(g)));
 
         public string CourseName =>
-            string.IsNullOrWhiteSpace(Course?.Name)
+            string.IsNullOrWhiteSpace(Course.Name)
             ? "<not specified>" : Course.Name;
 
         public string Description =>
-            string.IsNullOrWhiteSpace(Course?.Description) 
+            string.IsNullOrWhiteSpace(Course.Description) 
             ? "<not specified>" : Course.Description;
 
         public bool IsEnabled { get; set; } = false;

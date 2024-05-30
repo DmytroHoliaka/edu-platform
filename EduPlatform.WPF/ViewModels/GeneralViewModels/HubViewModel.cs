@@ -1,14 +1,11 @@
-﻿using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using EduPlatform.Domain.Models;
+﻿using EduPlatform.Domain.Models;
 using EduPlatform.WPF.Stores;
 using EduPlatform.WPF.ViewModels.CoursesViewModels;
-using EduPlatform.WPF.ViewModels.GeneralViewModels.OverviewViewModel;
 using EduPlatform.WPF.ViewModels.GroupsViewModels;
 using EduPlatform.WPF.ViewModels.NavigationsViewModels;
+using EduPlatform.WPF.ViewModels.OverviewViewModels;
 using EduPlatform.WPF.ViewModels.StudentsViewModels;
-using EduPlatform.WPF.ViewModels.TeachersViewModel;
+using EduPlatform.WPF.ViewModels.TeachersViewModels;
 
 namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 {
@@ -131,10 +128,10 @@ namespace EduPlatform.WPF.ViewModels.GeneralViewModels
 
         private async Task LoadDataAsync()
         {
-            await CourseSequenceVM.LoadCourses();
-            await GroupSequenceVM.LoadGroups();
-            await StudentSequenceVM.LoadStudents();
-            await TeacherSequenceVM.LoadTeachers();
+            await CourseSequenceVM.LoadCourses()!;
+            await GroupSequenceVM.LoadGroups()!;
+            await StudentSequenceVM.LoadStudents()!;
+            await TeacherSequenceVM.LoadTeachers()!;
         }
 
         private void SetRelationships()

@@ -21,7 +21,7 @@ namespace EduPlatform.WPF.Commands.StudentCommands
             }
 
             FormDetails.ErrorMessage = null;
-            GroupViewModel? relatedGroup = FormDetails.GroupVMs.FirstOrDefault(gvm => gvm.IsChecked == true);
+            GroupViewModel? relatedGroup = FormDetails.GroupVMs.FirstOrDefault(gvm => gvm.IsChecked);
 
             Student student = new()
             {

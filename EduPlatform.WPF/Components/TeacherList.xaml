@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:EduPlatform.WPF.Components"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -14,9 +13,9 @@
 
             <Grid>
                 <Grid.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=border}" />
+                    <VisualBrush Visual="{Binding ElementName=Border}" />
                 </Grid.OpacityMask>
-                <Border x:Name="border"
+                <Border x:Name="Border"
                         Background="White"
                         CornerRadius="5" />
 

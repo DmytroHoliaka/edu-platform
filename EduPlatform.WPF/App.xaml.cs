@@ -1,16 +1,8 @@
-﻿using System.Data;
-using System.IO;
-using EduPlatform.Domain.Commands;
-using EduPlatform.Domain.Queries;
-using EduPlatform.EntityFramework.Commands;
-using EduPlatform.EntityFramework.DbContextConfigurations;
-using EduPlatform.EntityFramework.Queries;
-using EduPlatform.WPF.Stores;
+﻿using EduPlatform.EntityFramework.DbContextConfigurations;
 using EduPlatform.WPF.ViewModels.GeneralViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Windows;
 using EduPlatform.WPF.HostBuilders;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QuestPDF.Infrastructure;
@@ -20,7 +12,7 @@ namespace EduPlatform.WPF
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private readonly IHost _host =
             Host.CreateDefaultBuilder()

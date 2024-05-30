@@ -24,14 +24,14 @@ namespace EduPlatform.WPF.Commands.GroupCommands
                 GroupId = selectedGroup.GroupId,
                 Name = formDetails.GroupName,
                 CourseId = formDetails.CourseVMs
-                    .FirstOrDefault(c => c.IsChecked == true)?.CourseId,
+                    .FirstOrDefault(c => c.IsChecked)?.CourseId,
                 Course = formDetails.CourseVMs
-                    .FirstOrDefault(cvm => cvm.IsChecked == true)?.Course,
+                    .FirstOrDefault(cvm => cvm.IsChecked)?.Course,
                 Teachers = formDetails.TeacherVMs
-                    .Where(ft => ft.IsChecked == true)
+                    .Where(ft => ft.IsChecked)
                     .Select(ft => ft.Teacher).ToList(),
                 Students = formDetails.StudentVMs
-                    .Where(ft => ft.IsChecked == true)
+                    .Where(ft => ft.IsChecked)
                     .Select(fs => fs.Student).ToList()
             };
 

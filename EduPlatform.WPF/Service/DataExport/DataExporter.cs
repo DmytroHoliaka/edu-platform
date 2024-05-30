@@ -12,7 +12,7 @@ public abstract class DataExporter
         string fileName = $"Students of {groupName}({DateTime.Now:yyyy.MM.dd hh-mm-ss.ffff}){extension}";
         DirectoryInfo currentDir = new(AppDomain.CurrentDomain.BaseDirectory);
 
-        string dirPath = currentDir?.Parent?.Parent?.Parent?.Parent?.FullName + "/ExportedData/";
+        string dirPath = currentDir.Parent?.Parent?.Parent?.Parent?.FullName + "/ExportedData/";
         FileSystemManager.EnsureDirectoryCreated(dirPath);
         string filePath = dirPath + "/" + fileName;
 

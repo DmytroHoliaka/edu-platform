@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace EduPlatform.WPF.Views
+﻿namespace EduPlatform.WPF.Views
 {
     /// <summary>
     /// Interaction logic for UpdateTeacherView.xaml
     /// </summary>
-    public partial class UpdateTeacherView : UserControl
+    public partial class UpdateTeacherView
     {
         public UpdateTeacherView()
         {

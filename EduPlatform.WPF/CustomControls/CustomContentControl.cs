@@ -10,8 +10,8 @@ namespace EduPlatform.WPF.CustomControls
 
         public event RoutedEventHandler ContentChanged
         {
-            add { AddHandler(ContentChangedEvent, value); }
-            remove { RemoveHandler(ContentChangedEvent, value); }
+            add => AddHandler(ContentChangedEvent, value);
+            remove => RemoveHandler(ContentChangedEvent, value);
         }
 
         protected override void OnContentChanged(object oldContent, object newContent)

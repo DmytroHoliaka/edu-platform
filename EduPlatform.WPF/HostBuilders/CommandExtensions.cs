@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using EduPlatform.Domain.Commands;
+﻿using EduPlatform.Domain.Commands;
 using EduPlatform.EntityFramework.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

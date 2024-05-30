@@ -13,25 +13,29 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
     public class CourseSequenceViewModel : ViewModelBase, ISequenceViewModel
     {
         private readonly ObservableCollection<CourseViewModel> _courserVMs;
+
         public IEnumerable<CourseViewModel> CourseVMs =>
             _courserVMs.Select(cvm => new CourseViewModel(cvm.Course));
 
         public CourseViewModel? SelectedCourse
         {
-            get
-            {
-                return _selectedCourse;
-            }
+            get => _selectedCourse;
             set
             {
                 _selectedCourse = value;
                 OnPropertyChanged(nameof(SelectedCourse));
 
-                ((OpenUpdateCourseFormCommand)UpdateCourseCommand).UpdatingCourse = value;
-                ((OpenUpdateCourseFormCommand)UpdateCourseCommand).OnCanExecutedChanged();
+                if (UpdateCourseCommand is not null)
+                {
+                    ((OpenUpdateCourseFormCommand)UpdateCourseCommand).UpdatingCourse = value;
+                    ((OpenUpdateCourseFormCommand)UpdateCourseCommand).OnCanExecutedChanged();
+                }
 
-                ((DeleteCourseCommand)DeleteCourseCommand).DeletingCourse = value;
-                ((DeleteCourseCommand)DeleteCourseCommand).OnCanExecutedChanged();
+                if (DeleteCourseCommand is not null)
+                {
+                    ((DeleteCourseCommand)DeleteCourseCommand).DeletingCourse = value;
+                    ((DeleteCourseCommand)DeleteCourseCommand).OnCanExecutedChanged();
+                }
             }
         }
 
@@ -48,10 +52,10 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
         public bool HasErrorMessage => string.IsNullOrEmpty(_errorMessage) == false;
 
-        public ICommand LoadCoursesCommand { get; private set; }
-        public ICommand CreateCourseCommand { get; private set; }
-        public ICommand UpdateCourseCommand { get; private set; }
-        public ICommand DeleteCourseCommand { get; private set; }
+        public ICommand? LoadCoursesCommand { get; private set; }
+        public ICommand? CreateCourseCommand { get; private set; }
+        public ICommand? UpdateCourseCommand { get; private set; }
+        public ICommand? DeleteCourseCommand { get; private set; }
 
         private GroupSequenceViewModel? _groupSequenceVM;
         private CourseViewModel? _selectedCourse;
@@ -106,16 +110,18 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
 
             LoadCoursesCommand = new LoadCoursesCommand(_courseStore, this);
 
-            CreateCourseCommand = new OpenCreateCourseFormCommand(_courseStore,
-                                                                  _viewStore,
-                                                                  _modalNavigationStore,
-                                                                  _groupSequenceVM);
+            CreateCourseCommand = new OpenCreateCourseFormCommand(
+                _courseStore,
+                _viewStore,
+                _modalNavigationStore,
+                _groupSequenceVM);
 
-            UpdateCourseCommand = new OpenUpdateCourseFormCommand(_courseStore,
-                                                                  _selectedCourse,
-                                                                  _viewStore,
-                                                                  _modalNavigationStore,
-                                                                  _groupSequenceVM);
+            UpdateCourseCommand = new OpenUpdateCourseFormCommand(
+                _courseStore,
+                _selectedCourse,
+                _viewStore,
+                _modalNavigationStore,
+                _groupSequenceVM);
 
             DeleteCourseCommand = new DeleteCourseCommand(_courseStore);
         }
@@ -123,11 +129,12 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
         private void RefreshDependenciesOnAdding(Course newCourse)
         {
             newCourse.Groups.ToList()
-                .ForEach(g =>
-                {
-                    g.CourseId = newCourse.CourseId;
-                    g.Course = newCourse;
-                });
+                .ForEach(
+                    g =>
+                    {
+                        g.CourseId = newCourse.CourseId;
+                        g.Course = newCourse;
+                    });
         }
 
         private void RefreshDependenciesOnUpdating(Course targetCourse)
@@ -135,28 +142,31 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             CourseViewModel? sourceCourse = GetCourseViewModelById(targetCourse.CourseId);
 
             sourceCourse?.Groups.ToList()
-                .ForEach(g =>
-                {
-                    g.CourseId = null;
-                    g.Course = null;
-                });
+                .ForEach(
+                    g =>
+                    {
+                        g.CourseId = null;
+                        g.Course = null;
+                    });
 
             targetCourse.Groups.ToList()
-                .ForEach(g =>
-                {
-                    g.CourseId = targetCourse.CourseId;
-                    g.Course = targetCourse;
-                });
+                .ForEach(
+                    g =>
+                    {
+                        g.CourseId = targetCourse.CourseId;
+                        g.Course = targetCourse;
+                    });
         }
 
         private void RefreshDependenciesOnDeleting(Guid courseId)
         {
             CourseViewModel courseVM = GetCourseViewModelById(courseId)!;
-            courseVM.Course.Groups.ToList().ForEach(g =>
-            {
-                g.CourseId = null;
-                g.Course = null;
-            });
+            courseVM.Course.Groups.ToList().ForEach(
+                g =>
+                {
+                    g.CourseId = null;
+                    g.Course = null;
+                });
         }
 
         private CourseViewModel? GetCourseViewModelById(Guid id)
@@ -165,9 +175,9 @@ namespace EduPlatform.WPF.ViewModels.CoursesViewModels
             return courseVM;
         }
 
-        public Task LoadCourses()
+        public Task? LoadCourses()
         {
-            return ((AsyncCommandBase)LoadCoursesCommand).ExecuteAsync(null);
+            return (LoadCoursesCommand as AsyncCommandBase)?.ExecuteAsync(null);
         }
 
         private void AddCourse(Course course)
