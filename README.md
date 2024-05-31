@@ -47,25 +47,39 @@ dotnet run
 The application demonstrates a number of features. I will discuss the main ones below.
 
 1. View courses, groups, and students in a tree structure:
-![Overview](<ReadmeImages/Overview.png>)
+<p align="center">
+  <img src="ReadmeImages/Overview.png" alt="Overview"/>
+</p>
 
 2. View individual courses, groups, students, and teachers (similar pages for other entities):
-![Groups](<ReadmeImages/Groups.png>)
+<p align="center">
+  <img src="ReadmeImages/Groups.png" alt="Groups"/>
+</p>
 
 3. Each of the entities has three main actions: create, update and delete (similar form for updating):
-![Create group](<ReadmeImages/Create group.png>)
-![Create course](<ReadmeImages/Create course.png>)
-![Create student](<ReadmeImages/Create student.png>)
-![Create teacher](<ReadmeImages/Create teacher.png>)
+<p align="center">
+  <img src="ReadmeImages/Create group.png" alt="Create group"/>
+  <img src="ReadmeImages/Create course.png" alt="Create course"/>
+  <img src="ReadmeImages/Create student.png" alt="Create student"/>
+  <img src="ReadmeImages/Create teacher.png" alt="Create teacher"/>
+</p>
 
 4. Ability to perform additional actions with groups:
-![Group action](<ReadmeImages/Group action.png>)
+<p align="center">
+  <img src="ReadmeImages/Group action.png" alt="Group action csv"/>
+</p>
 
 5. Export to csv, docx and pdf formats (photos in the appropriate order)
-![Export into csv](<ReadmeImages/Export into csv.png>)
-![Export into docx](<ReadmeImages/Export into docx.png>)
-![Export into pdf](<ReadmeImages/Export into pdf.png>)
+<p align="center">
+  <img src="ReadmeImages/Export into csv.png" alt="Export into csv"/>
+  <img src="ReadmeImages/Export into docx.png" alt="Export into docx"/>
+  <img src="ReadmeImages/Export into pdf.png" alt="Export into pdf"/>
+</p>
 
+<p align=center>
+<h3>
+	Note: These are not all possible features, try it to learn more.
+</h3>
+</p>
 
-### Note: These are not all possible features, try it to learn more.
 
