@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace EduPlatform.EntityFramework.DbContextConfigurations
 {
-    // ToDo: Rename project EduPlatformApp -> EduPlatform.WPF
     public class EduPlatformDbContextDesignTimeFactory : IDesignTimeDbContextFactory<EduPlatformDbContext>
     {
         public EduPlatformDbContext CreateDbContext(string[] args)
