@@ -10,6 +10,11 @@ namespace EduPlatform.EntityFramework.Commands
         {
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                if (context.Groups.Any(g => g.GroupId == groupId) == false)
+                {
+                    throw new InvalidDataException("The specified group is not in the database.");
+                }
+
                 Group group = new()
                 {
                     GroupId = groupId
