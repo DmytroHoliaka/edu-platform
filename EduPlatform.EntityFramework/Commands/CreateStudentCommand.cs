@@ -7,8 +7,10 @@ namespace EduPlatform.EntityFramework.Commands
 {
     public class CreateStudentCommand(EduPlatformDbContextFactory contextFactory) : ICreateStudentCommand
     {
-        public async Task ExecuteAsync(Student newStudent)
+        public async Task ExecuteAsync(Student? newStudent)
         {
+            ArgumentNullException.ThrowIfNull(newStudent, nameof(newStudent));
+
             using (EduPlatformDbContext context = contextFactory.Create())
             {
                 EntityMapper.SetStudentDbRelationships(context, newStudent);

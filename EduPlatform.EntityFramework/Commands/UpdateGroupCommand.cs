@@ -8,8 +8,10 @@ namespace EduPlatform.EntityFramework.Commands
 {
     public class UpdateGroupCommand(EduPlatformDbContextFactory contextFactory) : IUpdateGroupCommand
     {
-        public async Task ExecuteAsync(Group targetGroup)
+        public async Task ExecuteAsync(Group? targetGroup)
         {
+            ArgumentNullException.ThrowIfNull(targetGroup, nameof(targetGroup));
+
             using (EduPlatformDbContext context = contextFactory.Create())
             {
                 EntityMapper.SetGroupDbRelationships(context, targetGroup);

@@ -8,8 +8,10 @@ namespace EduPlatform.EntityFramework.Commands
 {
     public class UpdateTeacherCommand(EduPlatformDbContextFactory contextFactory) : IUpdateTeacherCommand
     {
-        public async Task ExecuteAsync(Teacher targetTeacher)
+        public async Task ExecuteAsync(Teacher? targetTeacher)
         {
+            ArgumentNullException.ThrowIfNull(targetTeacher, nameof(targetTeacher));
+
             using (EduPlatformDbContext context = contextFactory.Create())
             {
                 EntityMapper.SetTeacherDbRelationships(context, targetTeacher);

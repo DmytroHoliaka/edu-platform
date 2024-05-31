@@ -8,8 +8,10 @@ namespace EduPlatform.EntityFramework.Commands
 {
     public class UpdateStudentCommand(EduPlatformDbContextFactory contextFactory) : IUpdateStudentCommand
     {
-        public async Task ExecuteAsync(Student targetStudent)
+        public async Task ExecuteAsync(Student? targetStudent)
         {
+            ArgumentNullException.ThrowIfNull(targetStudent, nameof(targetStudent));
+
             using (EduPlatformDbContext context = contextFactory.Create())
             {
                 EntityMapper.SetStudentDbRelationships(context, targetStudent);

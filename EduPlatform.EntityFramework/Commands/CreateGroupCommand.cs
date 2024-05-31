@@ -7,8 +7,10 @@ namespace EduPlatform.EntityFramework.Commands
 {
     public class CreateGroupCommand(EduPlatformDbContextFactory contextFactory) : ICreateGroupCommand
     {
-        public async Task ExecuteAsync(Group newGroup)
+        public async Task ExecuteAsync(Group? newGroup)
         {
+            ArgumentNullException.ThrowIfNull(newGroup, nameof(newGroup));
+
             using (EduPlatformDbContext context = contextFactory.Create())
             {
                 EntityMapper.SetGroupDbRelationships(context, newGroup);
