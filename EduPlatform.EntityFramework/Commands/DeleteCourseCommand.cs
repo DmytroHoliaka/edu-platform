@@ -10,6 +10,11 @@ namespace EduPlatform.EntityFramework.Commands
         {
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                if (context.Courses.Any(c => c.CourseId == courseId) == false)
+                {
+                    throw new InvalidDataException("The specified course is not in the database.");
+                }
+
                 Course course = new()
                 {
                     CourseId = courseId
