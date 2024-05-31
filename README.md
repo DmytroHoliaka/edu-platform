@@ -4,8 +4,6 @@
 
 This project is a learning platform for students and teachers. The application allows you to view all courses in a tree structure (along with related groups and students). In addition, it is possible to create, edit, and delete courses, groups, students, and teachers. It is worth adding that the program provides a convenient user interface that synchronizes different windows when creating a particular entity in the user interface. In addition, the application works with a database, the connection string to which is located in the appsetting.json file. Finally, the program provides the ability to import group students from a csv file and export to it, as well as other formats, including pdf and docx.
 
-<!-- GETTING STARTED -->
-
 <br><br>
 
 ## Installation
@@ -37,8 +35,12 @@ dotnet run
 
 ```
 
+<br><br>
 
-<!-- ROADMAP -->
+## Initial version of wireframes
+<div align="center">
+  <img src="ReadmeImages/Wireframes.png" alt="Wireframes"/>
+</div>
 
 <br><br>
 
