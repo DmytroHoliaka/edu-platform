@@ -10,6 +10,11 @@ namespace EduPlatform.EntityFramework.Commands
         {
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                if (context.Students.Any(s => s.StudentId == studentId) == false)
+                {
+                    throw new InvalidDataException("The specified student is not in the database.");
+                }
+
                 Student student = new()
                 {
                     StudentId = studentId
