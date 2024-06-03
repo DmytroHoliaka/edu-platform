@@ -14,6 +14,12 @@ namespace EduPlatform.EntityFramework.Commands
 
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                if (context.Groups.Any(g => g.GroupId != targetGroup.GroupId && g.Name == targetGroup.Name))
+                {
+                    throw new InvalidDataException(
+                        "The group with this name already exists in the database");
+                }
+
                 EntityMapper.SetGroupDbRelationships(context, targetGroup);
 
                 Group? sourceGroupFromDb = context.Groups
@@ -24,16 +30,14 @@ namespace EduPlatform.EntityFramework.Commands
 
                 if (sourceGroupFromDb is null)
                 {
-                    CreateGroupCommand createGroupCommand = new(contextFactory);
-                    await createGroupCommand.ExecuteAsync(targetGroup);
+                    throw new InvalidDataException("The database does not contain a group with this identifier");
                 }
-                else
-                {
-                    sourceGroupFromDb.Name = targetGroup.Name;
-                    sourceGroupFromDb.Course = targetGroup.Course;
-                    sourceGroupFromDb.Teachers = targetGroup.Teachers;
-                    sourceGroupFromDb.Students = targetGroup.Students;
-                }
+
+
+                sourceGroupFromDb.Name = targetGroup.Name;
+                sourceGroupFromDb.Course = targetGroup.Course;
+                sourceGroupFromDb.Teachers = targetGroup.Teachers;
+                sourceGroupFromDb.Students = targetGroup.Students;
 
                 await context.SaveChangesAsync();
             }
