@@ -1,6 +1,7 @@
 ﻿using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Models;
 using EduPlatform.EntityFramework.DbContextConfigurations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduPlatform.EntityFramework.Commands
 {
@@ -10,17 +11,22 @@ namespace EduPlatform.EntityFramework.Commands
         {
             using (EduPlatformDbContext context = contextFactory.Create())
             {
-                if (context.Groups.Any(g => g.GroupId == groupId) == false)
+                Group? deletingGroup = context.Groups
+                    .Include(g => g.Students)
+                    .FirstOrDefault(g => g.GroupId == groupId);
+
+                if (deletingGroup is null)
                 {
-                    throw new InvalidDataException("The specified group is not in the database.");
+                    throw new InvalidDataException("There is no group with this identifier in the database");
                 }
 
-                Group group = new()
+                if (deletingGroup.Students.Count > 0)
                 {
-                    GroupId = groupId
-                };
+                    throw new InvalidDataException(
+                        "It is impossible to delete a group that has students");
+                }
 
-                context.Groups.Remove(group);
+                context.Groups.Remove(deletingGroup);
                 await context.SaveChangesAsync();
             }
         }
