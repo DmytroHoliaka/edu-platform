@@ -24,21 +24,16 @@ public class UpdateTeacherCommandTests(DatabaseFixture fixture)
     }
 
     [Fact]
-    public async Task ExecuteAsync_NonExistingTeacher_CreatesNewTeacherInDatabase()
+    public async Task ExecuteAsync_NonExistingTeacher_ThrowsInvalidDataException()
     {
         // Arrange
         await fixture.DbManager.ClearDatabase();
         Teacher newTeacher = ModelGenerator.GetUnfilledTeacher();
         UpdateTeacherCommand command = new(fixture.DbContextFactory);
 
-        // Act
-        await command.ExecuteAsync(targetTeacher: newTeacher);
-
-        // Assert
-        Assert.Equal(
-            expected: newTeacher,
-            actual: fixture.DbManager.GetSingleTeacherFromDatabase(),
-            comparer: new TeacherEqualityComparer());
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(targetTeacher: newTeacher));
     }
 
     [Fact]
