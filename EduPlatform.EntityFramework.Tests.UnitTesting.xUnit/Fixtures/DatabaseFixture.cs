@@ -3,7 +3,7 @@ using EduPlatform.EntityFramework.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Fixtures;
-// ToDo: Check that creates only one test context for all DatabaseTests collection
+
 public class DatabaseFixture : IDisposable
 {
     public EduPlatformDbContextFactory DbContextFactory { get; }
