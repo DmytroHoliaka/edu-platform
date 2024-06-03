@@ -15,22 +15,20 @@ namespace EduPlatform.EntityFramework.Commands
             using (EduPlatformDbContext context = contextFactory.Create())
             {
                 EntityMapper.SetTeacherDbRelationships(context, targetTeacher);
-                
+
                 Teacher? sourceTeacher = context.Teachers
                     .Include(t => t.Groups)
                     .FirstOrDefault(t => t.TeacherId == targetTeacher.TeacherId);
 
                 if (sourceTeacher is null)
                 {
-                    CreateTeacherCommand createTeacherCommand = new(contextFactory);
-                    await createTeacherCommand.ExecuteAsync(targetTeacher);
+                    throw new InvalidDataException(
+                        "The database does not contain a teacher with this identifier");
                 }
-                else
-                {
-                    sourceTeacher.FirstName = targetTeacher.FirstName;
-                    sourceTeacher.LastName = targetTeacher.LastName;
-                    sourceTeacher.Groups = targetTeacher.Groups;
-                }
+
+                sourceTeacher.FirstName = targetTeacher.FirstName;
+                sourceTeacher.LastName = targetTeacher.LastName;
+                sourceTeacher.Groups = targetTeacher.Groups;
 
                 await context.SaveChangesAsync();
             }
