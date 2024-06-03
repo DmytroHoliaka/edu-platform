@@ -14,6 +14,12 @@ namespace EduPlatform.EntityFramework.Commands
 
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                if (context.Courses.Any(c => c.CourseId != targetCourse.CourseId && 
+                                             c.Name == targetCourse.Name))
+                {
+                    throw new InvalidDataException("The course with this name already exists in the database");
+                }
+
                 EntityMapper.SetCourseDbRelationships(context, targetCourse);
 
                 Course? sourceCourseFromDb = context.Courses
@@ -22,15 +28,13 @@ namespace EduPlatform.EntityFramework.Commands
 
                 if (sourceCourseFromDb is null)
                 {
-                    CreateCourseCommand createCourseCommand = new(contextFactory);
-                    await createCourseCommand.ExecuteAsync(targetCourse);
+                    throw new InvalidDataException(
+                        "The database does not contain a course with this identifier");
                 }
-                else
-                {
-                    sourceCourseFromDb.Name = targetCourse.Name;
-                    sourceCourseFromDb.Description = targetCourse.Description;
-                    sourceCourseFromDb.Groups = targetCourse.Groups;
-                }
+
+                sourceCourseFromDb.Name = targetCourse.Name;
+                sourceCourseFromDb.Description = targetCourse.Description;
+                sourceCourseFromDb.Groups = targetCourse.Groups;
 
                 await context.SaveChangesAsync();
             }
