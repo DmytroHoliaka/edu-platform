@@ -1,5 +1,6 @@
 ﻿using EduPlatform.Domain.Models;
 using EduPlatform.EntityFramework.Commands;
+using EduPlatform.EntityFramework.DbContextConfigurations;
 using EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Comparers.EntityEqualityComparers;
 using EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Fixtures;
 using EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Utilities;
@@ -38,5 +39,25 @@ public class CreateGroupCommandTests(DatabaseFixture fixture)
             expected: expected,
             actual: fixture.DbManager.GetSingleGroupFromDatabase(),
             comparer: new GroupEqualityComparer());
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_DuplicateGroup_ThrowsInvalidDataException()
+    {
+        // Arrange
+        await fixture.DbManager.ClearDatabase();
+        Group duplicateGroup = ModelGenerator.GetUnfilledGroup();
+
+        using (EduPlatformDbContext context = fixture.DbContextFactory.Create())
+        {
+            await context.Groups.AddAsync(duplicateGroup);
+            await context.SaveChangesAsync();
+        }
+
+        CreateGroupCommand command = new(fixture.DbContextFactory);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(newGroup: duplicateGroup));
     }
 }
