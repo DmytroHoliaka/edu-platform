@@ -1,5 +1,6 @@
 ﻿using EduPlatform.Domain.Models;
 using EduPlatform.EntityFramework.Commands;
+using EduPlatform.EntityFramework.DbContextConfigurations;
 using EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Comparers.EntityEqualityComparers;
 using EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Fixtures;
 using EduPlatform.EntityFramework.Tests.UnitTesting.xUnit.Utilities;
@@ -38,5 +39,25 @@ public class CreateCourseCommandTests(DatabaseFixture fixture)
             expected: expected,
             actual: fixture.DbManager.GetSingleCourseFromDatabase(),
             comparer: new CourseEqualityComparer());
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_DuplicateCourse_ThrowsInvalidDataException()
+    {
+        // Arrange
+        await fixture.DbManager.ClearDatabase();
+        Course duplicateCourse = ModelGenerator.GetUnfilledCourse();
+
+        using (EduPlatformDbContext context = fixture.DbContextFactory.Create())
+        {
+            await context.Courses.AddAsync(duplicateCourse);
+            await context.SaveChangesAsync();
+        }
+
+        CreateCourseCommand command = new(fixture.DbContextFactory);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(newCourse: duplicateCourse));
     }
 }
