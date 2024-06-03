@@ -13,6 +13,13 @@ namespace EduPlatform.EntityFramework.Commands
 
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                Course? duplicateCourse = context.Courses.FirstOrDefault(c => c.Name == newCourse.Name);
+
+                if (duplicateCourse is not null)
+                {
+                    throw new InvalidDataException("The course with this name already exists");
+                }
+
                 EntityMapper.SetCourseDbRelationships(context, newCourse);
 
                 await context.Courses.AddAsync(newCourse);
