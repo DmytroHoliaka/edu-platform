@@ -1,6 +1,7 @@
 ﻿using EduPlatform.Domain.Commands;
 using EduPlatform.Domain.Models;
 using EduPlatform.EntityFramework.DbContextConfigurations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduPlatform.EntityFramework.Commands
 {
@@ -10,17 +11,21 @@ namespace EduPlatform.EntityFramework.Commands
         {
             using (EduPlatformDbContext context = contextFactory.Create())
             {
-                if (context.Courses.Any(c => c.CourseId == courseId) == false)
+                Course? deletingCourse = context.Courses
+                    .Include(c => c.Groups)
+                    .FirstOrDefault(c => c.CourseId == courseId);
+
+                if (deletingCourse is null)
                 {
                     throw new InvalidDataException("The specified course is not in the database.");
                 }
 
-                Course course = new()
+                if (deletingCourse.Groups.Count > 0)
                 {
-                    CourseId = courseId
-                };
+                    throw new InvalidDataException("It is impossible to delete a course that has groups");
+                }
 
-                context.Courses.Remove(course);
+                context.Courses.Remove(deletingCourse);
                 await context.SaveChangesAsync();
             }
         }
