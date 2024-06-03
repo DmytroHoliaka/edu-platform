@@ -24,21 +24,16 @@ public class UpdateGroupCommandTests(DatabaseFixture fixture)
     }
 
     [Fact]
-    public async Task ExecuteAsync_NonExistingGroup_CreatesNewGroupInDatabase()
+    public async Task ExecuteAsync_NonExistingGroup_ThrowsInvalidDataException()
     {
         // Arrange
         await fixture.DbManager.ClearDatabase();
         Group newGroup = ModelGenerator.GetUnfilledGroup();
         UpdateGroupCommand command = new(fixture.DbContextFactory);
 
-        // Act
-        await command.ExecuteAsync(targetGroup: newGroup);
-
         // Assert
-        Assert.Equal(
-            expected: newGroup,
-            actual: fixture.DbManager.GetSingleGroupFromDatabase(),
-            comparer: new GroupEqualityComparer());
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(targetGroup: newGroup));
     }
 
     [Fact]
@@ -65,5 +60,33 @@ public class UpdateGroupCommandTests(DatabaseFixture fixture)
             expected: group,
             actual: fixture.DbManager.GetSingleGroupFromDatabase(),
             comparer: new GroupEqualityComparer());
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_GroupWithDuplicateName_ThrowsInvalidDataException()
+    {
+        // Arrange
+        await fixture.DbManager.ClearDatabase();
+        Group sourceGroup = ModelGenerator.GetUnfilledGroup();
+        Group duplicateNameGroup = GetDuplicateNameGroup(sourceGroup);
+
+        UpdateGroupCommand command = new(fixture.DbContextFactory);
+
+        using (EduPlatformDbContext context = fixture.DbContextFactory.Create())
+        {
+            await context.Groups.AddAsync(sourceGroup);
+            await context.SaveChangesAsync();
+        }
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(targetGroup: duplicateNameGroup));
+    }
+
+    private static Group GetDuplicateNameGroup(Group sourceGroup)
+    {
+        Group duplicateNameGroup = ModelGenerator.GetUnfilledGroup();
+        duplicateNameGroup.Name = sourceGroup.Name;
+        return duplicateNameGroup;
     }
 }
