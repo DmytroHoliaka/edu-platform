@@ -1,0 +1,6 @@
+/.vs
+/ExportedData
+
+bin
+obj
+*.user
