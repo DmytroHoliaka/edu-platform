@@ -1,0 +1,58 @@
+﻿<Window x:Class="EduPlatform.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:EduPlatform.WPF.Views"
+        xmlns:course="clr-namespace:EduPlatform.WPF.ViewModels.CoursesViewModels"
+        xmlns:group="clr-namespace:EduPlatform.WPF.ViewModels.GroupsViewModels"
+        xmlns:student="clr-namespace:EduPlatform.WPF.ViewModels.StudentsViewModels"
+        xmlns:teacher="clr-namespace:EduPlatform.WPF.ViewModels.TeachersViewModels"
+        xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
+        xmlns:controls="clr-namespace:EduPlatform.WPF.CustomControls"
+        mc:Ignorable="d"
+        Title="Educational Platform" Height="1000" Width="1600">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type course:CreateCourseViewModel}">
+            <views:CreateCourseView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type course:UpdateCourseViewModel}">
+            <views:UpdateCourseView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type group:CreateGroupViewModel}">
+            <views:CreateGroupView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type group:UpdateGroupViewModel}">
+            <views:UpdateGroupView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type student:CreateStudentViewModel}">
+            <views:CreateStudentView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type student:UpdateStudentViewModel}">
+            <views:UpdateStudentView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type teacher:CreateTeacherViewModel}">
+            <views:CreateTeacherView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type teacher:UpdateTeacherViewModel}">
+            <views:UpdateTeacherView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
+            <controls:CustomContentControl x:Name="ModalControl" Content="{Binding CurrentModalViewModel}"
+                                           ContentChanged="ModalControl_ContentChanged" />
+        </custom:Modal>
+
+        <views:EduPlatformView DataContext="{Binding EduPlatformViewModel}" />
+    </Grid>
+</Window>

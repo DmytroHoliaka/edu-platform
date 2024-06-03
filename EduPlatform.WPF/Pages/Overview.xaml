@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="EduPlatform.WPF.Pages.Overview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:components="clr-namespace:EduPlatform.WPF.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1200">
+    
+    <Grid Background="{StaticResource ContentBackground}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+               Text="Overview"
+               FontSize="38"
+               FontFamily="{StaticResource Alice}"
+               Foreground="{StaticResource MenuBackground}"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
+            />
+
+        <Border Grid.Row="1"
+                Background="{StaticResource MenuBackground}"
+                Height="3"
+                Margin="200 14 180 40"/>
+
+        <components:CourseTreeView Grid.Row="2" 
+                                   Margin="20" 
+                                   DataContext="{Binding CourseSequenceVM}"/>
+    </Grid>
+</UserControl>
