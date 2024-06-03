@@ -13,6 +13,13 @@ namespace EduPlatform.EntityFramework.Commands
 
             using (EduPlatformDbContext context = contextFactory.Create())
             {
+                Group? duplicateGroup = context.Groups.FirstOrDefault(g => g.Name == newGroup.Name);
+
+                if (duplicateGroup is not null)
+                {
+                    throw new InvalidDataException("The group with this name already exists");
+                }
+
                 EntityMapper.SetGroupDbRelationships(context, newGroup);
 
                 await context.Groups.AddAsync(newGroup);
