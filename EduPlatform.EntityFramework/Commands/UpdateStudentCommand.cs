@@ -22,15 +22,13 @@ namespace EduPlatform.EntityFramework.Commands
 
                 if (sourceStudent is null)
                 {
-                    CreateStudentCommand createStudentCommand = new(contextFactory);
-                    await createStudentCommand.ExecuteAsync(targetStudent);
+                    throw new InvalidDataException(
+                        "The database does not contain a student with this identifier");
                 }
-                else
-                {
-                    sourceStudent.FirstName = targetStudent.FirstName;
-                    sourceStudent.LastName = targetStudent.LastName;
-                    sourceStudent.Group = targetStudent.Group;
-                }
+
+                sourceStudent.FirstName = targetStudent.FirstName;
+                sourceStudent.LastName = targetStudent.LastName;
+                sourceStudent.Group = targetStudent.Group;
 
                 await context.SaveChangesAsync();
             }
