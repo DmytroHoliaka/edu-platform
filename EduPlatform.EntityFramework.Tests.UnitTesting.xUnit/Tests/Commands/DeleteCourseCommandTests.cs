@@ -24,7 +24,7 @@ public class DeleteCourseCommandTests(DatabaseFixture fixture)
     }
 
     [Fact]
-    public async Task ExecuteAsync_ExistingGuid_DeletesCourseFromDatabase()
+    public async Task ExecuteAsync_CourseGuidWithoutGroups_DeletesCourseFromDatabase()
     {
         // Arrange
         await fixture.DbManager.ClearDatabase();
@@ -42,5 +42,24 @@ public class DeleteCourseCommandTests(DatabaseFixture fixture)
 
         // Assert
         Assert.Empty(fixture.DbManager.GetAllCoursesFromDatabase());
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_CourseGuidWithGroups_ThrowsInvalidDataException()
+    {
+        // Arrange
+        await fixture.DbManager.ClearDatabase();
+        Course course = ModelGenerator.GetPopulatedCourse();
+        DeleteCourseCommand command = new(fixture.DbContextFactory);
+
+        using (EduPlatformDbContext context = fixture.DbContextFactory.Create())
+        {
+            await context.Courses.AddAsync(course);
+            await context.SaveChangesAsync();
+        }
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(courseId: course.CourseId));
     }
 }
