@@ -24,21 +24,16 @@ public class UpdateCourseCommandTests(DatabaseFixture fixture)
     }
 
     [Fact]
-    public async Task ExecuteAsync_NonExistingCourse_CreatesNewCourseInDatabase()
+    public async Task ExecuteAsync_NonExistingCourse_ThrowsInvalidDataException()
     {
         // Arrange
         await fixture.DbManager.ClearDatabase();
         Course newCourse = ModelGenerator.GetUnfilledCourse();
         UpdateCourseCommand command = new(fixture.DbContextFactory);
 
-        // Act
-        await command.ExecuteAsync(targetCourse: newCourse);
-
-        // Assert
-        Assert.Equal(
-            expected: newCourse,
-            actual: fixture.DbManager.GetSingleCourseFromDatabase(),
-            comparer: new CourseEqualityComparer());
+        // Act & Assert
+        await  Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(targetCourse: newCourse));
     }
 
     [Fact]
@@ -65,5 +60,33 @@ public class UpdateCourseCommandTests(DatabaseFixture fixture)
             expected: course,
             actual: fixture.DbManager.GetSingleCourseFromDatabase(),
             comparer: new CourseEqualityComparer());
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_CourseWithDuplicateName_ThrowsInvalidDataException()
+    {
+        // Arrange
+        await fixture.DbManager.ClearDatabase();
+        Course sourceCourse = ModelGenerator.GetUnfilledCourse();
+        Course duplicateNameCourse = GetDuplicateNameCourse(sourceCourse);
+
+        UpdateCourseCommand command = new(fixture.DbContextFactory);
+
+        using (EduPlatformDbContext context = fixture.DbContextFactory.Create())
+        {
+            await context.Courses.AddAsync(sourceCourse);
+            await context.SaveChangesAsync();
+        }
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidDataException>(
+            async () => await command.ExecuteAsync(targetCourse: duplicateNameCourse));
+    }
+
+    private static Course GetDuplicateNameCourse(Course sourceCourse)
+    {
+        Course duplicateNameCourse = ModelGenerator.GetUnfilledCourse();
+        duplicateNameCourse.Name = sourceCourse.Name;
+        return duplicateNameCourse;
     }
 }
